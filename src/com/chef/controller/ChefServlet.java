@@ -18,6 +18,8 @@ import com.chef.model.ChefVO;
 import com.cust.model.*;
 
 import com.foodSup.model.FoodSupVO;
+import com.menuOrder.model.MenuOrderService;
+import com.menuOrder.model.MenuOrderVO;
 
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -190,6 +192,75 @@ public class ChefServlet extends HttpServlet {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = request.getRequestDispatcher(request.getRequestURI());
 				failureView.forward(request, response);
+			}
+		}
+		if("getOneForEditChefResume".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try{			
+				String chef_ID = request.getParameter("chef_ID");
+				
+				ChefService chefSvc = new ChefService();
+				ChefVO chefVO = chefSvc.getOneByChefID(chef_ID);
+				
+				request.setAttribute("chefVO", chefVO);
+				
+				RequestDispatcher successView = request.getRequestDispatcher("/front-end/chef/updateChefResume.jsp");
+				successView.forward(request, response);
+			}catch(Exception e){
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/chef/chef_profile.jsp");
+				errView.forward(request, response);
+			}
+		}
+		if("updateResume".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try{			
+				String chef_ID = request.getParameter("chef_ID");
+				String chef_resume = request.getParameter("chef_resume");
+				
+				ChefService chefSvc = new ChefService();
+				ChefVO chefVO = new ChefVO();
+				chefVO.setChef_ID(chef_ID);
+				chefVO.setChef_resume(chef_resume);				
+				chefVO = chefSvc.updateChefResume(chef_ID, chef_resume);
+				chefVO = chefSvc.getOneByChefID(chef_ID);
+				CustService custSvc = new CustService();
+				CustVO custVO = new CustVO();
+				custVO = custSvc.getOneCust(chef_ID);
+				request.setAttribute("custVO", custVO);
+				request.setAttribute("chefVO", chefVO);
+				RequestDispatcher successView = request.getRequestDispatcher("/front-end/chef/chef_profile.jsp");
+				successView.forward(request, response);
+			}catch(Exception e){
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/chef/updateChefResume.jsp");
+				errView.forward(request, response);
+			}
+		}
+		if("listAllByChefArea".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try {				
+				//1.接收請求參數，並做錯誤判斷				
+				String menu_ID = request.getParameter("menu_ID");
+				String chef_area = request.getParameter("chef_area");
+				//2.開始查詢資料
+				ChefService chefSvc = new ChefService();
+				ChefVO chefVO = new ChefVO();
+				//3.查詢完成，準備轉交
+//				request.setAttribute("menuOrderVO", menuOrderVO);
+				RequestDispatcher sucessView = request.getRequestDispatcher("/menuOrder/updateMenuOrder.jsp");
+				sucessView.forward(request, response);
+				
+			}catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/listAllMenuOrder.jsp");
+				errView.forward(request, response);
 			}
 		}
 	}

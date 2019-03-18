@@ -28,12 +28,14 @@ public class ChefDAO implements ChefDAO_Interface{
 			"INSERT INTO CUST (CUST_ID,CUST_ACC,CUST_PWD,CUST_NAME,CUST_SEX,CUST_TEL,CUST_ADDR,CUST_PID,CUST_MAIL,CUST_BRD,CUST_REG,CUST_PIC,CUST_STATUS,CUST_NINAME) VALUES ('C'||LPAD((CUST_SEQ.NEXTVAL),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String Updata_Stmt_From_Emp = 
 			"UPDATE CHEF SET CHEF_STATUS=?, CHEF_CHANNEL=? WHERE CHEF_ID= ?";
-	private static final String Updata_Stmt_From_Chef = 
-			"UPDATE CHEF SET CHEF_AREA=?, CHEF_RESUME=? WHERE CHEF_ID= ?";
+	private static final String Updata_Chef_Resume = 
+			"UPDATE CHEF SET CHEF_RESUME=? WHERE CHEF_ID= ?";
 	private static final String Delete_Stmt = 
 			"DELETE FROM CHEF WHERE CHEF_ID= ?";
 	private static final String Get_One_Chef_By_Chef_ID = 
 			"SELECT * FROM CHEF WHERE CHEF_ID = ?";
+	private static final String Get_All_Chef_By_Menu_ID =
+			"SELECT CHEF_ID FROM CHEF_DISH WHERE EXISTS (SELECT 1 FROM MENU_DISH WHERE MENU_ID = ? AND MENU_DISH.DISH_ID = CHEF_DISH.DISH_ID ) GROUP BY CHEF_ID HAVING COUNT(DISH_ID) = ( SELECT COUNT(*) FROM MENU_DISH WHERE MENU_ID = ?)";
 	private static final String Get_All_Chef_By_Chef_Area = 
 			"SELECT * FROM CHEF WHERE CHEF_AREA = ?";
 	private static final String Get_All_Chef_From_Emp = 
@@ -145,6 +147,40 @@ public class ChefDAO implements ChefDAO_Interface{
 			}
 		}
 	}
+	
+	@Override
+	public void updateChefResume(ChefVO chefVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(Updata_Chef_Resume);
+
+			pstmt.setString(1, chefVO.getChef_resume());
+			pstmt.setString(2, chefVO.getChef_ID());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("Database Error : "+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 
 	@Override
 	public void delete(String chefId) {
@@ -227,7 +263,52 @@ public class ChefDAO implements ChefDAO_Interface{
 		}
 		return chefVO;
 	}
-	
+	@Override
+	public List<ChefVO> getAllByMenuID(String menu_ID) {
+		List<ChefVO> listAllByMenuID = new ArrayList<ChefVO>();
+		ChefVO chefVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+
+			con = ds.getConnection();			
+			pstmt = con.prepareStatement(Get_All_Chef_By_Menu_ID);
+			pstmt.setString(1, menu_ID);
+			pstmt.setString(2, menu_ID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {				
+				chefVO = new ChefVO();
+				chefVO = new ChefDAO().findByPrimaryKey(rs.getString("CHEF_ID"));
+				listAllByMenuID.add(chefVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("Database Error : "+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return listAllByMenuID;
+	}
 	@Override
 	public List<ChefVO> getAllByChefArea(String chef_area) {
 		List<ChefVO> listAllByChefArea = new ArrayList<ChefVO>();

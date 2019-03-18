@@ -21,8 +21,8 @@ public class ChefJDBCDAO implements ChefDAO_Interface{
 			"INSERT INTO CUST (CUST_ID,CUST_ACC,CUST_PWD,CUST_NAME,CUST_SEX,CUST_TEL,CUST_ADDR,CUST_PID,CUST_MAIL,CUST_BRD,CUST_REG,CUST_PIC,CUST_STATUS,CUST_NINAME) VALUES ('C'||LPAD((CUST_SEQ.NEXTVAL),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String Updata_Stmt_From_Emp = 
 			"UPDATE CHEF SET CHEF_STATUS= ?, CHEF_CHANNEL=? WHERE CHEF_ID= ?";
-	private static final String Updata_Stmt_From_Chef = 
-			"UPDATE CHEF SET CHEF_AREA= ?, CHEF_RESUME=? WHERE CHEF_ID= ?";
+	private static final String Updata_Chef_Resume = 
+			"UPDATE CHEF SET CHEF_RESUME=? WHERE CHEF_ID= ?";
 	private static final String Delete_Stmt = 
 			"DELETE FROM CHEF WHERE CHEF_ID= ?";
 	private static final String Get_One_Chef_By_Chef_ID = 
@@ -129,6 +129,43 @@ con.setAutoCommit(false);
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());			
 		} catch (SQLException se) {
 			throw new RuntimeException("Database Error : " + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateChefResume(ChefVO chefVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(Updata_Chef_Resume);
+
+			pstmt.setString(1, chefVO.getChef_resume());
+			pstmt.setString(2, chefVO.getChef_ID());
+
+			pstmt.executeUpdate();
+
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());			
+		} catch (SQLException se) {
+			throw new RuntimeException("Database Error : "+ se.getMessage());
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -378,5 +415,11 @@ con.setAutoCommit(false);
 //			System.out.print(chef.getChef_addr()+ ",");
 //			System.out.print(chef.getChef_tel());
 //		}
+	}
+
+	@Override
+	public List<ChefVO> getAllByMenuID(String menu_ID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

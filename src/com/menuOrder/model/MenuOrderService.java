@@ -39,6 +39,9 @@ public class MenuOrderService {
 		
 		return menuOrderVO;
 	}
+	public void updateMenuOrderStatus(String menu_od_ID,String menu_od_status) {
+		dao.updateMenuOrderStatus(menu_od_ID, menu_od_status);
+	}
 	public void deleteMenuOrder(String menu_od_ID) {
 		dao.delete(menu_od_ID);
 	}
@@ -47,5 +50,11 @@ public class MenuOrderService {
 	}
 	public List<MenuOrderVO> getAll(){
 		return dao.getAll();
+	}
+	public List<MenuOrderVO> getUnCheck(String chef_ID){
+		return dao.getUnCheck(chef_ID);
+	}
+	public List<MenuOrderVO> getUnFinished(String chef_ID){
+		return dao.getUnFinished(chef_ID);
 	}
 }

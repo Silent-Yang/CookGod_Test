@@ -2,7 +2,6 @@ package com.menuDish.model;
 
 import java.util.*;
 
-import com.forumMsg.model.ForumMsgVO;
 
 import java.sql.*;
 

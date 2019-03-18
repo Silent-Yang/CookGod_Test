@@ -322,4 +322,22 @@ public class MenuOrderJDBCDAO implements MenuOrderDAO_Interface{
 //			System.out.print(menuOrder04.getMenu_ID()+"\n");
 //		}
 	}
+
+	@Override
+	public List<MenuOrderVO> getUnCheck(String chef_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<MenuOrderVO> getUnFinished(String chef_ID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updateMenuOrderStatus(String menu_od_ID, String menu_od_status) {
+		// TODO Auto-generated method stub
+		
+	}
 }

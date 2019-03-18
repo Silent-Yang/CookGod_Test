@@ -34,9 +34,9 @@ public class MenuOrderServlet extends HttpServlet {
 			request.setAttribute("errorMsgs", errorMsgs);
 
 			try{
-				Timestamp menu_od_book = null;	
+				Timestamp menu_od_book = null;
 				try {
-					menu_od_book = Timestamp.valueOf(request.getParameter("menu_od_book").trim());
+					menu_od_book = Timestamp.valueOf(request.getParameter("menu_od_book_date")+" "+request.getParameter("menu_od_book_time").trim());
 				}catch(Exception e){
 					menu_od_book = null;
 					errorMsgs.add("請輸入正確日期");
@@ -53,7 +53,7 @@ public class MenuOrderServlet extends HttpServlet {
 				
 				if(!errorMsgs.isEmpty()) {
 					request.setAttribute("menuOrderVO", menuOrderVO);
-					RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/addMenuOrder.jsp");
+					RequestDispatcher errView = request.getRequestDispatcher("/front-end/menu/orderMenu.jsp");
 					errView.forward(request, response);
 					return;
 				}
@@ -61,24 +61,22 @@ public class MenuOrderServlet extends HttpServlet {
 				MenuOrderService menuOrderSvc = new MenuOrderService();
 				menuOrderVO = menuOrderSvc.addMenuOrder(menu_od_book, cust_ID, chef_ID, menu_ID);
 				//3.新增完成&轉交
-				RequestDispatcher successView = request.getRequestDispatcher("/menuOrder/listAllMenuOrder.jsp");
+				RequestDispatcher successView = request.getRequestDispatcher("/front-end/chef/chef_profile.jsp");
 				successView.forward(request, response);
 				//4.其他可能的錯誤處理
 			}catch(Exception e){
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/addMenuOrder.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/menu/orderMenu.jsp");
 				errView.forward(request, response);
 			}
 		}
-		//取出一筆訂單準備修改
-		if("getOneForUpdate".equals(action)) {
+		if("getOneForDispaly".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 			
 			try {				
 				//1.接收請求參數，並做錯誤判斷				
 				String menu_od_ID = request.getParameter("menu_od_ID");
-				
 				//2.開始查詢資料
 				MenuOrderService menuOrderSvc = new MenuOrderService();
 				MenuOrderVO menuOrderVO = menuOrderSvc.getOneMenuOrder(menu_od_ID);
@@ -91,6 +89,36 @@ public class MenuOrderServlet extends HttpServlet {
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
 				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/listAllMenuOrder.jsp");
+				errView.forward(request, response);
+			}
+		}
+		//取出一筆訂單準備修改
+		if("getOneForUpdate".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try {				
+				//1.接收請求參數，並做錯誤判斷				
+				String menu_od_ID = request.getParameter("menu_od_ID");
+				String menu_od_status = request.getParameter("menu_od_status");
+				String checkMenuOrder = request.getParameter("checkMenuOrder");
+				//2.開始查詢資料
+				MenuOrderService menuOrderSvc = new MenuOrderService();
+				
+				if("pass".equals(checkMenuOrder)) {
+					menuOrderSvc.updateMenuOrderStatus(menu_od_ID, menu_od_status);
+				}else if("fail".equals(checkMenuOrder)) {
+					menuOrderSvc.updateMenuOrderStatus(menu_od_ID, menu_od_status);
+				}
+				MenuOrderVO menuOrderVO = menuOrderSvc.getOneMenuOrder(menu_od_ID);
+				request.setAttribute("menuOrderVO", menuOrderVO);
+				
+				RequestDispatcher sucessView = request.getRequestDispatcher("/menuOrder/listOneMenuOrder.jsp");
+				sucessView.forward(request, response);
+				
+			}catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/listOneMenuOrder.jsp");
 				errView.forward(request, response);
 			}
 		}
