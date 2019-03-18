@@ -27,8 +27,6 @@
 	<tr>
 		<td width="200"><div align="center"><b><%=order.getMenu_ID()%></b></div></td>
 		<td width="100"><div align="center"><b><%=order.getMenu_price()%></b></div></td>
-		<td width="100"><div align="center"><b><%=order.getMenu_qty()%></b></div></td>
-		
 		<td width="100">
 			<div align="center">
           		<form name="deleteForm" action="Shopping.html" method="POST">

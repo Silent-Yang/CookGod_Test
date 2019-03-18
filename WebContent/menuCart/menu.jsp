@@ -37,13 +37,6 @@
 	
 	<title>The God of Cooking is Coming!</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("form").submit(function(){
-				alert("successed");
-		  	});
-		});
-	</script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -108,27 +101,22 @@
 							</a>
 						</div>
 						<%@ include file="page1.file"%>
-						<c:forEach var="menuVO" items="${list}" begin="<%=pageIndex%>"
-							end="<%=pageIndex+rowsPerPage-1%>">
+						<c:forEach var="menuVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 							<div class="col-4">
 								<form method="post" action="<%=request.getContextPath()%>/menu/menu.do">
 									<c:if test="${not empty menuVO.menu_pic}">
-										<img class="card-img-top" src="<%=request.getContextPath()%>/menu/menu.do?menu_ID=${menuVO.menu_ID}" style="width: 100%; height: 250px;">
+										<img class="card-img-top" name = "showMenuPic" src="<%=request.getContextPath()%>/menu/menu.do?showMenuPic=showMenuPic&menu_ID=${menuVO.menu_ID}" style="width: 100%; height: 250px;">
 									</c:if>
 									<c:if test="${empty menuVO.menu_pic}">
-										<img class="card-img-top" src="<%=request.getContextPath()%>/images/noimage.jpg" style="width: 100%; height: 250px;">
+										<img class="card-img-top" name = "showMenuPic" src="<%=request.getContextPath()%>/images/noimage.jpg" style="width: 100%; height: 250px;">
 									</c:if>
 									<div class="card-body">
 										<h5 class="card-title">${menuVO.menu_name}</h5>
-										<p class="card-text">${menuVO.menu_resume}</p>
-										<a href="<%=request.getContextPath()%>/menu/listOneMenu.jsp?menu_ID=${menuVO.menu_ID}" class="btn btn-primary">Go somewhere</a>
+										<p class="card-text text-right">$${menuVO.menu_price}</p>
 									</div>
 									<input type="hidden" name="menu_ID" value="${menuVO.menu_ID}">
-									<input type="hidden" name="menu_name" value="${menuVO.menu_name}"> 
-									<input type="hidden" name="menu_price" value="${menuVO.menu_price}"> 
-									<input type="hidden" name="menu_qty" value="1"> 
-									<input type="hidden" name="action" value="add"> 
-									<input type="submit" class="btn btn-success btn-lg btn-block" value="加入購物車">
+									<input type="hidden" name="action" value="getOneForDisplay"> 
+									<input type="submit" class="btn btn-success btn-lg btn-block" value="查看更多">
 								</form>
 							</div>
 						</c:forEach>
