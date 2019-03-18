@@ -65,12 +65,9 @@
 			<th>套餐介紹</th>
 			<th>套餐價錢</th>
 			<th>套餐狀態</th>
-			
-			
 		</tr>
 		<%@ include file="page1.file"%>
 		<c:forEach var="menuVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-
 			<tr>
 				<td>${menuVO.menu_ID}</td>				
 				

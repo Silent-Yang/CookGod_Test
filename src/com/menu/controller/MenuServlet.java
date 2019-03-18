@@ -121,7 +121,7 @@ public class MenuServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
-				RequestDispatcher failureView = request.getRequestDispatcher(request.getRequestURI());
+				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/menu/listAllMenu.jsp");
 				failureView.forward(request, response);
 			}
 		}

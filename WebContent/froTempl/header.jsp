@@ -74,10 +74,16 @@
 								<ul>
 									<li><a
 										href="<%=request.getContextPath()%>/froTempl/headertest.jsp">首頁</a></li>
-									<li><a
-										href="<%=request.getContextPath()%>/froTemplabout.html">關於食神</a></li>
-									<li><a
-										href="<%=request.getContextPath()%>/froTemplservices.html">食神來了</a></li>
+									<li><a href="<%=request.getContextPath()%>/froTemplabout.html">關於食神</a>
+									</li>
+									<li><a href="<%=request.getContextPath()%>/froTemplservices.html">食神來了</a>
+										<ul class="dropdown">
+											<li><a
+												href="<%=request.getContextPath()%>/front-end/chef/listAllChef.jsp">瀏覽主廚</a></li>
+											<li><a
+												href="<%=request.getContextPath()%>/front-end/menuCart/orderMenu.jsp">嚴選套餐</a></li>
+										</ul>
+									</li>
 									<li><a
 										href="<%=request.getContextPath()%>/froTemplportfolio.html">食神配送</a>
 										<ul class="dropdown">
@@ -85,7 +91,8 @@
 												href="<%=request.getContextPath()%>/front-end/festMenu/listFestMall.jsp">節慶主題</a></li>
 											<li><a
 												href="<%=request.getContextPath()%>/front-end/foodMall/listFoodMall.jsp">嚴選食材</a></li>
-										</ul></li>
+										</ul>
+									</li>
 									<c:if test="${not empty foodSupVO}">
 										<li><a href="">食材供應商專區</a>
 											<ul class="dropdown">
