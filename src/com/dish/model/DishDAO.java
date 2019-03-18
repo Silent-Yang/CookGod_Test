@@ -25,11 +25,11 @@ public class DishDAO implements DishDAO_interface{
 	private static final String INSERT_STMT =
 			"INSERT INTO DISH(DISH_ID,DISH_NAME,DISH_STATUS,DISH_PIC,DISH_RESUME,DISH_PRICE) VALUES ('D'||LPAD((DISH_SEQ.NEXTVAL),5,'0'),?,?,?,?,?)";
 	private static final String GET_ALL_STMT = 
-			"SELECT * FROM DISH order by DISH_ID";
+			"SELECT* FROM DISH order by DISH_ID";
 	private static final String GET_ONE_STMT = 
-			"SELECT * FROM DISH where DISH_ID=?";
+			"SELECT *FROM DISH where DISH_ID=?";
 	private static final String GETFOODS =
-			"SELECT * FROM DISH_FOOD where DISH_ID=?";
+			"SELECT *FROM DISH_FOOD where DISH_ID=?";
 	private static final String DELETE = 
 			"DELETE FROM DISH where DISH_ID=?";
 	private static final String UPDATE = 
@@ -246,7 +246,7 @@ public class DishDAO implements DishDAO_interface{
 				
 				DishVO.setDish_name(rs.getString("dish_name"));
 				DishVO.setDish_status(rs.getString("dish_status"));
-				//DishVO.setDish_pic(rs.getBytes("dish_pic"));
+				DishVO.setDish_pic(rs.getBytes("dish_pic"));
 				DishVO.setDish_resume(rs.getString("dish_resume"));
 				DishVO.setDish_price(rs.getInt("dish_price"));
 				DishVO.setDish_ID(rs.getString("dish_ID"));

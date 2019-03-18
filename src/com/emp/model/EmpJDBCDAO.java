@@ -19,6 +19,7 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 	private static final String INSERT_STMT = "Insert into EMP (EMP_ID,EMP_ACC,EMP_PWD,EMP_NAME,EMP_PIC) VALUES ('E'||LPAD((EMP_SEQ.NEXTVAL),5,'0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM EMP order by EMP_ID";
 	private static final String GET_ONE_STMT = "SELECT * FROM EMP where EMP_ID = ?";
+	private static final String GET_ONE_STMT_EMP_ACC = "SELECT * FROM EMP where EMP_ACC = ?";
 	private static final String DELETE = "DELETE FROM EMP where EMP_ID=? ";
 	private static final String UPDATE = "UPDATE EMP set EMP_ACC=?, EMP_PWD=?, EMP_NAME=?, EMP_PIC=? WHERE EMP_ID=?";
 
@@ -262,6 +263,66 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public EmpVO findByEmp_acc(String emp_acc) {
+		// TODO Auto-generated method stub
+		EmpVO empVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONE_STMT_EMP_ACC);
+			
+			pstmt.setString(1, emp_acc);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				empVO = new EmpVO();
+				empVO.setEmp_ID(rs.getString("EMP_ID"));
+				empVO.setEmp_acc(rs.getString("EMP_ACC"));
+				empVO.setEmp_pwd(rs.getString("EMP_PWD"));
+				empVO.setEmp_name(rs.getString("EMP_NAME"));
+				empVO.setEmp_pic(rs.getBytes("EMP_PIC"));
+			}
+			
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}return empVO;
+	}
+	
 	public static void main(String[] args) {
 
 		EmpJDBCDAO dao = new EmpJDBCDAO();
@@ -306,5 +367,6 @@ public class EmpJDBCDAO implements EmpDAO_interface {
 //		}
 		
 	}
+
 	
 }

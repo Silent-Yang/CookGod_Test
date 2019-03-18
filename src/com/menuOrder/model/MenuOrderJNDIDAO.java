@@ -18,8 +18,7 @@ public class MenuOrderJNDIDAO implements MenuOrderDAO_Interface{
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/CookGodDB");
 		} catch (NamingException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	private static final String Insert_Stmt = 
@@ -31,9 +30,8 @@ public class MenuOrderJNDIDAO implements MenuOrderDAO_Interface{
 	private static final String Get_One_Stmt = 
 			"SELECT * FROM MENU_ORDER WHERE MENU_OD_ID = ?";
 	private static final String Get_All_Stmt = 
-			"SELECT * FROM MENU_ORDER ORDER BY MENU_OD_ID";
-	private static final String Get_UnCheck_Menu_Order = 
-			"SELECT * FROM MENU_ORDER WHERE CHEF_ID=? AND CHEF_STATUS='0' ORDER BY MENU_OD_ID";
+			"SELECT * FROM MENU_ORDER";
+	
 
 	@Override
 	public void insert(MenuOrderVO menuOrderVO) {
@@ -172,7 +170,7 @@ public class MenuOrderJNDIDAO implements MenuOrderDAO_Interface{
 				menuOrderVO.setCust_ID(rs.getString("CUST_ID"));
 				menuOrderVO.setChef_ID(rs.getString("CHEF_ID"));
 				menuOrderVO.setMenu_ID(rs.getString("MENU_ID"));
-			}		
+			}			
 		}catch(SQLException se){
 			throw new RuntimeException("Database Error : " + se.getMessage());
 		}finally {
@@ -255,74 +253,5 @@ public class MenuOrderJNDIDAO implements MenuOrderDAO_Interface{
 			}
 		}
 		return listAll;
-	}
-
-	@Override
-	public List<MenuOrderVO> getUnCheck(String chef_ID) {
-		List<MenuOrderVO> listAll = new ArrayList<MenuOrderVO>();
-	MenuOrderVO menuOrderVO = null;
-	
-	Connection con = null;
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-
-	try {
-		con = ds.getConnection();
-		pstmt = con.prepareStatement(Get_UnCheck_Menu_Order);
-		pstmt.setString(1, chef_ID);
-		rs = pstmt.executeQuery();
-
-		while (rs.next()) {
-			menuOrderVO = new MenuOrderVO();
-			menuOrderVO.setMenu_od_ID(rs.getString("MENU_OD_ID"));
-			menuOrderVO.setMenu_od_status(rs.getString("MENU_OD_STATUS"));
-			menuOrderVO.setMenu_od_start(rs.getTimestamp("MENU_OD_START"));
-			menuOrderVO.setMenu_od_book(rs.getTimestamp("MENU_OD_BOOK"));
-			menuOrderVO.setMenu_od_end(rs.getDate("MENU_OD_END"));
-			menuOrderVO.setMenu_od_rate(rs.getInt("MENU_OD_RATE"));
-			menuOrderVO.setMenu_od_msg(rs.getString("MENU_OD_MSG"));
-			menuOrderVO.setCust_ID(rs.getString("CUST_ID"));
-			menuOrderVO.setChef_ID(rs.getString("CHEF_ID"));
-			menuOrderVO.setMenu_ID(rs.getString("MENU_ID"));
-			listAll.add(menuOrderVO);
-		}
-	} catch (SQLException se) {
-		throw new RuntimeException("Database Error : " + se.getMessage());
-	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
-	}
-	return listAll;
-	}
-
-	@Override
-	public List<MenuOrderVO> getUnFinished(String chef_ID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateMenuOrderStatus(String menu_od_ID, String menu_od_status) {
-		// TODO Auto-generated method stub
-		
 	}
 }

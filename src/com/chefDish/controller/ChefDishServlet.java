@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.chefDish.model.*;
 
@@ -22,7 +21,6 @@ public class ChefDishServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
 		String action = request.getParameter("action");
 		
 		if("insert".equals(action)) {
@@ -31,14 +29,11 @@ public class ChefDishServlet extends HttpServlet {
 			try {
 				//1.接收參數
 				String chef_ID = request.getParameter("chef_ID");
-				System.out.println(chef_ID);
 				String dish_ID = request.getParameter("dish_ID");
-				System.out.println(dish_ID);
 				ChefDishVO chefDishVO = new ChefDishVO();
 				chefDishVO.setChef_ID(chef_ID);
 				chefDishVO.setDish_ID(dish_ID);
 				//2.新增資料
-				session.setAttribute("chef_ID", chef_ID);
 				try{
 					ChefDishService chefDishSvc = new ChefDishService();
 					chefDishVO = chefDishSvc.addChefDish(chef_ID, dish_ID);
@@ -50,7 +45,7 @@ public class ChefDishServlet extends HttpServlet {
 					return;
 				}
 				//3.新增成功
-				RequestDispatcher successView = request.getRequestDispatcher("/chefDish/addChefDish.jsp");
+				RequestDispatcher successView = request.getRequestDispatcher("/chefDish/listAllChefDish.jsp");
 				successView.forward(request, response);				
 			//其他可能的Error
 			}catch(Exception e){

@@ -43,6 +43,9 @@ public class EmpService {
 	public EmpVO getOneEmp(String emp_ID) {
 		return dao.findByPrimaryKey(emp_ID);
 	}
+	public EmpVO getOneEmp_acc(String emp_acc) {
+		return dao.findByEmp_acc(emp_acc);
+	}
 
 	public List<EmpVO> getAll() {
 		return dao.getAll();

@@ -50,22 +50,11 @@ public class ChefService {
 		return chefVO;
 	}
 	
-	public ChefVO updateChefResume(String chef_ID,String chef_resume) {
-		ChefVO chefVO = new ChefVO();
-		chefVO.setChef_ID(chef_ID);
-		chefVO.setChef_resume(chef_resume);	
-		dao.updateChefResume(chefVO);
-		return chefVO;
-	}
-	
 	public void deleteChef(String chef_ID) {
 		dao.delete(chef_ID);
 	}
 	public ChefVO getOneByChefID(String chef_ID) {
 		return dao.findByPrimaryKey(chef_ID);
-	}
-	public List<ChefVO> getAllByMenuID(String menu_ID) {
-		return dao.getAllByMenuID(menu_ID);
 	}
 	public List<ChefVO> getAllByChefArea(String chef_area) {
 		return dao.getAllByChefArea(chef_area);

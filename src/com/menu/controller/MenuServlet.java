@@ -12,11 +12,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-import com.chef.model.ChefService;
-import com.chef.model.ChefVO;
 import com.menu.model.*;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -51,8 +48,7 @@ public class MenuServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
+		request.setCharacterEncoding("UTF-8");		
 		String action = request.getParameter("action");
 		
 		if("insert".equals(action)) {
@@ -115,40 +111,13 @@ public class MenuServlet extends HttpServlet {
 				MenuVO menuVO = menuSvc.getOneMenu(menu_ID);
 				
 				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				session.setAttribute("menuVO", menuVO); // 資料庫取出的menuVO物件,存入request
+				request.setAttribute("menuVO", menuVO); // 資料庫取出的menuVO物件,存入request
 				RequestDispatcher successView = request.getRequestDispatcher("/front-end/menu/listOneMenu.jsp"); // 成功轉交 listOneMenu.jsp
 				successView.forward(request, response);
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
 				RequestDispatcher failureView = request.getRequestDispatcher(request.getRequestURI());
-				failureView.forward(request, response);
-			}
-		}
-		if ("buyThisMenu".equals(action)) { // 來自select_page.jsp的請求
-
-			try {
-				/*************************** 1.接收請求參數  **********************/
-				String menu_ID = request.getParameter("menu_ID");
-				/*************************** 2.開始查詢資料  *****************************************/
-				MenuService menuSvc = new MenuService();
-				MenuVO menuVO = menuSvc.getOneMenu(menu_ID);
-				ChefService chefSvc = new ChefService();
-				List<ChefVO> listChefByMenuID = chefSvc.getAllByMenuID(menu_ID);
-				/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-				session.setAttribute("listChefByMenuID", listChefByMenuID);
-				session.setAttribute("menu_ID", menu_ID); 
-				session.setAttribute("menuVO", menuVO); // 資料庫取出的menuVO物件,存入request
-				
-				session.setAttribute("listChefSchByChefID", null);
-				session.setAttribute("order_chef_sch_date", null);
-				
-				RequestDispatcher successView = request.getRequestDispatcher("/front-end/menu/orderMenu.jsp"); // 成功轉交 listOneMenu.jsp
-				successView.forward(request, response);
-
-				/*************************** 其他可能的錯誤處理 *************************************/
-			} catch (Exception e) {
-				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/menu/listOneMenu.jsp");
 				failureView.forward(request, response);
 			}
 		}

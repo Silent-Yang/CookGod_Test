@@ -7,13 +7,13 @@ public class BroadcastJDBCDAO implements BroadcastDAO_interface {
 
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "CA106";
+	String userid = "COOKGOD";
 	String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO BROADCAST(BROADCAST_ID,BROADCAST_START,BROADCAST_CON,BROADCAST_STATUS,CUST_ID)  VALUES ('B'||LPAD((BROADCAST_SEQ.NEXTVAL),5,'0'), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT * FROM BROADCAST";
 	private static final String GET_ONE_STMT = "SELECT * FROM BROADCAST WHERE BROADCAST_ID = ?";
-	private static final String GET_ONE_STMT_CUST_ID = "SELECT * FROM BROADCAST WHERE CUST_ID = ?";
+	private static final String GET_ONE_STMT_CUST_ID = "SELECT * FROM BROADCAST WHERE CUST_ID = ? ORDER BY  BROADCAST_START  DESC";
 	private static final String DELETE = "DELETE FROM BROADCAST WHERE BROADCAST_ID = ?";
 	private static final String UPDATE = "UPDATE BROADCAST SET BROADCAST_STATUS= ? WHERE BROADCAST_ID = ?";
 	
@@ -308,8 +308,8 @@ public class BroadcastJDBCDAO implements BroadcastDAO_interface {
 
 	public static void main(String[] args) {
 
-		// �s�W
-//		BroadcastJDBCDAO dao = new BroadcastJDBCDAO();
+		
+		BroadcastJDBCDAO dao = new BroadcastJDBCDAO();
 //		BroadcastVO broadcastVO = new BroadcastVO();
 //		broadcastVO.setBroadcastStart(Timestamp.valueOf("2019-01-04 01:01:01"));
 //		broadcastVO.setBroadcastCon("7");
@@ -317,7 +317,7 @@ public class BroadcastJDBCDAO implements BroadcastDAO_interface {
 //		broadcastVO.setCustId("a00001");
 //		dao.insert(broadcastVO);
 
-		// �ק�
+		
 //		BroadcastVO broadcastVO2 = new BroadcastVO();
 //		broadcastVO2.setBroadcastId("B00003");
 //		broadcastVO2.setBroadcastStart(Timestamp.valueOf("2019-01-04 01:01:01"));
@@ -326,19 +326,22 @@ public class BroadcastJDBCDAO implements BroadcastDAO_interface {
 //		broadcastVO2.setCustId("a00001");
 //		dao.update(broadcastVO2);
 
-		// �R��
+		
 //		dao.delete("B00003");
 
-		// �d��
-//		BroadcastVO broadcastVO3 = dao.findByPrimaryKey("B00002");
-//		System.out.print(broadcastVO3.getBroadcastId() + ",");
-//		System.out.print(broadcastVO3.getBroadcastStart() + ",");
-//		System.out.print(broadcastVO3.getBroadcastCon() + ",");
-//		System.out.print(broadcastVO3.getBroadcastStatus() + ",");
-//		System.out.print(broadcastVO3.getCustId() + ",");
-//		System.out.println("---------------------");
-
-		// �d��
+		
+		List<BroadcastVO> broadcastVO3 = dao.findByCust_ID("C00001");
+		for(BroadcastVO broadcastVO : broadcastVO3) {
+			
+		
+		System.out.print(broadcastVO.getBroadcast_ID() + ",");
+		System.out.print(broadcastVO.getBroadcast_start() + ",");
+		System.out.print(broadcastVO.getBroadcast_status() + ",");
+		System.out.print(broadcastVO.getBroadcast_con() + ",");
+		System.out.print(broadcastVO.getCust_ID() + ",");
+		System.out.println("---------------------");
+		}
+		
 //		List<BroadcastVO> list = dao.getAll();
 //		for (BroadcastVO aBroadcast : list) {
 //			System.out.print(aBroadcast.getBroadcastId() + ",");

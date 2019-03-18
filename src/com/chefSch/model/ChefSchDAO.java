@@ -22,7 +22,7 @@ public class ChefSchDAO implements ChefSchDAO_Interface {
 	}
 
 	private static final String Insert_Stmt = 
-			"INSERT INTO CHEF_SCH (CHEF_ID,CHEF_SCH_DATE,CHEF_SCH_STATUS) VALUES (?,?,'c0')";
+			"INSERT INTO CHEF_SCH (CHEF_ID,CHEF_SCH_DATE,CHEF_SCH_STATUS) VALUES (?,?,?)";
 	private static final String Updata_Stmt = 
 			"UPDATE CHEF_SCH SET CHEF_SCH_STATUS = ? WHERE CHEF_ID = ? AND CHEF_SCH_DATE = ?";
 	private static final String Delete_Stmt = 
@@ -30,7 +30,7 @@ public class ChefSchDAO implements ChefSchDAO_Interface {
 	private static final String Get_One_Stmt = 
 			"SELECT CS.CHEF_ID, CUST_NAME, CS.CHEF_SCH_DATE, CS.CHEF_SCH_STATUS FROM CHEF_SCH CS JOIN CUST ON CHEF_ID = CUST_ID AND CHEF_ID = ? AND CHEF_SCH_DATE = ?";
 	private static final String Get_All_Stmt_By_Chef_ID = 
-			"SELECT CS.CHEF_ID, CUST_NAME, CS.CHEF_SCH_DATE, CS.CHEF_SCH_STATUS FROM CHEF_SCH CS JOIN CUST ON CHEF_ID = CUST_ID WHERE CHEF_ID = ? ORDER BY CS.CHEF_SCH_DATE";
+			"SELECT CS.CHEF_ID, CUST_NAME, CS.CHEF_SCH_DATE, CS.CHEF_SCH_STATUS FROM CHEF_SCH CS JOIN CUST ON CHEF_ID = CUST_ID WHERE CHEF_ID = ?";
 	private static final String Get_All_Stmt_By_Sch_Date =
 			"SELECT CS.CHEF_ID, CUST_NAME, CS.CHEF_SCH_DATE, CS.CHEF_SCH_STATUS FROM CHEF_SCH CS JOIN CUST ON CHEF_ID = CUST_ID WHERE CHEF_SCH_DATE = ?";
 	private static final String Get_All_Stmt = 
@@ -47,6 +47,7 @@ public class ChefSchDAO implements ChefSchDAO_Interface {
 
 			pstmt.setString(1, chefSchVO.getChef_ID());
 			pstmt.setDate(2, chefSchVO.getChef_sch_date());
+			pstmt.setString(3, chefSchVO.getChef_sch_status());
 
 			pstmt.executeUpdate();
 

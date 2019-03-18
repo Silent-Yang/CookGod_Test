@@ -11,10 +11,11 @@ public class ChefSchService {
 		dao = new ChefSchDAO();
 	}
 	
-	public ChefSchVO addChefSch(String chef_ID, Date chef_sch_date) {
+	public ChefSchVO addChefSch(String chef_ID, Date chef_sch_date, String chef_sch_status) {
 		ChefSchVO chefSchVO = new ChefSchVO();
 		chefSchVO.setChef_ID(chef_ID);
 		chefSchVO.setChef_sch_date(chef_sch_date);
+		chefSchVO.setChef_sch_status(chef_sch_status);
 		dao.insert(chefSchVO);
 		
 		return chefSchVO;

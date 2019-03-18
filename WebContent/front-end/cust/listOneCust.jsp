@@ -5,7 +5,7 @@
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-	CustVO custVO = (CustVO) request.getAttribute("custVO"); //SustServlet.java(Concroller), 存入req的custVO物件
+	CustVO custVO = (CustVO) session.getAttribute("custVO"); //SustServlet.java(Concroller), 存入req的custVO物件
 %>
 
 <html>
@@ -70,7 +70,7 @@ th, td {
 
 	<table>
 		<tr>
-			<th>顧客編號</th>
+			
 			<th>顧客帳號</th>
 			<th>顧客密碼</th>
 			<th>顧客姓名</th>
@@ -86,7 +86,7 @@ th, td {
 			<th>顧客暱稱</th>
 		</tr>
 		<tr>
-			<td><%=custVO.getCust_ID()%></td>
+			
 			<td><%=custVO.getCust_acc()%></td>
 			<td><%=custVO.getCust_pwd()%></td>
 			<td><%=custVO.getCust_name()%></td>

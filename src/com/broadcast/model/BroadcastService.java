@@ -40,7 +40,7 @@ public class BroadcastService {
 		return dao.findByPrimaryKey(broadcast_ID);
 	}
 
-	public List<BroadcastVO> gelAllBroadcast() {
+	public List<BroadcastVO> getAll() {
 		return dao.getAll();
 	}
 

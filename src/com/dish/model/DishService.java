@@ -10,10 +10,12 @@ public class DishService {
 		dao = new DishDAO();		
 	}
 	
+	
 	public DishVO addDish( String dish_name,String dish_status,
 							byte[] dish_pic,String dish_resume,Integer dish_price) {
 		
 		DishVO dishVO = new DishVO();
+		
 		
 		dishVO.setDish_name(dish_name);
 		dishVO.setDish_status(dish_status);
@@ -42,7 +44,9 @@ public class DishService {
 		dao.update(dishVO);
 		
 		return dishVO;
+	
 		}
+		
 		
 		public void deleteDish(String dish_ID) {
 			dao.delete(dish_ID);
@@ -55,4 +59,9 @@ public class DishService {
 		public List<DishVO> getAll(){
 			return dao.getAll();
 		}
+		
+		
+		
 	}
+
+

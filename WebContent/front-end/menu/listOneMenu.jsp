@@ -64,7 +64,7 @@
 				<div class="card text-center" style="background-color: #D4E6F1">	  
 				  	<div class="card-body" >
 				    	<h5 class="card-title">套餐詳情</h5>
-				    	<a href="<%=request.getContextPath()%>/menuCart/menu.jsp" class="btn btn-primary">回上一頁</a>
+				    	<a href="<%=request.getContextPath()%>/menuCart/OrderMenu.jsp" class="btn btn-primary">回上一頁</a>
 				  	</div>
 				</div>
 				
@@ -76,14 +76,14 @@
 				    	</div>
 				    	<div class="col-7">
 				      		<div class="card-body">
-				      			<form method="post" action="<%=request.getContextPath()%>/menu/menu.do">
-					        		<h5 class="card-title">${menuVO.menu_name}</h5>
-					        		<p class="card-text" style="height:200px;">${menuVO.menu_resume}</p>
-					      			<p class="card-text text-right">$${menuVO.menu_price}</p>
-					      			<input type="hidden" name="menu_ID" value="${menuVO.menu_ID}">
-									<input type="hidden" name="action" value="buyThisMenu"> 
-					      			<input type="submit" class="btn btn-outline-secondary " style="float:right;" value="購買套餐">
-				      			</form>
+				        		<h5 class="card-title">${menuVO.menu_name}</h5>
+				        		<p class="card-text" style="height:200px;">${menuVO.menu_resume}，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃，好吃</p>
+				      			<p class="card-text text-right">$${menuVO.menu_price}</p>
+				      			<input type="hidden" name="menu_ID" value="${menuVO.menu_ID}">
+								<input type="hidden" name="menu_price" value="${menuVO.menu_price}"> 
+								<input type="hidden" name="menu_qty" value="1"> 
+								<input type="hidden" name="action" value="buyThisMenu"> 
+				      			<input type="submit" class="btn btn-outline-secondary " style="float:right;" value="購買套餐">
 				      		</div>
 				    	</div>
 				  	</div>

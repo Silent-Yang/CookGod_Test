@@ -3,7 +3,7 @@
 <%@ page import="com.cust.model.*"%>
 
 <%
-	CustVO custVO = (CustVO) request.getAttribute("custVO"); //CustServlet.java (Concroller) 存入req的custVO物件 (包括幫忙取出的custVO, 也包括輸入資料錯誤時的custVO物件)
+	CustVO custVO = (CustVO)session.getAttribute("custVO"); //CustServlet.java (Concroller) 存入req的custVO物件 (包括幫忙取出的custVO, 也包括輸入資料錯誤時的custVO物件)
 %>
 
 <html>
@@ -50,12 +50,17 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<div class="card text-center" style="background-color: #D4E6F1">	  
-	  	<div class="card-body" >
-	    	<h5 class="card-title">編輯個人資料</h5>
-	    	<a href="<%=request.getContextPath()%>/front-end/chef/chef_profile.jsp" class="btn btn-primary">回上一頁</a>
-	  	</div>
-	</div>
+	<table id="table-1">
+		<tr>
+			<td>
+				<h3>顧客資料修改 - update_cust_input.jsp</h3>
+				<h4>
+					<a
+						href="<%=request.getContextPath()%>/front-end/cust/select_page.jsp">回首頁</a>
+				</h4>
+			</td>
+		</tr>
+	</table>
 
 	<h3>資料修改:</h3>
 

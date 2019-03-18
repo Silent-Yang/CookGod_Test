@@ -10,7 +10,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.chefOdDetail.model.ChefOdDetailVO;
 import com.foodMall.model.FoodMallVO;
+import com.foodOrDetail.model.FoodOrDetailVO;
 
 
 public class FoodSupJDBCDAO implements FoodSupDAO_interface {
@@ -22,12 +24,18 @@ public class FoodSupJDBCDAO implements FoodSupDAO_interface {
 			"INSERT INTO FOOD_SUP (FOOD_SUP_ID, FOOD_SUP_NAME, FOOD_SUP_TEL, FOOD_SUP_STATUS, FOOD_SUP_RESUME) VALUES (?, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = 
 			"UPDATE FOOD_SUP SET FOOD_SUP_NAME = ?, FOOD_SUP_TEL = ?, FOOD_SUP_STATUS = ?, FOOD_SUP_RESUME = ? WHERE FOOD_SUP_ID = ?";
+	private static final String UPDATE_STATUS = 
+			"UPDATE FOOD_SUP SET FOOD_SUP_STATUS = ? WHERE FOOD_SUP_ID = ?";
 	private static final String GET_ALL_STMT = 
 			"SELECT FOOD_SUP_ID, FOOD_SUP_NAME, FOOD_SUP_TEL, FOOD_SUP_STATUS, FOOD_SUP_RESUME FROM FOOD_SUP ORDER BY FOOD_SUP_ID";
 	private static final String GET_ONE_STMT = 
 			"SELECT FOOD_SUP_ID, FOOD_SUP_NAME, FOOD_SUP_TEL, FOOD_SUP_STATUS, FOOD_SUP_RESUME FROM FOOD_SUP WHERE FOOD_SUP_ID = ?";
 	private static final String GET_FoodMalls_ByFood_sup_ID_STMT = 
-			"SELECT FOOD_SUP_ID, FOOD_ID, FOOD_M_NAME, FOOD_M_STATUS, FOOD_M_PRICE, FOOD_M_UNIT, FOOD_M_PLACE, FOOD_M_PIC, FOOD_M_RESUME, FOOD_M_RATE FROM FOOD_MALL WHERE FOOD_SUP_ID = ? ORDER BY FOOD_SUP_ID";
+			"SELECT FOOD_SUP_ID, FOOD_ID, FOOD_M_NAME, FOOD_M_STATUS, FOOD_M_PRICE, FOOD_M_UNIT, FOOD_M_PLACE, FOOD_M_PIC, FOOD_M_RESUME, FOOD_M_RATE FROM FOOD_MALL WHERE FOOD_SUP_ID = ? ORDER BY FOOD_ID";
+	private static final String GET_FOD_BYFOOD_SUP_ID =
+			"SELECT * FROM FOOD_OR_DETAIL WHERE FOOD_SUP_ID = ? ORDER BY FOOD_OR_ID";
+	private static final String GET_COD_BYFOOD_SUP_ID =
+			"SELECT * FROM CHEF_OR_DETAIL WHERE FOOD_SUP_ID = ? ORDER BY FOOD_OR_ID";
 	
 	@Override
 	public void insert(FoodSupVO foodSupVO) {
@@ -66,6 +74,50 @@ public class FoodSupJDBCDAO implements FoodSupDAO_interface {
 					con.close();
 				} catch (Exception e) {
 					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
+	@Override
+	public void insert2(FoodSupVO foodSupVO , Connection con) {
+		
+		PreparedStatement pstmt = null;
+		try {
+
+			
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, foodSupVO.getFood_sup_ID());
+			pstmt.setString(2, foodSupVO.getFood_sup_name());
+			pstmt.setString(3, foodSupVO.getFood_sup_tel());
+			pstmt.setString(4, foodSupVO.getFood_sup_status());
+			pstmt.setString(5, foodSupVO.getFood_sup_resume());			
+			
+
+			pstmt.executeUpdate();
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-FoodSup");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
 				}
 			}
 		}
@@ -299,6 +351,168 @@ public class FoodSupJDBCDAO implements FoodSupDAO_interface {
 		return set;
 	}
 	
+	
+	
+	@Override
+	public void updateStatus(FoodSupVO foodSupVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+
+			pstmt.setString(1, foodSupVO.getFood_sup_status());			
+			pstmt.setString(2, foodSupVO.getFood_sup_ID());
+			
+
+			pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+	
+	@Override
+	public List<FoodOrDetailVO> getFoodODByFood_sup_ID(String food_sup_ID) {
+		List<FoodOrDetailVO> foodODVOs = new ArrayList<FoodOrDetailVO>();
+		FoodOrDetailVO foodODVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(GET_FOD_BYFOOD_SUP_ID);
+				
+			pstmt.setString(1, food_sup_ID);
+			rs = pstmt.executeQuery();
+				
+			while(rs.next()) {
+				foodODVO = new FoodOrDetailVO();
+				foodODVO.setFood_or_ID(rs.getString(1));
+				foodODVO.setFood_sup_ID(rs.getString(2));
+				foodODVO.setFood_ID(rs.getString(3));
+				foodODVO.setFood_od_qty(rs.getInt(4));
+				foodODVO.setFood_od_stotal(rs.getInt(5));
+				foodODVO.setFood_od_rate(rs.getInt(6));
+				foodODVO.setFood_od_msg(rs.getString(7));
+				foodODVO.setFood_od_status(rs.getString(8));
+				foodODVOs.add(foodODVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return foodODVOs;
+	}
+	
+	@Override
+	public List<ChefOdDetailVO> getCODByFood_sup_ID(String food_sup_ID) {
+		List<ChefOdDetailVO> chefOdDetailVOs = new ArrayList<ChefOdDetailVO>();
+		ChefOdDetailVO chefOdDetailVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			Class.forName(DRIVER);
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(GET_FOD_BYFOOD_SUP_ID);
+				
+			pstmt.setString(1, food_sup_ID);
+			rs = pstmt.executeQuery();
+				
+			while(rs.next()) {
+				chefOdDetailVO = new ChefOdDetailVO();
+				chefOdDetailVO.setChef_or_ID(rs.getString(1));
+				chefOdDetailVO.setFood_sup_ID(rs.getString(2));
+				chefOdDetailVO.setFood_ID(rs.getString(3));
+				chefOdDetailVO.setChef_od_qty(rs.getInt(4));
+				chefOdDetailVO.setChef_od_stotal(rs.getInt(5));
+				chefOdDetailVO.setChef_od_status(rs.getString(8));
+				chefOdDetailVOs.add(chefOdDetailVO);
+			}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return chefOdDetailVOs;
+	}
+	
 	public static void main(String[] args) {
 		FoodSupJDBCDAO foodSupJDBCDAO = new FoodSupJDBCDAO();
 		
@@ -330,14 +544,14 @@ public class FoodSupJDBCDAO implements FoodSupDAO_interface {
 //		System.out.println(foodSupVO.getFood_sup_resume());
 		
 		// 查詢全部
-		List<FoodSupVO> foodSupVOs = foodSupJDBCDAO.getAll();
-		for(FoodSupVO foodSupVO:foodSupVOs) {
-			System.out.print(foodSupVO.getFood_sup_ID() + " ");
-			System.out.print(foodSupVO.getFood_sup_name() + " ");
-			System.out.print(foodSupVO.getFood_sup_tel() + " ");
-			System.out.print(foodSupVO.getFood_sup_status() + " ");
-			System.out.println(foodSupVO.getFood_sup_resume() + " ");
-		}
+//		List<FoodSupVO> foodSupVOs = foodSupJDBCDAO.getAll();
+//		for(FoodSupVO foodSupVO:foodSupVOs) {
+//			System.out.print(foodSupVO.getFood_sup_ID() + " ");
+//			System.out.print(foodSupVO.getFood_sup_name() + " ");
+//			System.out.print(foodSupVO.getFood_sup_tel() + " ");
+//			System.out.print(foodSupVO.getFood_sup_status() + " ");
+//			System.out.println(foodSupVO.getFood_sup_resume() + " ");
+//		}
 		
 		// 查詢某一食材商的全部食材
 //		Set<FoodMallVO> foodMallVOs = foodSupJDBCDAO.getFoodMallsByFood_sup_ID("C00012");
@@ -353,6 +567,18 @@ public class FoodSupJDBCDAO implements FoodSupDAO_interface {
 //			System.out.println(foodMallVO.getFood_m_rate());
 //		}
 		
+		
+		List<FoodOrDetailVO> foodODVOs = foodSupJDBCDAO.getFoodODByFood_sup_ID("C00012");
+		for(FoodOrDetailVO foodOrDetailVO:foodODVOs) {
+			System.out.print(foodOrDetailVO.getFood_or_ID() + " ");
+			System.out.print(foodOrDetailVO.getFood_sup_ID() + " ");
+			System.out.print(foodOrDetailVO.getFood_ID() + " ");
+			System.out.print(foodOrDetailVO.getFood_od_qty() + " ");
+			System.out.print(foodOrDetailVO.getFood_od_stotal() + " ");
+			System.out.print(foodOrDetailVO.getFood_od_rate() + " ");
+			System.out.print(foodOrDetailVO.getFood_od_msg() + " ");
+			System.out.println();
+		}
 	}
 
 }
