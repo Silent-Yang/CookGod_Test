@@ -5,8 +5,8 @@
 
 <%
 	MenuService menuSvc = new MenuService();
-	List<MenuVO> listAll = menuSvc.getAll();
-	pageContext.setAttribute("listAll", listAll);
+	List<MenuVO> list = menuSvc.getAll();
+	pageContext.setAttribute("list", list);
 %>
 
 <html>
@@ -69,7 +69,7 @@
 			
 		</tr>
 		<%@ include file="page1.file"%>
-		<c:forEach var="menuVO" items="${listAll}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		<c:forEach var="menuVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
 			<tr>
 				<td>${menuVO.menu_ID}</td>				
