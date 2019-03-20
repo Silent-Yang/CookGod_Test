@@ -38,7 +38,7 @@
 	<div class="container justify-content-center">
 		<div class="row">
 			<div class="col-12">
-				<form method="post" action="menuOrder.do" name="insertMenuOrderForm">
+				<form method="post" action="<%=request.getContextPath()%>/menuOrder/menuOrder.do" name="insertMenuOrderForm">
 					<div class="form-group">
 						<label>預約日期</label> <input name="menu_od_book"
 							class="form-control" id="book_time" type="text" />${errMsgs.menu_od_book}

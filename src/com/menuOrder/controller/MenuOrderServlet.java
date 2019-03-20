@@ -26,7 +26,6 @@ public class MenuOrderServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		String indexUrl = "/menuOrder/index.jsp";
 		//新增一筆訂單
 		if("insert".equals(action)) {
 			//1.接收參數，處理錯誤
@@ -83,12 +82,12 @@ public class MenuOrderServlet extends HttpServlet {
 				
 				//3.查詢完成，準備轉交
 				request.setAttribute("menuOrderVO", menuOrderVO);
-				RequestDispatcher sucessView = request.getRequestDispatcher("/menuOrder/updateMenuOrder.jsp");
+				RequestDispatcher sucessView = request.getRequestDispatcher("/back-end/menuOrder/updateMenuOrder.jsp");
 				sucessView.forward(request, response);
 				
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/listAllMenuOrder.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/listAllMenuOrder.jsp");
 				errView.forward(request, response);
 			}
 		}
@@ -113,12 +112,12 @@ public class MenuOrderServlet extends HttpServlet {
 				MenuOrderVO menuOrderVO = menuOrderSvc.getOneMenuOrder(menu_od_ID);
 				request.setAttribute("menuOrderVO", menuOrderVO);
 				
-				RequestDispatcher sucessView = request.getRequestDispatcher("/menuOrder/listOneMenuOrder.jsp");
+				RequestDispatcher sucessView = request.getRequestDispatcher("/back-end/menuOrder/listOneMenuOrder.jsp");
 				sucessView.forward(request, response);
 				
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/listOneMenuOrder.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/listOneMenuOrder.jsp");
 				errView.forward(request, response);
 			}
 		}
@@ -197,7 +196,7 @@ public class MenuOrderServlet extends HttpServlet {
 				}
 				if(!errorMsgs.isEmpty()) {
 					RequestDispatcher errView = 
-							request.getRequestDispatcher(indexUrl); 
+							request.getRequestDispatcher("/back-end/menuOrder/index.jsp"); 
 					errView.forward(request, response);
 					return;				
 				}				
@@ -208,8 +207,7 @@ public class MenuOrderServlet extends HttpServlet {
 					errorMsgs.add("查無資料");
 				}
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher errView = 
-							request.getRequestDispatcher(indexUrl);
+					RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/index.jsp");
 					errView.forward(request, response);
 					return;
 				}
@@ -217,12 +215,12 @@ public class MenuOrderServlet extends HttpServlet {
 				//資料庫取出的menuOrderVO物件,存入request
 				request.setAttribute("menuOrderVO", menuOrderVO);
 				RequestDispatcher successView = 
-						request.getRequestDispatcher("/menuOrder/listOneMenuOrder.jsp");
+						request.getRequestDispatcher("/back-end/menuOrder/listOneMenuOrder.jsp");
 				successView.forward(request, response);
 			}catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher errView = 
-						request.getRequestDispatcher(indexUrl);
+						request.getRequestDispatcher("/back-end/menuOrder/index.jsp");
 				errView.forward(request, response);
 			}	
 		}
@@ -239,12 +237,12 @@ public class MenuOrderServlet extends HttpServlet {
 				MenuOrderService menuOrderSvc = new MenuOrderService();
 				menuOrderSvc.deleteMenuOrder(menu_od_ID);
 				//3.刪除完成，準備轉交
-				RequestDispatcher sucessView = request.getRequestDispatcher("/menuOrder/listAllMenuOrder.jsp");
+				RequestDispatcher sucessView = request.getRequestDispatcher("/back-end/menuOrder/listAllMenuOrder.jsp");
 				sucessView.forward(request, response);
 				//其他可能的錯誤處理
 			}catch(Exception e){
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/listAllMenuOrder.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/listAllMenuOrder.jsp");
 				errView.forward(request, response);
 			}
 		}

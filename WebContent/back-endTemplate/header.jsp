@@ -90,11 +90,21 @@
 					</a></li>
 					<li class="nav-item"><a
 						class="nav-link waves-effect waves-dark"
+						href="<%=request.getContextPath()%>/back-end/menuOrder/index.jsp">
+							<div class="d-flex align-items-center">
+								<i class="font-20 mr-1"></i>
+								<div class="ml-1 d-none d-sm-block">
+									<span>套餐訂單管理</span>
+								</div>
+							</div>
+					</a></li>
+					<li class="nav-item"><a
+						class="nav-link waves-effect waves-dark"
 						href="<%=request.getContextPath()%>/back-end/food/select_page.jsp">
 							<div class="d-flex align-items-center">
 								<i class="font-20 mr-1"></i>
 								<div class="ml-1 d-none d-sm-block">
-									<span>訂單管理</span>
+									<span>食材訂單管理</span>
 								</div>
 							</div>
 					</a></li>

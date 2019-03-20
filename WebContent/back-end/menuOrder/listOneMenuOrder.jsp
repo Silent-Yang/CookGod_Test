@@ -1,97 +1,71 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.menuOrder.model.*"%>
 
 <html>
 <head>
-<title>List_One_Menu_Order.jsp</title>
-<style type="text/css">
-table {
-	border: 2px solid gray;
-	margin: 15px;
-}
-
-th, td {
-	border: 1px solid;
-	width: 100px;
-	height: 50px;
-	text-align: center;
-	padding: 3px;
-}
-</style>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
+<title>List_All_Menu_Order</title>
 </head>
 <body>
-	<div class="card text-center" style="background-color: #D4E6F1">
-		<div class="card-body">
-			<h5 class="card-title">¬d¸ß³æµ§­q³æ</h5>
-			<p class="card-text">listOneMenuOrder.jsp</p>
-			<a href="index.jsp" class="btn btn-primary">¦^­º­¶</a>
-		</div>
-	</div>
+	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
+		data-layout="vertical" data-sidebartype="full"
+		data-boxed-layout="full">
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
+		<aside class="left-sidebar" data-sidebarbg="skin5">
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
 
-	<%--Error Message--%>
-	<c:if test="${not empty errorMsgs} }">
-		<font style="color: red; font-size: 30px;">Error</font>
-		<ul>
-			<c:forEach var="errMsgs" items="${errorMsgs}">
-				<li style="color: red;">${errMsgs}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<div class="container justify-content-center">
-		<div class="row">
-			<div class="col-12">
-				<table>
-					<tr>
-						<th>­q³æ½s¸¹</th>
-						<th>­q³æª¬ºA</th>
-						<th>¤U­q¤é´Á</th>
-						<th>¹w¬ù¤é´Á</th>
-						<th>§¹¦¨¤é´Á</th>
-						<th>­q³æµû»ù</th>
-						<th>­q³æ¯d¨¥</th>
-						<th>ÅU«È½s¸¹</th>
-						<th>¥D¼p½s¸¹</th>
-						<th>®MÀ\½s¸¹</th>
-					</tr>
-					<tr>
-						<td>${menuOrderVO.menu_od_ID}</td>
-						<td>${menuOrderVO.menu_od_status}</td>
-						<td>${menuOrderVO.menu_od_start}</td>
-						<td>${menuOrderVO.menu_od_book}</td>
-						<td>${menuOrderVO.menu_od_end}</td>
-						<td>${menuOrderVO.menu_od_rate}</td>
-						<td>${menuOrderVO.menu_od_msg}</td>
-						<td>${menuOrderVO.cust_ID}</td>
-						<td>${menuOrderVO.chef_ID}</td>
-						<td>${menuOrderVO.menu_ID}</td>
-					</tr>
-				</table>
+		</aside>
+		<div class="page-wrapper">
+			<div class="page-breadcrumb">
+				<%--=================================å·¥ä½œå€================================================--%>
+				<%--Error Message--%>
+				<c:if test="${not empty errorMsgs} }">
+					<font style="color: red; font-size: 30px;">Error</font>
+					<ul>
+						<c:forEach var="errMsgs" items="${errorMsgs}">
+							<li style="color: red;">${errMsgs}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<div class="container justify-content-center">
+					<div class="row">
+						<div class="col-12">
+							<table>
+								<tr>
+									<th>è¨‚å–®ç·¨è™Ÿ</th>
+									<th>è¨‚å–®ç‹€æ…‹</th>
+									<th>ä¸‹è¨‚æ—¥æœŸ</th>
+									<th>é ç´„æ—¥æœŸ</th>
+									<th>å®Œæˆæ—¥æœŸ</th>
+									<th>è¨‚å–®è©•åƒ¹</th>
+									<th>è¨‚å–®ç•™è¨€</th>
+									<th>é¡§å®¢ç·¨è™Ÿ</th>
+									<th>ä¸»å»šç·¨è™Ÿ</th>
+									<th>å¥—é¤ç·¨è™Ÿ</th>
+								</tr>
+								<tr>
+									<td>${menuOrderVO.menu_od_ID}</td>
+									<td>${menuOrderVO.menu_od_status}</td>
+									<td>${menuOrderVO.menu_od_start}</td>
+									<td>${menuOrderVO.menu_od_book}</td>
+									<td>${menuOrderVO.menu_od_end}</td>
+									<td>${menuOrderVO.menu_od_rate}</td>
+									<td>${menuOrderVO.menu_od_msg}</td>
+									<td>${menuOrderVO.cust_ID}</td>
+									<td>${menuOrderVO.chef_ID}</td>
+									<td>${menuOrderVO.menu_ID}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<%--=================================å·¥ä½œå€================================================--%>
+				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
 </body>
 </html>
