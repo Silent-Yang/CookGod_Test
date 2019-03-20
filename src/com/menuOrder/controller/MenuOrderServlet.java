@@ -164,7 +164,7 @@ public class MenuOrderServlet extends HttpServlet {
 				
 				if(!errorMsgs.isEmpty()) {
 					request.setAttribute("menuOrderVO", menuOrderVO);
-					RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/updateMenuOrder.jsp");
+					RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/updateMenuOrder.jsp");
 					errView.forward(request, response);
 					return;
 				}
@@ -174,12 +174,12 @@ public class MenuOrderServlet extends HttpServlet {
 				menuOrderVO = menuOrderSvc.getOneMenuOrder(menu_od_ID);
 				//3.修改完成，轉交資料
 				request.setAttribute("menuOrderVO", menuOrderVO);
-				RequestDispatcher sucessView = request.getRequestDispatcher("/menuOrder/listOneMenuOrder.jsp");
+				RequestDispatcher sucessView = request.getRequestDispatcher("/back-end/menuOrder/listOneMenuOrder.jsp");
 				sucessView.forward(request, response);
 				
 			}catch(Exception e) {
 				errorMsgs.add("Update Data Error:"+e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/menuOrder/updateMenuOrder.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/updateMenuOrder.jsp");
 				errView.forward(request, response);
 			}
 		}

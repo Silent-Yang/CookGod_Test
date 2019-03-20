@@ -5,7 +5,14 @@
 
 <html>
 <head>
-<title>List_All_Menu_Order</title>
+<title>List_One_Menu_Order</title>
+<style type="text/css">
+th,td{
+	width:100px;
+	border:1px solid gray;
+	text-align:center;
+}
+</style>
 </head>
 <body>
 	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
@@ -28,7 +35,7 @@
 						</c:forEach>
 					</ul>
 				</c:if>
-				<div class="container justify-content-center">
+				<div class="container-filed justify-content-center">
 					<div class="row">
 						<div class="col-12">
 							<table>
@@ -39,14 +46,20 @@
 									<th>預約日期</th>
 									<th>完成日期</th>
 									<th>訂單評價</th>
-									<th>訂單留言</th>
+									<th style="width:400px;">訂單留言</th>
 									<th>顧客編號</th>
 									<th>主廚編號</th>
 									<th>套餐編號</th>
+									<th>修改訂單</th>
+									<th>刪除訂單</th>
 								</tr>
 								<tr>
 									<td>${menuOrderVO.menu_od_ID}</td>
-									<td>${menuOrderVO.menu_od_status}</td>
+									<td><c:if test="${menuOrderVO.menu_od_status=='g0'}">未審核</c:if>
+										<c:if test="${menuOrderVO.menu_od_status=='g1'}">審核通過</c:if>
+										<c:if test="${menuOrderVO.menu_od_status=='g2'}">審核不通過</c:if>
+										<c:if test="${menuOrderVO.menu_od_status=='g3'}">主廚到府</c:if>
+										<c:if test="${menuOrderVO.menu_od_status=='g4'}">訂單完成</c:if></td>
 									<td>${menuOrderVO.menu_od_start}</td>
 									<td>${menuOrderVO.menu_od_book}</td>
 									<td>${menuOrderVO.menu_od_end}</td>
@@ -55,6 +68,18 @@
 									<td>${menuOrderVO.cust_ID}</td>
 									<td>${menuOrderVO.chef_ID}</td>
 									<td>${menuOrderVO.menu_ID}</td>
+									<td>
+										<form method="post" action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
+											<input type="submit" value="編輯"> <input type="hidden" name="menu_od_ID" value="${menuOrderVO.menu_od_ID}">
+											<input type="hidden" name="action" value="getOneForDispaly">
+										</form>
+									</td>
+									<td>
+										<form method="post" action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
+											<input type="submit" value="刪除"> <input type="hidden" name="menu_od_ID" value="${menuOrderVO.menu_od_ID}">
+											<input type="hidden" name="action" value="delete">
+										</form>
+									</td>
 								</tr>
 							</table>
 						</div>

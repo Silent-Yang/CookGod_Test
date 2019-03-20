@@ -81,7 +81,7 @@ th,td{
 												action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
 												<input type="submit" value="編輯"> <input type="hidden"
 													name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> <input
-													type="hidden" name="action" value="getOneForUpdate">
+													type="hidden" name="action" value="getOneForDispaly">
 											</form>
 										</td>
 										<td>
