@@ -68,6 +68,9 @@ public class MenuServlet extends HttpServlet {
 				Integer menu_price = null;
 				try {
 					menu_price = Integer.parseInt(request.getParameter("menu_price"));
+					if(menu_price<0) {
+						errorMsgs.add("請輸入大於零的數字");
+					}
 				}catch(Exception e) {
 					errorMsgs.add("請輸入數字");
 				}
@@ -89,19 +92,19 @@ public class MenuServlet extends HttpServlet {
 				// 如果以上格式有錯
 				if (!errorMsgs.isEmpty()) {
 					request.setAttribute("menuVO", menuVO);
-					RequestDispatcher failureView = request.getRequestDispatcher("/front-end/menu/addMenu.jsp");
+					RequestDispatcher failureView = request.getRequestDispatcher("/back-end/menu/addMenu.jsp");
 					failureView.forward(request, response);
 					return;
 				}
 				//將資料加入資料庫
 				MenuService menuSvc = new MenuService();
 				menuVO = menuSvc.addMenu(menu_name, menu_resume, menu_pic, menu_price);
-				RequestDispatcher successView = request.getRequestDispatcher("/front-end/menu/listAllMenu.jsp");
+				RequestDispatcher successView = request.getRequestDispatcher("/back-end/menu/listAllMenu.jsp");
 				successView.forward(request, response);
 				//除錯
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/menu/addMenu.jsp");
+				RequestDispatcher failureView = request.getRequestDispatcher("/back-end/menu/addMenu.jsp");
 				failureView.forward(request, response);
 			}
 		}		
