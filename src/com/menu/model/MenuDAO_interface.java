@@ -3,7 +3,7 @@ package com.menu.model;
 import java.util.*;
 
 public interface MenuDAO_interface {
-	public void insert(MenuVO menuVO);
+	public MenuVO insert(MenuVO menuVO);
 
 	public void update(MenuVO menuVO);
 

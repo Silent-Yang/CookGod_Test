@@ -86,17 +86,17 @@ th, td {
 							<td>
 							<form method="post"
 								action="<%=request.getContextPath()%>/menu/menu.do">
-								<input type="submit" value="編輯"> <input type="hidden"
-									name="menu_ID" value="${menuVO.menu_ID}"> <input
-									type="hidden" name="action" value="getOneForUpdate">
+								<input type="submit" value="編輯"> 
+								<input type="hidden" name="menu_ID" value="${menuVO.menu_ID}"> 
+								<input type="hidden" name="action" value="getOneForUpdate">
 							</form>
 						</td>
 						<td>
 							<form method="post"
 								action="<%=request.getContextPath()%>/menu/menu.do">
-								<input type="submit" value="刪除"> <input type="hidden"
-									name="menu_ID" value="${menuVO.menu_ID}"> <input
-									type="hidden" name="action" value="delete">
+								<input type="submit" value="刪除"> 
+								<input type="hidden" name="menu_ID" value="${menuVO.menu_ID}"> 
+								<input type="hidden" name="action" value="delete">
 							</form>
 						</td>
 						</tr>

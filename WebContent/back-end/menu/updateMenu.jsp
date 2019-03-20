@@ -6,54 +6,30 @@
 	MenuVO menuVO = (MenuVO) request.getAttribute("menuVO");
 %>
 
-<!DOCTYPE html>
 <html>
-
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>套餐資料新增 - addMenu.jsp</title>
-<link
-	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
-	rel="stylesheet">
-<style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
+<title>updateMenu</title>
+<style type="text/css">
 table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
-
-table, th, td {
-	border: 0px solid #CCCCFF;
+	border: 2px solid gray;
+	margin: 15px;
 }
 
 th, td {
-	padding: 1px;
+	border: 1px solid;
+	width: 100px;
+	height: 50px;
+	text-align: center;
+	padding: 3px;
+}
+
+img {
+	width: 320px;
+	height: 240px;
 }
 </style>
-
 </head>
-
-<body bgcolor='white'>
+<body>
 	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
@@ -76,9 +52,9 @@ th, td {
 						</c:forEach>
 					</ul>
 				</c:if>
+				
 				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/menu/menu.do" name="form1"
-					enctype="multipart/form-data">
+					ACTION="<%=request.getContextPath()%>/menu/menu.do" name="form1" enctype="multipart/form-data">
 
 					<table>
 						<tr>
@@ -105,8 +81,8 @@ th, td {
 					<div id="localImag">
 						<img id="preview" width=-1 height=-1 style="display: none" />
 					</div>
-					<input type="hidden" name="action" value="insert"> <input
-						type="submit" value="送出新增"><br>
+					<input type="hidden" name="action" value="update"> 
+					<input type="submit" value="送出修改"><br>
 				</FORM>
 
 				<%--=================================工作區================================================--%>
@@ -116,40 +92,4 @@ th, td {
 		</div>
 	</div>
 </body>
-
-<script>
-	function setImagePreview() {
-		var docObj = document.getElementById("doc");
-		var imgObjPreview = document.getElementById("preview");
-		if (docObj.files && docObj.files[0]) {
-			//火狐下，直接设img属性
-			imgObjPreview.style.display = 'block';
-			imgObjPreview.style.width = '320px';
-			imgObjPreview.style.height = '240px';
-			//imgObjPreview.src = docObj.files[0].getAsDataURL();
-			//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
-			imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
-		} else {
-			//IE下，使用滤镜
-			docObj.select();
-			var imgSrc = document.selection.createRange().text;
-			var localImagId = document.getElementById("localImag");
-			//必须设置初始大小
-			localImagId.style.width = "250px";
-			localImagId.style.height = "200px";
-			//图片异常的捕捉，防止用户修改后缀来伪造图片
-			try {
-				localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-				localImagId.filters
-						.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
-			} catch (e) {
-				alert("圖片格式不正確，請重新選擇!");
-				return false;
-			}
-			imgObjPreview.style.display = 'none';
-			document.selection.empty();
-		}
-		return true;
-	}
-</script>
 </html>

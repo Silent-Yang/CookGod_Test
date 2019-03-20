@@ -5,9 +5,9 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
-
-
+import com.dish.model.*;
 import com.menuDish.model.*;
+
 
 public class MenuDishServlet extends HttpServlet {
 
@@ -198,6 +198,54 @@ public class MenuDishServlet extends HttpServlet {
 			}
 		}
 		
+		
+		if ("getDish".equals(action)) {
+
+			try {
+				// Retrieve form parameters.
+				String dish_ID = new String(req.getParameter("dish_ID"));
+
+				DishDAO dao = new DishDAO();
+				DishVO dishVO = dao.findByPrimaryKey(dish_ID);
+
+				req.setAttribute("dishVO", dishVO); 
+				
+				boolean openModal=true;
+				req.setAttribute("openModal",openModal );
+				
+				RequestDispatcher successView = req
+						.getRequestDispatcher("/back-end/menuDish/addMenuDish.jsp");
+				successView.forward(req, res);
+				return;
+
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
+		
+		if ("getAllDish".equals(action)) {
+
+			try {
+				// Retrieve form parameters.
+				String dish_ID = new String(req.getParameter("dish_ID"));
+
+				DishDAO dao = new DishDAO();
+				DishVO dishVO = dao.findByPrimaryKey(dish_ID);
+
+				req.setAttribute("dishVO", dishVO); 
+				
+				boolean openModal=true;
+				req.setAttribute("openModal",openModal );
+				
+				RequestDispatcher successView = req
+						.getRequestDispatcher("/back-end/menuDish/listAllMenuDish.jsp");
+				successView.forward(req, res);
+				return;
+
+			} catch (Exception e) {
+				throw new ServletException(e);
+			}
+		}
 
 		if ("insert2".equals(action)) { // 來自addEmp.jsp的請求
 

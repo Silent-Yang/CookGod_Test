@@ -1,8 +1,6 @@
 package com.menuDish.model;
 
 import java.util.*;
-
-
 import java.sql.*;
 
 public class MenuDishJDBCDAO implements MenuDishDAO_interface {
@@ -21,7 +19,46 @@ public class MenuDishJDBCDAO implements MenuDishDAO_interface {
 	@Override
 	public void insert(MenuDishVO menuDishVO) {
 		
-		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, menuDishVO.getMenu_ID());
+			pstmt.setString(2, menuDishVO.getDish_ID());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 	@Override
 	public void update(MenuDishVO menuDishVO) {
@@ -216,7 +253,49 @@ public class MenuDishJDBCDAO implements MenuDishDAO_interface {
 		}
 		return list;
 	}
+	@Override
+	public void insert2(MenuDishVO menuDishVO, Connection con) {
+	
+		
+		PreparedStatement pstmt = null;
+
+		try {
+
+     		pstmt = con.prepareStatement(INSERT_STMT);
+
+			pstmt.setString(1, menuDishVO.getMenu_ID());
+			pstmt.setString(2, menuDishVO.getDish_ID());
+			
+			pstmt.executeUpdate();
+
+			
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-Dish");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}	
 }
+	
 //	@Override
 //	public void insert2(MenuDishVO menuDishVO, Connection con) {
 //		

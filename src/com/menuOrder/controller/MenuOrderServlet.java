@@ -69,7 +69,8 @@ public class MenuOrderServlet extends HttpServlet {
 				errView.forward(request, response);
 			}
 		}
-		if("getOneForDispaly".equals(action)) {
+		//取出一筆訂單準備修改
+		if("getOneForUpdate".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 			
@@ -91,8 +92,7 @@ public class MenuOrderServlet extends HttpServlet {
 				errView.forward(request, response);
 			}
 		}
-		//取出一筆訂單準備修改
-		if("getOneForUpdate".equals(action)) {
+		if("getOneForDispaly".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 			

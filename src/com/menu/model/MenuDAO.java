@@ -27,14 +27,17 @@ public class MenuDAO implements MenuDAO_interface {
 	private static final String UPDATE = "UPDATE MENU SET MENU_NAME= ?, MENU_RESUME= ?, MENU_PIC= ?, MENU_STATUS= ?, MENU_PRICE= ? WHERE MENU_ID = ?";
 
 	@Override
-	public void insert(MenuVO menuVO) {
+	public MenuVO insert(MenuVO menuVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+			con.setAutoCommit(false);
+			
+			String cols[] = {"MENU_ID"};
+			pstmt = con.prepareStatement(INSERT_STMT,cols);
 
 			pstmt.setString(1, menuVO.getMenu_name());
 			pstmt.setString(2, menuVO.getMenu_resume());
@@ -42,6 +45,21 @@ public class MenuDAO implements MenuDAO_interface {
 			pstmt.setInt(4, menuVO.getMenu_price());
 
 			pstmt.executeUpdate();
+			
+			String last_menu_ID = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				last_menu_ID = rs.getString(1);
+				System.out.println("自增主鍵值= " + last_menu_ID +"(剛新增成功的套餐編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			
+			menuVO.setMenu_ID(last_menu_ID);
+			
+			con.commit();
+			con.setAutoCommit(true);
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
@@ -62,6 +80,7 @@ public class MenuDAO implements MenuDAO_interface {
 				}
 			}
 		}
+		return menuVO;
 
 	}
 
