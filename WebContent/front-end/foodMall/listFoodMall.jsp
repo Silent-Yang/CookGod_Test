@@ -1,62 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.cust.model.CustVO" %>
-<jsp:useBean id="foodMallSvc" class="com.foodMall.model.FoodMallService"/>
-<jsp:useBean id="foodSvc" class="com.food.model.FoodService"/>
+<%@ page import="com.cust.model.CustVO"%>
+<jsp:useBean id="foodMallSvc" class="com.foodMall.model.FoodMallService" />
+<jsp:useBean id="foodSvc" class="com.food.model.FoodService" />
 <jsp:useBean id="foodSupSvc" class="com.foodSup.model.FoodSupService" />
-<jsp:useBean id="festMenuSvc" class="com.festMenu.model.FestMenuService"/>
-<jsp:useBean id="checkType" class="com.mall.controller.CheckType"/>
+<jsp:useBean id="festMenuSvc" class="com.festMenu.model.FestMenuService" />
+<jsp:useBean id="checkType" class="com.mall.controller.CheckType" />
 
 <html>
 <head>
 </head>
 <body>
 
-		<jsp:include page="/froTempl/header.jsp" flush="true" />
-		<section class="contact-area section-padding-100">
-		<jsp:include page="/front-end/foodMall/shoppingcartIn.jsp"/>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
+	<section class="contact-area section-padding-100">
+		<jsp:include page="/front-end/foodMall/shoppingcartIn.jsp" />
 		<c:if test="${not empty errorMsgs}">
-			<font style="color:red">請修正以下錯誤:</font>
+			<font style="color: red">請修正以下錯誤:</font>
 			<ul>
 				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color:red">${message}</li>
+					<li style="color: red">${message}</li>
 				</c:forEach>
 			</ul>
 		</c:if>
 		<div class="container">
-			<a href='<%=request.getContextPath()%>/front-end/festMenu/listFestMall.jsp'>節慶主題料理</a>
-			
+			<a
+				href='<%=request.getContextPath()%>/front-end/festMenu/listFestMall.jsp'>節慶主題料理</a>
+
 			<div class="row">
-				<c:forEach var="foodMallVO" items='${foodMallSvc.getAllStatus("p4")}' varStatus="s">
+				<c:forEach var="foodMallVO"
+					items='${foodMallSvc.getAllStatus("p4")}' varStatus="s">
 					<div class="col-3">
 						<div id="foodMCard${s.index}" class="card foodMCard">
-				  			<img src="<%=request.getContextPath()%>/foodMall/foodMall.do?food_sup_ID=${foodMallVO.food_sup_ID}&food_ID=${foodMallVO.food_ID}" class="card-img-top">
-				  			<div class="card-body">
-				    			<p class="card-text shopUse food_m_name">
-				    				${foodMallVO.food_m_name}
-				    			</p>
-				    			<p class="card-text shopUse food_name">
-				    				${foodSvc.getOneFood(foodMallVO.food_ID).food_name}
-				    			</p>
-				    			<p class="card-text shopUse food_sup_name">
-				    				${foodSupSvc.getOneFoodSup(foodMallVO.food_sup_ID).food_sup_name}
-				    			</p>
-				    			<p class="card-text">
-				    				${foodMallVO.food_m_price}
-				    			</p>
-				    			<form action="<%=request.getContextPath()%>/mall/mall.do" method="POST">
-				    				<button type="button" name="foodMBtn" class="btn btn-primary">加入購物車</button>
-				    				<input type="hidden" name="food_ID" value="${foodMallVO.food_ID}">
-				    				<input type="hidden" name="food_sup_ID" value="${foodMallVO.food_sup_ID}">	
-				    				<input type="number"   name="food_od_qty" min="1" max="20" size="3" value="1">
-				    			</form>
-				    			<p class="card-text errorMsgs"></p>
-				  			</div>
+							<img
+								src="<%=request.getContextPath()%>/foodMall/foodMall.do?food_sup_ID=${foodMallVO.food_sup_ID}&food_ID=${foodMallVO.food_ID}"
+								class="card-img-top">
+							<div class="card-body">
+								<p class="card-text shopUse food_m_name">
+									${foodMallVO.food_m_name}</p>
+								<p class="card-text shopUse food_name">
+									${foodSvc.getOneFood(foodMallVO.food_ID).food_name}</p>
+								<p class="card-text shopUse food_sup_name">
+									${foodSupSvc.getOneFoodSup(foodMallVO.food_sup_ID).food_sup_name}
+								</p>
+								<p class="card-text">${foodMallVO.food_m_price}</p>
+								<form action="<%=request.getContextPath()%>/mall/mall.do"
+									method="POST">
+									<button type="button" name="foodMBtn" class="btn btn-primary">加入購物車</button>
+									<input type="hidden" name="food_ID"
+										value="${foodMallVO.food_ID}"> <input type="hidden"
+										name="food_sup_ID" value="${foodMallVO.food_sup_ID}">
+									<input type="number" name="food_od_qty" min="1" max="20"
+										size="3" value="1">
+								</form>
+								<p class="card-text errorMsgs"></p>
+							</div>
 						</div>
-	            	</div>
+					</div>
 				</c:forEach>
-	         </div>
-	    </div>
+			</div>
+		</div>
 	</section>
 	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 	<script>

@@ -13,114 +13,118 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>廣告資料新增 - addAd.jsp</title>
-<link href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
+	rel="stylesheet">
 
 
 </head>
 
 <body bgcolor='white'>
-		<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
+	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
-<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
-		
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
-	<h3>資料新增:</h3>
+				<%--=================================工作區================================================--%>
+				<h3>資料新增:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
-		name="form1" enctype="multipart/form-data">
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
+					name="form1" enctype="multipart/form-data">
 
-		<table>
+					<table>
 
-			<tr>
-				<td>廣告標題:</td>
-				<td><input type="TEXT" name="ad_title" size="45"
-					value="<%=(adVO == null) ? "teddy" : adVO.getAd_title()%>" /></td>
-			</tr>
+						<tr>
+							<td>廣告標題:</td>
+							<td><input type="TEXT" name="ad_title" size="45"
+								value="<%=(adVO == null) ? "teddy" : adVO.getAd_title()%>" /></td>
+						</tr>
 
-			<tr>
-				<td>廣告:</td>
-				<td><input type="TEXT" name="ad_con" size="45"
-					value="<%=(adVO == null) ? "a987654321" : adVO.getAd_con()%>" /></td>
-			</tr>
-
-
-
-			<tr>
-				<td>廣告上架日期:</td>
-				<td><input type="TEXT" name="ad_start" id="f_date1" size="45" /></td>
-			</tr>
-
-
-			<tr>
-				<td>廣告下架日期:</td>
-				<td><input type="TEXT" name="ad_end" id="f_date2" size="45" /></td>
-			</tr>
-
-			<tr>
-				<td>廣告狀態:</td>
-				<td><input type="TEXT" name="ad_status" size="45"
-					value="<%=(adVO == null) ? "gggccc@yahoo" : adVO.getAd_status()%>" /></td>
-			</tr>
-
-			<tr>
-				<td>廣告類別:</td>
-				<td><input type="TEXT" name="ad_type" size="45"
-					value="<%=(adVO == null) ? "555" : adVO.getAd_type()%>" /></td>
-			</tr>
-
-			<tr>
-				<td>食材供應商ID:</td>
-				<td><input type="text" name="food_sup_ID" size="45"
-					value="<%=(adVO == null) ? "555" : adVO.getFood_sup_ID()%>" /></td>
-			</tr>
-			
-			
-			
+						<tr>
+							<td>廣告:</td>
+							<td><input type="TEXT" name="ad_con" size="45"
+								value="<%=(adVO == null) ? "a987654321" : adVO.getAd_con()%>" /></td>
+						</tr>
 
 
 
-		</table>
-		
-		<script src="ckEditor/ckeditor.js"></script>
-			<form id="form1" runat="server">
-				<div style="margin: 0 auto; width: 700px">
-					<textarea id="editor"></textarea>
-				</div>
-			</form>
-			
-			<script>
+						<tr>
+							<td>廣告上架日期:</td>
+							<td><input type="TEXT" name="ad_start" id="f_date1"
+								size="45" /></td>
+						</tr>
+
+
+						<tr>
+							<td>廣告下架日期:</td>
+							<td><input type="TEXT" name="ad_end" id="f_date2" size="45" /></td>
+						</tr>
+
+						<tr>
+							<td>廣告狀態:</td>
+							<td><input type="TEXT" name="ad_status" size="45"
+								value="<%=(adVO == null) ? "gggccc@yahoo" : adVO.getAd_status()%>" /></td>
+						</tr>
+
+						<tr>
+							<td>廣告類別:</td>
+							<td><input type="TEXT" name="ad_type" size="45"
+								value="<%=(adVO == null) ? "555" : adVO.getAd_type()%>" /></td>
+						</tr>
+
+						<tr>
+							<td>食材供應商ID:</td>
+							<td><input type="text" name="food_sup_ID" size="45"
+								value="<%=(adVO == null) ? "555" : adVO.getFood_sup_ID()%>" /></td>
+						</tr>
+
+
+
+
+
+
+					</table>
+
+					<script src="ckEditor/ckeditor.js"></script>
+					<form id="form1" runat="server">
+						<div style="margin: 0 auto; width: 700px">
+							<textarea id="editor"></textarea>
+						</div>
+					</form>
+
+					<script>
    				 ClassicEditor.create(document.querySelector('#editor')).then(editor => {console.log(editor);})
 			</script>
-		<div id="localImag">
-			<img id="preview" width=200px height=300px style="diplay: on" />
-		</div>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
+					<div id="localImag">
+						<img id="preview" width=200px height=300px style="diplay: on" />
+					</div>
+					<br> <input type="hidden" name="action" value="insert">
+					<input type="submit" value="送出新增">
 
-	</FORM>
-	
-<%--=================================工作區================================================--%>			
+				</FORM>
+
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-<%--=================================jQuery===============================================--%>
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 </body>
 
 <script>

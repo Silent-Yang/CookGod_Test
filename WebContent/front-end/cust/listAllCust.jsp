@@ -119,8 +119,12 @@ th, td {
 				<td>${custVO.cust_mail}</td>
 				<td>${custVO.cust_brd}</td>
 				<td>${custVO.cust_reg}</td>
-				<td><c:if test="${not empty custVO.cust_pic}"><img src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}"></c:if>
-				    <c:if test="${empty custVO.cust_pic}"><img src="<%=request.getContextPath()%>/images/null2.jpg"></c:if></td>
+				<td><c:if test="${not empty custVO.cust_pic}">
+						<img
+							src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}">
+					</c:if> <c:if test="${empty custVO.cust_pic}">
+						<img src="<%=request.getContextPath()%>/images/null2.jpg">
+					</c:if></td>
 
 				<c:if test="${custVO.cust_status.equals('a0')}" var="true"
 					scope="session">

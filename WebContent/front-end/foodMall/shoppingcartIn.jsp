@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="foodMallSvc" class="com.foodMall.model.FoodMallService"/>
-<jsp:useBean id="foodSvc" class="com.food.model.FoodService"/>
+<jsp:useBean id="foodMallSvc" class="com.foodMall.model.FoodMallService" />
+<jsp:useBean id="foodSvc" class="com.food.model.FoodService" />
 <jsp:useBean id="foodSupSvc" class="com.foodSup.model.FoodSupService" />
-<jsp:useBean id="festMenuSvc" class="com.festMenu.model.FestMenuService"/>
-<jsp:useBean id="checkType" class="com.mall.controller.CheckType"/>
+<jsp:useBean id="festMenuSvc" class="com.festMenu.model.FestMenuService" />
+<jsp:useBean id="checkType" class="com.mall.controller.CheckType" />
 <html>
 <head>
 </head>
@@ -43,8 +43,7 @@
 									<form action="<%=request.getContextPath()%>/mall/mall.do"
 										method="post">
 										<input type="hidden" name="food_sup_ID"
-											value="${shopItem.food_sup_ID}"> 
-										<input type="hidden"
+											value="${shopItem.food_sup_ID}"> <input type="hidden"
 											name="food_ID" value="${shopItem.food_ID}"> <input
 											type="hidden" name="action" value="delShoppingCartItem">
 										<button id="btnDel" type="button"
@@ -60,8 +59,7 @@
 									<form action="<%=request.getContextPath()%>/mall/mall.do"
 										method="post">
 										<input type="hidden" name="fest_m_ID"
-											value="${shopItem.fest_m_ID}"> 
-										<input type="hidden"
+											value="${shopItem.fest_m_ID}"> <input type="hidden"
 											name="action" value="delShoppingCartItem">
 										<button id="btnDel" type="button"
 											class="btn btn-dark shoppingCartItemDel">刪除</button>
@@ -77,26 +75,24 @@
 						<td>
 							<form action="<%=request.getContextPath()%>/mall/mall.do"
 								method="post">
-								<input type="hidden">
-								<input type="hidden">
-								<input
+								<input type="hidden"> <input type="hidden"> <input
 									type="hidden" name="action" value="delShoppingCartItem">
 								<button type="button" class="btn btn-dark shoppingCartItemDel">刪除</button>
 							</form>
 						</td>
 					</tr>
-					<tr id="copyShopFest" style="display:none">
-						  <td></td>
-						  <td></td>
-						  <td></td>
-						  <td>
-						  	<form action="<%=request.getContextPath()%>/mall/mall.do"
+					<tr id="copyShopFest" style="display: none">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>
+							<form action="<%=request.getContextPath()%>/mall/mall.do"
 								method="post">
-							  	<input type="hidden">
-							    <input type="hidden" name="action" value="delShoppingCartItem">
-							  	<button type="button" class="btn btn-dark shoppingCartItemDel">刪除</button>
-						  	</form>
-						  </td>	
+								<input type="hidden"> <input type="hidden" name="action"
+									value="delShoppingCartItem">
+								<button type="button" class="btn btn-dark shoppingCartItemDel">刪除</button>
+							</form>
+						</td>
 					</tr>
 				</tbody>
 			</table>

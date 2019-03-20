@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.cust.model.CustVO,com.broadcast.model.BroadcastVO"%>
-	<jsp:useBean id="broadcastSvc" scope="page"
-			class="com.broadcast.model.BroadcastService" />
+<jsp:useBean id="broadcastSvc" scope="page"
+	class="com.broadcast.model.BroadcastService" />
 
 <!DOCTYPE html>
 <html>
@@ -74,16 +74,17 @@
 								<ul>
 									<li><a
 										href="<%=request.getContextPath()%>/froTempl/headertest.jsp">首頁</a></li>
-									<li><a href="<%=request.getContextPath()%>/froTemplabout.html">關於食神</a>
+									<li><a
+										href="<%=request.getContextPath()%>/froTemplabout.html">關於食神</a>
 									</li>
-									<li><a href="<%=request.getContextPath()%>/froTemplservices.html">食神來了</a>
+									<li><a
+										href="<%=request.getContextPath()%>/froTemplservices.html">食神來了</a>
 										<ul class="dropdown">
 											<li><a
 												href="<%=request.getContextPath()%>/front-end/chef/listAllChef.jsp">瀏覽主廚</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/front-end/menuCart/orderMenu.jsp">嚴選套餐</a></li>
-										</ul>
-									</li>
+												href="<%=request.getContextPath()%>/menuCart/menu.jsp">嚴選套餐</a></li>
+										</ul></li>
 									<li><a
 										href="<%=request.getContextPath()%>/froTemplportfolio.html">食神配送</a>
 										<ul class="dropdown">
@@ -91,8 +92,18 @@
 												href="<%=request.getContextPath()%>/front-end/festMenu/listFestMall.jsp">節慶主題</a></li>
 											<li><a
 												href="<%=request.getContextPath()%>/front-end/foodMall/listFoodMall.jsp">嚴選食材</a></li>
-										</ul>
-									</li>
+										</ul></li>
+									<c:if test="${not empty foodSupVO}">
+										<li><a href="">主廚專區</a>
+											<ul class="dropdown">
+												<li><a
+													href="<%=request.getContextPath()%>/front-end/foodSup/addFoodMall.jsp">修改個人簡介</a></li>
+												<li><a
+													href="<%=request.getContextPath()%>/front-end/foodSup/listFoodMallsByFoodSupID.jsp">排程管理</a></li>
+												<li><a
+													href="<%=request.getContextPath()%>/front-end/foodSup/MFSupOD.jsp">訂單管理</a></li>
+											</ul></li>
+									</c:if>
 									<c:if test="${not empty foodSupVO}">
 										<li><a href="">食材供應商專區</a>
 											<ul class="dropdown">
@@ -110,15 +121,16 @@
 										<li><a>Hello:<font color=#ea7500>
 													${custVO.cust_name} </font>您好
 										</a></li>
-										
-										
-										
-										
-										<li><a><i class="fa fa-dribbble"></i><span class="badge badge-light">4${custVO.cust_ID}</span></a>
+
+
+
+
+										<li><a><i class="fa fa-dribbble"></i><span
+												class="badge badge-light">4${custVO.cust_ID}</span></a>
 											<ul class="dropdown">
 												<c:forEach var="broadcastVO" items="${broadcastSvc.all}">
-												<c:if test="${broadcastVO.cust_ID == custVO.cust_ID}">
-													<li><a>${broadcastVO.broadcast_con}</a></li>
+													<c:if test="${broadcastVO.cust_ID == custVO.cust_ID}">
+														<li><a>${broadcastVO.broadcast_con}</a></li>
 													</c:if>
 												</c:forEach>
 											</ul></li>

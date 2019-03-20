@@ -16,7 +16,9 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>廣告資料新增 - addAd.jsp</title>
-<link href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
+	rel="stylesheet">
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -58,82 +60,82 @@ th, td {
 <body>
 	<jsp:include page="/froTempl/header.jsp" flush="true" />
 
-	 <!-- ##### Contact Area Start #####-->
-    <section class="contact-area section-padding-100">	<h3>資料新增:</h3>
+	<!-- ##### Contact Area Start #####-->
+	<section class="contact-area section-padding-100">
+		<h3>資料新增:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
-		name="form1" enctype="multipart/form-data">
+		<%-- 錯誤表列 --%>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
+			name="form1" enctype="multipart/form-data">
 
-		<table>
+			<table>
 
-			<tr>
-				<td>廣告標題:</td>
-				<td><input type="TEXT" name="ad_title" size="45"
-					value="<%=(adVO == null) ? "teddy" : adVO.getAd_title()%>" /></td>
-			</tr>
-
-			
-			<tr>
-				<td>廣告上架日期:</td>
-				<td><input type="TEXT" name="ad_start" id="f_date1" size="45" /></td>
-			</tr>
+				<tr>
+					<td>廣告標題:</td>
+					<td><input type="TEXT" name="ad_title" size="45"
+						value="<%=(adVO == null) ? "teddy" : adVO.getAd_title()%>" /></td>
+				</tr>
 
 
-			<tr>
-				<td>廣告下架日期:</td>
-				<td><input type="TEXT" name="ad_end" id="f_date2" size="45" /></td>
-			</tr>
+				<tr>
+					<td>廣告上架日期:</td>
+					<td><input type="TEXT" name="ad_start" id="f_date1" size="45" /></td>
+				</tr>
 
-			
-			<tr>
-				<td>廣告類別:</td>
-				<td><input type="TEXT" name="ad_type" size="45"
-					value="<%=(adVO == null) ? "555" : adVO.getAd_type()%>" /></td>
-			</tr>
 
-		
-			<tr>
-				<td>廣告內文:</td>
-				<td>
-					<textarea name="ad_con"></textarea>
-					<script>CKEDITOR.replace('ad_con');</script>
-				</td>
-			</tr>
-			
-			
+				<tr>
+					<td>廣告下架日期:</td>
+					<td><input type="TEXT" name="ad_end" id="f_date2" size="45" /></td>
+				</tr>
+
+
+				<tr>
+					<td>廣告類別:</td>
+					<td><input type="TEXT" name="ad_type" size="45"
+						value="<%=(adVO == null) ? "555" : adVO.getAd_type()%>" /></td>
+				</tr>
+
+
+				<tr>
+					<td>廣告內文:</td>
+					<td><textarea name="ad_con"></textarea> <script>CKEDITOR.replace('ad_con');</script>
+					</td>
+				</tr>
 
 
 
-		</table>
-		
-		
-		
-		<br> <input type="hidden" name="action" value="insert"> 
+
+
+			</table>
+
+
+
+			<br> <input type="hidden" name="action" value="insert">
 			<input type="hidden" name="food_sup_ID" size="45"
-					value="<%=foodSupVO.getFood_sup_ID()%>" /></td>	<input
-			type="submit" value="送出新增">
-			
+				value="<%=foodSupVO.getFood_sup_ID()%>" />
+			</td> <input type="submit" value="送出新增">
 
-	</FORM>
-	
-</section>
-    <!-- ##### Contact Area End #####-->
+
+		</FORM>
+
+	</section>
+	<!-- ##### Contact Area End #####-->
 
 	<jsp:include page="/froTempl/footer.jsp" flush="true" />
-<%--=================================jQuery===============================================--%>
-			</div>
-		</div>
+	<%--=================================jQuery===============================================--%>
 	</div>
-	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	</div>
+	</div>
+	<script
+		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 </body>
 
 <script>

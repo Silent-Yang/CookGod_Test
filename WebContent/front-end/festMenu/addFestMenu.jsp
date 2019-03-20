@@ -35,10 +35,9 @@ h4 {
 }
 
 .fest_m_pic {
-    width:172.5px;
-    height:230px;
+	width: 172.5px;
+	height: 230px;
 }
-
 </style>
 
 <style>
@@ -86,8 +85,9 @@ th, td {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/festMenu/festMenu.do" name="form1" 
-	  enctype="multipart/form-data">
+	<FORM METHOD="post"
+		ACTION="<%=request.getContextPath()%>/festMenu/festMenu.do"
+		name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>節慶主題料理名稱:</td>
@@ -112,12 +112,12 @@ th, td {
 				<td><input type="TEXT" name="fest_m_end" id="f_date2"
 					value="<%= (festMenuVO==null)? "請選擇結束預購日期" :festMenuVO.getFest_m_end()%>" /></td>
 			</tr>
-			
-            <tr>
-			    <td>照片:</td>
+
+			<tr>
+				<td>照片:</td>
 				<td><input type="file" name="fest_m_pic" size="20" id="doc"
 					onchange="javascript:setImagePreview();" /></td>
-			</tr>   
+			</tr>
 
 			<tr>
 				<td>介紹:</td>
@@ -140,15 +140,15 @@ th, td {
 
 			<tr>
 				<td>種類:</td>
-	<!--  		<td><select name="fest_m_kind">
+				<!--  		<td><select name="fest_m_kind">
 						<option value=0>f0:下架
 						<option value=1>f1:上架
-				    </select>  -->	
-				<td><input type="TEXT" name="fest_m_kind" size="20" 
-			        value="<%= (festMenuVO==null)? "3" :festMenuVO.getFest_m_kind() %>" />
-			    </td>
+				    </select>  -->
+				<td><input type="TEXT" name="fest_m_kind" size="20"
+					value="<%= (festMenuVO==null)? "3" :festMenuVO.getFest_m_kind() %>" />
+				</td>
 			</tr>
-			
+
 			<tr>
 				<td>價格:</td>
 				<td><input type="TEXT" name="fest_m_price" size="20"
@@ -161,13 +161,13 @@ th, td {
 					value="<%=(festMenuVO == null) ? "C00002" : festMenuVO.getChef_ID()%>" /></td>
 			</tr>
 		</table>
-		
-		
+
+
 		<div id="localImag">
 			<img id="preview" width=-1 height=-1 style="diplay: none" />
 		</div>
-		<br> <input type="hidden" name="action" value="insert">
-		     <input type="submit" value="送出新增">
+		<br> <input type="hidden" name="action" value="insert"> <input
+			type="submit" value="送出新增">
 	</FORM>
 </body>
 

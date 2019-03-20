@@ -34,72 +34,72 @@ th, td {
 	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
-<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
-		
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>權限資料修改 - update_auth_input.jsp</h3>
-				<h4>
-					<a
-						href="<%=request.getContextPath()%>/back-end/auth/select_page.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+				<table id="table-1">
+					<tr>
+						<td>
+							<h3>權限資料修改 - update_auth_input.jsp</h3>
+							<h4>
+								<a
+									href="<%=request.getContextPath()%>/back-end/auth/select_page.jsp">回首頁</a>
+							</h4>
+						</td>
+					</tr>
+				</table>
 
-	<h3>資料修改:</h3>
+				<h3>資料修改:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
 
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auth/auth.do"
-		name="form1">
-		<table>
-			<tr>
-				<td>員工:<font color=red><b>*</b></font></td>
-				<td><%=authVO.getEmp_ID()%></td>
-			</tr>
-			
-			<tr>
-				<td>權限名稱:</td>
-				<td><input type="TEXT" name="fun_ID" size="45"
-					value="<%=authVO.getFun_ID()%>" /></td>
-			</tr>
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/auth/auth.do" name="form1">
+					<table>
+						<tr>
+							<td>員工:<font color=red><b>*</b></font></td>
+							<td><%=authVO.getEmp_ID()%></td>
+						</tr>
 
-			
-		</table>
-		
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="emp_ID" value="<%=authVO.getEmp_ID()%>">
-		<input type="submit" value="送出修改">
-	</FORM>
+						<tr>
+							<td>權限名稱:</td>
+							<td><input type="TEXT" name="fun_ID" size="45"
+								value="<%=authVO.getFun_ID()%>" /></td>
+						</tr>
 
 
+					</table>
 
+					<br> <input type="hidden" name="action" value="update">
+					<input type="hidden" name="emp_ID" value="<%=authVO.getEmp_ID()%>">
+					<input type="submit" value="送出修改">
+				</FORM>
 
 
 
 
-<%--=================================工作區================================================--%>			
+
+
+
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
 
-<%--=================================jQuery===============================================--%>
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>

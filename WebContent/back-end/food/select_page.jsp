@@ -10,13 +10,13 @@
 	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
 			<jsp:include page="/back-end/food/sidebar.jsp" flush="true" />
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 				<h3>資料查詢:</h3>
 				<%-- 錯誤表列 --%>
 				<%-- JSTL標籤 + EL隱含物件.errorMsgs --%>
@@ -88,7 +88,7 @@
 				</ul>
 
 
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
 			</div>
 		</div>

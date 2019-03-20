@@ -1,16 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.dishFood.model.*,com.food.model.*"%>
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.Set" %>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="java.util.Map"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Set"%>
 
-<jsp:useBean id="dishFoodSvc" scope="page" class="com.dishFood.model.DishFoodService" />
-<jsp:useBean id="foodSvc" scope="page" class="com.food.model.FoodService" />
-<jsp:useBean id="dishSvc" scope="page" class="com.dish.model.DishService" />
-<jsp:useBean id="gson" class="com.google.gson.Gson"/>
+<jsp:useBean id="dishFoodSvc" scope="page"
+	class="com.dishFood.model.DishFoodService" />
+<jsp:useBean id="foodSvc" scope="page"
+	class="com.food.model.FoodService" />
+<jsp:useBean id="dishSvc" scope="page"
+	class="com.dish.model.DishService" />
+<jsp:useBean id="gson" class="com.google.gson.Gson" />
 
 
 <html>
@@ -26,7 +29,6 @@
 	crossorigin="anonymous">
 
 <style>
-	
 </style>
 
 </head>
@@ -35,14 +37,15 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-6">
-				<table id="table-1" style="background-color:blue;">
+				<table id="table-1" style="background-color: blue;">
 					<tr>
 						<td>
 							<h3>菜色食材新增 - addDishFood.jsp</h3>
 						</td>
 						<td>
 							<h4>
-								<a href="<%=request.getContextPath()%>/back-end/dish/select_page.jsp">回首頁</a>
+								<a
+									href="<%=request.getContextPath()%>/back-end/dish/select_page.jsp">回首頁</a>
 							</h4>
 						</td>
 					</tr>
@@ -59,39 +62,36 @@
 						</c:forEach>
 					</ul>
 				</c:if>
-				<FORM METHOD="post"	ACTION="<%=request.getContextPath()%>/dishFood/dishFood.do">
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/dishFood/dishFood.do">
 					<table>
 						<tr>
 							<td>選擇菜色:</td>
-							
-							<td>
-								<select size="1" name="dish_ID">
-									<c:forEach var="dishFoodVO" items="${dishSvc.all}" >
+
+							<td><select size="1" name="dish_ID">
+									<c:forEach var="dishFoodVO" items="${dishSvc.all}">
 										<option value="${dishFoodVO.dish_ID}">${dishSvc.getOneDish(dishFoodVO.dish_ID).dish_name}
 									</c:forEach>
-								</select>
-							</td>
+							</select></td>
 						</tr>
 					</table>
-						
-					<h3>選擇食材:</h3>	
-						<div class="container">
-							<div class="row">
+
+					<h3>選擇食材:</h3>
+					<div class="container">
+						<div class="row">
 							<c:forEach var="food_type" items="${foodTypeMap}">
 								<div class="col-sm ${food_type.key}">${food_type.value}</div>
 							</c:forEach>
-							</div>
 						</div>
-							
-						<div id="foodList" class="container">
-							
-						</div>
-					<input type="hidden" name="action" value="AllFood">
-					<input type="submit" value="送出"><br>
+					</div>
+
+					<div id="foodList" class="container"></div>
+					<input type="hidden" name="action" value="AllFood"> <input
+						type="submit" value="送出"><br>
 				</FORM>
-				
+
 			</div>
-			<div class="col-6" style="backgoung-color:gray;">Right</div>
+			<div class="col-6" style="backgoung-color: gray;">Right</div>
 		</div>
 	</div>
 
@@ -155,7 +155,7 @@
 		
 		
 	</script>
-	
+
 
 </body>
 </html>

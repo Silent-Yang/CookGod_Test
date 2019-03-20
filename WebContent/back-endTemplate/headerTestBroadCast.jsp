@@ -1,33 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<jsp:useBean id="custVO" class="com.cust.model.CustVO"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<jsp:useBean id="custVO" class="com.cust.model.CustVO" />
 <% custVO.setCust_ID("C00001"); %>
 
 <html>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Custom CSS -->
-    <link href="<%=request.getContextPath()%>/back-endTemplate/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="<%=request.getContextPath()%>/back-endTemplate/dist/css/style.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- Custom CSS -->
+<link
+	href="<%=request.getContextPath()%>/back-endTemplate/assets/libs/chartist/dist/chartist.min.css"
+	rel="stylesheet">
+<!-- Custom CSS -->
+<link
+	href="<%=request.getContextPath()%>/back-endTemplate/dist/css/style.min.css"
+	rel="stylesheet">
 </head>
-<body >
-	
-	
+<body>
 
-	
-	<div id="statusOutput">
-		
-	</div>
-	
-	<div id="broadcastRcver">
-		
-	</div>
-	
-	
+
+
+
+	<div id="statusOutput"></div>
+
+	<div id="broadcastRcver"></div>
+
+
 </body>
-	<script>
+<script>
 		var MyPoint = "/BroadCastServer";
 		var host = window.location.host;
 		var webCtx = '<%=request.getContextPath()%>';

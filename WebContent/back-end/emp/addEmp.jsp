@@ -39,64 +39,65 @@ th, td {
 	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
-<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
-		
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 
-	<h3>資料新增:</h3>
+				<h3>資料新增:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do"
-		name="form1" enctype="multipart/form-data">
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/emp/emp.do" name="form1"
+					enctype="multipart/form-data">
 
-		<table>
-			<tr>
-				<td>員工帳號:</td>
-				<td><input type="TEXT" name="emp_acc" size="45"
-					value="<%=(empVO == null) ? "Aa158556" : empVO.getEmp_acc()%>" /></td>
-			</tr>
+					<table>
+						<tr>
+							<td>員工帳號:</td>
+							<td><input type="TEXT" name="emp_acc" size="45"
+								value="<%=(empVO == null) ? "Aa158556" : empVO.getEmp_acc()%>" /></td>
+						</tr>
 
-			<tr>
-				<td>員工姓名:</td>
-				<td><input type="TEXT" name="emp_name" size="45"
-					value="<%=(empVO == null) ? "teddy" : empVO.getEmp_name()%>" /></td>
-			</tr>
-
-			
-			<tr>
-				<td>員工大頭照:</td>
-				<td><input type="file" name="emp_pic" size="45" id="doc"
-					onchange="javascript:setImagePreview();" /></td>
-			</tr>
+						<tr>
+							<td>員工姓名:</td>
+							<td><input type="TEXT" name="emp_name" size="45"
+								value="<%=(empVO == null) ? "teddy" : empVO.getEmp_name()%>" /></td>
+						</tr>
 
 
-
-		</table>
-		<div id="localImag">
-			<img id="preview" width=-1 height=-1 style="diplay: none" />
-		</div>
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
-
-	</FORM>
-
-<%--=================================工作區================================================--%>			
+						<tr>
+							<td>員工大頭照:</td>
+							<td><input type="file" name="emp_pic" size="45" id="doc"
+								onchange="javascript:setImagePreview();" /></td>
+						</tr>
 
 
-<script>
+
+					</table>
+					<div id="localImag">
+						<img id="preview" width=-1 height=-1 style="diplay: none" />
+					</div>
+					<br> <input type="hidden" name="action" value="insert">
+					<input type="submit" value="送出新增">
+
+				</FORM>
+
+				<%--=================================工作區================================================--%>
+
+
+				<script>
 	function setImagePreview() {
 		var docObj = document.getElementById("doc");
 		var imgObjPreview = document.getElementById("preview");
@@ -134,7 +135,7 @@ th, td {
 
 
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-<%--=================================jQuery===============================================--%>
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>

@@ -51,9 +51,9 @@ th, td {
 	text-align: center;
 }
 
-img{
-	width:200px;
-	height:auto;
+img {
+	width: 200px;
+	height: auto;
 }
 </style>
 
@@ -107,8 +107,12 @@ img{
 				<td>${festMenuVO.fest_m_qty}</td>
 				<td>${festMenuVO.fest_m_start}</td>
 				<td>${festMenuVO.fest_m_end}</td>
-				<td><c:if test="${not empty festMenuVO.fest_m_pic}"><img src="<%=request.getContextPath()%>/festMenu/festMenu.do?fest_m_ID=${festMenuVO.fest_m_ID}"></c:if>
-				    <c:if test="${empty festMenuVO.fest_m_pic}"><img src="<%=request.getContextPath()%>/images/null2.jpg"></c:if></td>
+				<td><c:if test="${not empty festMenuVO.fest_m_pic}">
+						<img
+							src="<%=request.getContextPath()%>/festMenu/festMenu.do?fest_m_ID=${festMenuVO.fest_m_ID}">
+					</c:if> <c:if test="${empty festMenuVO.fest_m_pic}">
+						<img src="<%=request.getContextPath()%>/images/null2.jpg">
+					</c:if></td>
 				<td>${festMenuVO.fest_m_resume}</td>
 				<td>${festMenuVO.fest_m_send}</td>
 				<td>${festMenuVO.fest_m_status}</td>

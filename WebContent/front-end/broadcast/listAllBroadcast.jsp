@@ -96,20 +96,20 @@ th, td {
 
 			<tr>
 				<td>${broadcastVO.broadcast_ID}</td>
-				
+
 				<td>${broadcastVO.broadcast_con}</td>
 				<td>${broadcastVO.broadcast_start}</td>
-				
+
 				<td>${broadcastVO.broadcast_status}</td>
 				<td>${broadcastVO.cust_ID}</td>
-				
+
 				<td>
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/broadcast/broadcast.do"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="修改"> <input type="hidden"
-							name="broadcast_ID" value="${broadcastVO.broadcast_ID}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
+							name="broadcast_ID" value="${broadcastVO.broadcast_ID}">
+						<input type="hidden" name="action" value="getOne_For_Update">
 					</FORM>
 				</td>
 				<td>
@@ -117,8 +117,8 @@ th, td {
 						ACTION="<%=request.getContextPath()%>/broadcast/broadcast.do"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="刪除"> <input type="hidden"
-							name="broadcast_ID" value="${broadcastVO.broadcast_ID}"> <input
-							type="hidden" name="action" value="delete">
+							name="broadcast_ID" value="${broadcastVO.broadcast_ID}">
+						<input type="hidden" name="action" value="delete">
 					</FORM>
 				</td>
 			</tr>

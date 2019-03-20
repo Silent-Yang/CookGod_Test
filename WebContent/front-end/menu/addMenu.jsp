@@ -12,7 +12,9 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>套餐資料新增 - addMenu.jsp</title>
-<link href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
+	rel="stylesheet">
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -52,67 +54,69 @@ th, td {
 </head>
 
 <body bgcolor='white'>
-		<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
+	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
-<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
-		
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
-	<h3>資料新增:</h3>
+				<%--=================================工作區================================================--%>
+				<h3>資料新增:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/menu/menu.do"
-		name="form1" enctype="multipart/form-data">
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/menu/menu.do" name="form1"
+					enctype="multipart/form-data">
 
-		<table>
-			<tr>
-				<td>套餐名稱:</td>
-				<td><input type="text" name="menu_name" value="${menuVO==null? '': menuVO.menu_name}" /></td>
-			</tr>
+					<table>
+						<tr>
+							<td>套餐名稱:</td>
+							<td><input type="text" name="menu_name"
+								value="${menuVO==null? '': menuVO.menu_name}" /></td>
+						</tr>
 
-			<tr>
-				<td>套餐價錢:</td>
-				<td><input type="number" name="menu_price" value="${menuVO==null? '': menuVO.menu_price}" /></td>
-			</tr>
+						<tr>
+							<td>套餐價錢:</td>
+							<td><input type="number" name="menu_price"
+								value="${menuVO==null? '': menuVO.menu_price}" /></td>
+						</tr>
 
-			<tr>
-				<td>套餐簡介:</td>
-				<td>
-					<input type="text"  name = "menu_resume" value="${menuVO==null? '':menuVO.menu_resume}" placeholder="請輸入簡介"><br>
-				</td>
-			</tr>
-			
-			<tr>
-				<td>套餐照片:</td>
-				<td>
-					<input type="file" name="menu_pic" id="doc" onchange="javascript:setImagePreview();" /><br>
-				</td>
-			</tr>
-			
-		</table>
-		<div id="localImag">
-			<img id="preview" width=-1 height=-1 style="display: none" />
-		</div>
-		<input type="hidden" name="action" value="insert"> 
-		<input type="submit" value="送出新增"><br>
-	</FORM>
-	
-	<%--=================================工作區================================================--%>			
+						<tr>
+							<td>套餐簡介:</td>
+							<td><input type="text" name="menu_resume"
+								value="${menuVO==null? '':menuVO.menu_resume}"
+								placeholder="請輸入簡介"><br></td>
+						</tr>
+
+						<tr>
+							<td>套餐照片:</td>
+							<td><input type="file" name="menu_pic" id="doc"
+								onchange="javascript:setImagePreview();" /><br></td>
+						</tr>
+
+					</table>
+					<div id="localImag">
+						<img id="preview" width=-1 height=-1 style="display: none" />
+					</div>
+					<input type="hidden" name="action" value="insert"> <input
+						type="submit" value="送出新增"><br>
+				</FORM>
+
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-<%--=================================jQuery===============================================--%>
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>

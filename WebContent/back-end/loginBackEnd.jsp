@@ -8,16 +8,15 @@
 <title>後台login</title>
 </head>
 <body>
-<center>
-	<form action="<%=request.getContextPath()%>/back-end/login.do" method="post">
-		
+	<center>
+		<form action="<%=request.getContextPath()%>/back-end/login.do"
+			method="post">
+
 			<table border=1>
 				<tr>
 					<td colspan=2>
 						<p align=center>
-							輸入<b>後台(測試登入)</b>:<br> 
-							帳號:<b>emp1</b><br>
-							密碼:<b>123456</b><br>
+							輸入<b>後台(測試登入)</b>:<br> 帳號:<b>emp1</b><br> 密碼:<b>123456</b><br>
 					</td>
 				</tr>
 
@@ -45,14 +44,12 @@
 
 
 				<tr>
-					<td colspan=2 align=center>
-						
-							<input type=submit value="  ok   ">
-						
+					<td colspan=2 align=center><input type=submit value="  ok   ">
+
 					</td>
 				</tr>
 			</table>
-	</form>
-</center>
+		</form>
+	</center>
 </body>
 </html>

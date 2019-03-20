@@ -1,64 +1,52 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:useBean id="chefSvc" class="com.chef.model.ChefService"/>
+<jsp:useBean id="chefSvc" class="com.chef.model.ChefService" />
 <html>
 <head>
 </head>
 <body>
 	<jsp:include page="/froTempl/header.jsp" flush="true" />
 
-	 <!-- ##### Contact Area Start #####-->
-    <section class="contact-area section-padding-100">
-    <jsp:include page="/front-end/foodMall/shoppingcartIn.jsp"/>
-    <c:if test="${not empty errorMsgs}">
-		<font style="color:red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+	<!-- ##### Contact Area Start #####-->
+	<section class="contact-area section-padding-100">
+		<jsp:include page="/front-end/foodMall/shoppingcartIn.jsp" />
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
 		<div id="mallItem" class="container foodMCard">
-	    	<div class="col">
-	    		節慶料理編號 : ${festMenuVO.fest_m_ID}
-	    	</div>
-	    	<div class="col" id="festMName">
-	    		節慶主題料理名稱 : ${festMenuVO.fest_m_name}
-	    	</div>
-	    	<div class="col">
-	    		數量 : ${festMenuVO.fest_m_qty}
-	    	</div>
-	    	<div class="col">
-	    		開始預購日期 : ${festMenuVO.fest_m_start}
-	    	</div>
-	    	<div class="col">
-	    		結束預購日期 : ${festMenuVO.fest_m_end}
-	    	</div>
-	    	<div class="col">
-	    		結束預購日期 : ${festMenuVO.fest_m_send}
-	    	</div>
-	    	<div class="col">
-	    		<img src="<%=request.getContextPath()%>/festmenu/festmenu.do?fest_m_ID=${festMenuVO.fest_m_ID}"
-	    			height = "400" width="300">
-	    	</div>
-	    	<div class="col">
-	    		種類 : ${festMenuVO.fest_m_kind}
-	    	</div>
-	    	<div class="col">
-	    		價格 : ${festMenuVO.fest_m_price}
-	    	</div>
-	    	<div class="col">
-	    		介紹 : ${festMenuVO.fest_m_resume}
-	    	</div>
-	    	<form class="foodMCard" action="<%=request.getContextPath()%>/mall/mall.do" method="POST">
-				<button type="button" id="addShoppingcart" name="foodMBtn" class="btn btn-primary">加入購物車</button>
-				<input type="hidden" name="fest_m_ID" value="${festMenuVO.fest_m_ID}">	
-				<input type="number" name="fest_or_qty" min="1" max="20" size="3" value="1">
+			<div class="col">節慶料理編號 : ${festMenuVO.fest_m_ID}</div>
+			<div class="col" id="festMName">節慶主題料理名稱 :
+				${festMenuVO.fest_m_name}</div>
+			<div class="col">數量 : ${festMenuVO.fest_m_qty}</div>
+			<div class="col">開始預購日期 : ${festMenuVO.fest_m_start}</div>
+			<div class="col">結束預購日期 : ${festMenuVO.fest_m_end}</div>
+			<div class="col">結束預購日期 : ${festMenuVO.fest_m_send}</div>
+			<div class="col">
+				<img
+					src="<%=request.getContextPath()%>/festmenu/festmenu.do?fest_m_ID=${festMenuVO.fest_m_ID}"
+					height="400" width="300">
+			</div>
+			<div class="col">種類 : ${festMenuVO.fest_m_kind}</div>
+			<div class="col">價格 : ${festMenuVO.fest_m_price}</div>
+			<div class="col">介紹 : ${festMenuVO.fest_m_resume}</div>
+			<form class="foodMCard"
+				action="<%=request.getContextPath()%>/mall/mall.do" method="POST">
+				<button type="button" id="addShoppingcart" name="foodMBtn"
+					class="btn btn-primary">加入購物車</button>
+				<input type="hidden" name="fest_m_ID"
+					value="${festMenuVO.fest_m_ID}"> <input type="number"
+					name="fest_or_qty" min="1" max="20" size="3" value="1">
 			</form>
 			<p class="card-text errorMsgs"></p>
 		</div>
-    </section>
-    <!-- ##### Contact Area End #####-->
+	</section>
+	<!-- ##### Contact Area End #####-->
 
 	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 	<script>

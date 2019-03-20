@@ -93,7 +93,7 @@
 								<h2 data-animation="fadeInUp" data-delay="300ms">
 									<span>Digital Agency</span><br>of the year 2019
 								</h2>
-								
+
 								<h4 data-animation="fadeInUp" data-delay="500ms">
 									Visual Identity by John Doe Client: <span>Lorem ipsum</span>
 								</h4>

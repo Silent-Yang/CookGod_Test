@@ -7,21 +7,21 @@
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>食材資料新增 - addFood.jsp</title>
 </head>
 <body>
 	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
-<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
 			<jsp:include page="/back-end/food/sidebar.jsp" flush="true" />
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 				<%-- 錯誤列表 --%>
 				<c:if test="${not empty errorMsgs}">
 					<font style="color: red">請修正以下錯誤:</font>
@@ -31,35 +31,34 @@
 						</c:forEach>
 					</ul>
 				</c:if>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/food/food.do" name="form1">
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/food/food.do" name="form1">
 					<table>
 						<tr>
-								 
+
 							<td>食材名稱:${foodVO.food_name}</td>
-							<td><input type="TEXT" name="food_name" size="45" 
-								 <%--value="<%= (foodVO==null)? "大白菜" : foodVO.getFood_name()%>" /></td> --%>
+							<td><input type="TEXT" name="food_name" size="45"
+								<%--value="<%= (foodVO==null)? "大白菜" : foodVO.getFood_name()%>" /></td> --%>
 								 value=${empty foodVO.food_name ? "大白菜":foodVO.food_name} /></td>
 						</tr>
 						<tr>
 							<td>食材種類:</td>
-							<td>
-								<select size="1" name="food_type_ID">
+							<td><select size="1" name="food_type_ID">
 									<c:forEach var="food_type" items="${foodTypeMap}">
-										<option value="${food_type.key}" ${(foodVO.food_type_ID == food_type.key)?'selected':''}>${food_type.value}
+										<option value="${food_type.key}"
+											${(foodVO.food_type_ID == food_type.key)?'selected':''}>${food_type.value}
 									</c:forEach>
-								</select>
-							</td>
+							</select></td>
 						</tr>
-					
-					
+
+
 					</table>
-					<br>
-					<input type="hidden" name="action" value="insert">
+					<br> <input type="hidden" name="action" value="insert">
 					<input type="submit" value="送出新增">
 				</FORM>
-<%--=================================工作區================================================--%>			
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-<%--=================================jQuery===============================================--%>
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>

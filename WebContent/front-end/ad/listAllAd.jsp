@@ -86,40 +86,39 @@ th, td {
 		<tr>
 			<th>廣告編號</th>
 			<th>廣告標題</th>
-			
+
 			<th>廣告上架日期</th>
 			<th>廣告下架日期</th>
 			<th>廣告狀態</th>
 			<th>廣告類別</th>
 			<th>食材供應商</th>
 		</tr>
-		
-		<c:forEach var="adVO" items="${list}" >
+
+		<c:forEach var="adVO" items="${list}">
 			<c:if test="${adVO.food_sup_ID == foodSupVO.getFood_sup_ID()}">
-			<tr>
-				<td>${adVO.ad_ID}</td>
-				<td>${adVO.ad_title}</td>
-				
-				<td>${adVO.ad_start}</td>
-				<td>${adVO.ad_end}</td>
-				<td>${adVO.ad_status}</td>
-				<td>${adVO.ad_type}</td>
-				<td>${adVO.food_sup_ID}</td>
+				<tr>
+					<td>${adVO.ad_ID}</td>
+					<td>${adVO.ad_title}</td>
+
+					<td>${adVO.ad_start}</td>
+					<td>${adVO.ad_end}</td>
+					<td>${adVO.ad_status}</td>
+					<td>${adVO.ad_type}</td>
+					<td>${adVO.food_sup_ID}</td>
 			</c:if>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/ad/ad.do"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="修改"> <input type="hidden"
-							name="ad_ID" value="${adVO.ad_ID}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				
+			<td>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
+					style="margin-bottom: 0px;">
+					<input type="submit" value="修改"> <input type="hidden"
+						name="ad_ID" value="${adVO.ad_ID}"> <input type="hidden"
+						name="action" value="getOne_For_Update">
+				</FORM>
+			</td>
+
 			</tr>
 		</c:forEach>
 	</table>
-	
+
 
 </body>
 </html>

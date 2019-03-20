@@ -26,18 +26,20 @@ public class MenuServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("image/jpg");
+		response.setContentType("image/gif");
 		
 		ServletOutputStream out = response.getOutputStream();		
 		List<String> errorMsgs = new LinkedList<String>();
 		
 		String showMenuPic = request.getParameter("showMenuPic");
+		
 		if("showMenuPic".equals(showMenuPic)) {
 			try {
 				String menu_ID = request.getParameter("menu_ID");
 				MenuService menuSvc = new MenuService();
 				MenuVO menuVO = (MenuVO) menuSvc.getOneMenu(menu_ID);
 				byte[] menu_pic = menuVO.getMenu_pic();	
+				System.out.println(menu_pic);
 				out.write(menu_pic);
 				request.setAttribute("menu_pic", menu_pic);
 			}catch(NullPointerException e){

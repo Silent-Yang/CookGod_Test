@@ -1,9 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.foodOrDetail.model.*" %>
+<%@ page import="com.foodOrDetail.model.*"%>
 
-<jsp:useBean id="listFoodOrDetails_ByFood_or_ID" scope="request" type="java.util.Set<FoodOrDetailVO>"/>
-<jsp:useBean id="foodOrderSvc" class="com.foodOrder.model.FoodOrderService"/>
+<jsp:useBean id="listFoodOrDetails_ByFood_or_ID" scope="request"
+	type="java.util.Set<FoodOrDetailVO>" />
+<jsp:useBean id="foodOrderSvc"
+	class="com.foodOrder.model.FoodOrderService" />
 <html>
 <head>
 <title>食材商城訂單明細</title>
@@ -31,8 +34,9 @@
 			<th>刪除</th>
 		</tr>
 
-		<c:forEach var="foodOrDetailVO" items="${listFoodOrDetails_ByFood_or_ID}">
-			<tr 
+		<c:forEach var="foodOrDetailVO"
+			items="${listFoodOrDetails_ByFood_or_ID}">
+			<tr
 				${(foodOrDetailVO.food_or_ID == param.food_or_ID
 					&& foodOrDetailVO.food_sup_ID == param.food_sup_ID
 					&& foodOrDetailVO.food_ID == param.food_ID) ? 'bgcolor=#CCCCFF':''}>
@@ -48,9 +52,10 @@
 					<FORM METHOD="post"
 						ACTION="<%=request.getContextPath()%>/foodOrDetail/foodOrDetail.do"
 						style="margin-bottom: 0px;">
-						<input type="submit" value="修改">
-						<input type="hidden" name="food_or_ID" value="${foodOrDetailVO.food_or_ID}">
-						<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+						<input type="submit" value="修改"> <input type="hidden"
+							name="food_or_ID" value="${foodOrDetailVO.food_or_ID}"> <input
+							type="hidden" name="requestURL"
+							value="<%=request.getServletPath()%>">
 						<!--送出本網頁的路徑給Controller-->
 						<!-- 目前尚未用到  -->
 						<input type="hidden" name="action" value="getOne_For_Update">
@@ -61,8 +66,9 @@
 						ACTION="<%=request.getContextPath()%>/foodOrDetail/foodOrDetail.do"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="刪除"> <input type="hidden"
-							name="food_or_ID" value="${foodOrDetailVO.food_or_ID}"> <input type="hidden"
-							name="requestURL" value="<%=request.getServletPath()%>">
+							name="food_or_ID" value="${foodOrDetailVO.food_or_ID}"> <input
+							type="hidden" name="requestURL"
+							value="<%=request.getServletPath()%>">
 						<!--送出本網頁的路徑給Controller-->
 						<input type="hidden" name="action" value="delete">
 					</FORM>

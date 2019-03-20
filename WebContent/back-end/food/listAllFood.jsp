@@ -17,17 +17,17 @@
 
 </head>
 <body>
-		<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
+	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
-<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
 			<jsp:include page="/back-end/food/sidebar.jsp" flush="true" />
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 				<%-- 錯誤列表 --%>
 				<c:if test="${not empty errorMsgs}">
 					<font style="color: red">請修正以下錯誤:</font>
@@ -51,11 +51,12 @@
 							<td>${foodVO.food_name}</td>
 							<td>${foodTypeMap[foodVO.food_type_ID]}</td>
 							<td>
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/food/food.do">
+								<FORM METHOD="post"
+									ACTION="<%=request.getContextPath()%>/food/food.do">
 									<button id="update" type="button">修改</button>
-									<input type="hidden" name="food_ID" value="${foodVO.food_ID}"> 
-									<input type="hidden" id="action" name="action">
-									<input type="hidden" id="requestURL" name="requestURL">
+									<input type="hidden" name="food_ID" value="${foodVO.food_ID}">
+									<input type="hidden" id="action" name="action"> <input
+										type="hidden" id="requestURL" name="requestURL">
 								</FORM>
 							</td>
 
@@ -64,11 +65,12 @@
 				</table>
 				<%@ include file="/file/page2.file"%>
 				<%if (request.getAttribute("listFoodMalls_ByFood_ID") != null ) {%>
-					<jsp:include page="/back-end/food/listFoodMalls_ByFood_ID.jsp" flush="true" />
+				<jsp:include page="/back-end/food/listFoodMalls_ByFood_ID.jsp"
+					flush="true" />
 				<%}%>
-<%--=================================工作區================================================--%>			
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-<%--=================================jQuery===============================================--%>
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>

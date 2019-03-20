@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.foodOrder.model.FoodOrderVO" %>
+<%@ page import="com.foodOrder.model.FoodOrderVO"%>
 <html>
 <head>
 <jsp:useBean id="custVO" scope="session" class="com.cust.model.CustVO">
@@ -19,7 +20,7 @@
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 				<div class="container-fluid">
 					<!-- ============================================================== -->
 					<!-- Start Page Content -->
@@ -37,34 +38,33 @@
 						<div class="col-12">
 							<div class="card card-body">
 								<h4 class="card-title">新增食材商城訂單</h4>
-								<form class="form-horizontal m-t-30" method="post" action="<%=request.getContextPath()%>/foodOrder/foodOrder.do">
+								<form class="form-horizontal m-t-30" method="post"
+									action="<%=request.getContextPath()%>/foodOrder/foodOrder.do">
 									<div class="form-group">
-										<label>收件人姓名</label>
-										<input type="text" class="form-control" name="food_or_name"
+										<label>收件人姓名</label> <input type="text" class="form-control"
+											name="food_or_name"
 											value="${empty foodOrderVO ? '': foodOrderVO.food_or_name}">
 									</div>
 									<div class="form-group">
-										<label>收件地址</label>
-										<input  id="zipcode" name="zipcode" class="form-control" type="text" readonly>
-										<select id="city" name="city" size="1" class="form-control"></select>
+										<label>收件地址</label> <input id="zipcode" name="zipcode"
+											class="form-control" type="text" readonly> <select
+											id="city" name="city" size="1" class="form-control"></select>
 										<select id="area" name="area" size="1" class="form-control">
 											<option value="-1"></option>
-										</select>
-										<select id="road" name="road" size="1" class="form-control">
+										</select> <select id="road" name="road" size="1" class="form-control">
 											<option value="-1"></option>
-										</select>
-										<input type="text" name="food_or_addrAfter" class="form-control"/>
+										</select> <input type="text" name="food_or_addrAfter"
+											class="form-control" />
 									</div>
 									<div class="form-group">
-										<label>收件人電話</label>
-										<input type="text" name="food_or_tel"
+										<label>收件人電話</label> <input type="text" name="food_or_tel"
 											class="form-control" placeholder="09XXXXXXXX"
 											value="${empty foodOrderVO ? '':foodOrderVO.food_or_tel}">
 									</div>
-									
+
 									<input type="hidden" name="cust_ID" value="${custVO.cust_ID}">
-									<input type="hidden" name="action" value="insert">
-									<input class="btn btn-success" type="submit" value="結帳">
+									<input type="hidden" name="action" value="insert"> <input
+										class="btn btn-success" type="submit" value="結帳">
 								</form>
 							</div>
 						</div>
@@ -81,7 +81,7 @@
 					<!-- ============================================================== -->
 				</div>
 
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
 			</div>
 		</div>

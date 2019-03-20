@@ -56,25 +56,21 @@ h4 {
 	<ul>
 		<li><a
 			href='<%=request.getContextPath()%>/front-end/ad/listAllAd.jsp'>List</a>
-			all Ad. <br>
-		<br></li>
+			all Ad. <br> <br></li>
 
 
 		<li>
-			<FORM METHOD="post"
-				ACTION="<%=request.getContextPath()%>/ad/ad.do">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do">
 				<b>輸入廣告編號:</b> <input type="text" name="ad_ID"> <input
 					type="hidden" name="action" value="getOne_For_Display"> <input
 					type="submit" value="送出">
 			</FORM>
 		</li>
 
-		<jsp:useBean id="adSvc" scope="page"
-			class="com.ad.model.AdService" />
+		<jsp:useBean id="adSvc" scope="page" class="com.ad.model.AdService" />
 
 		<li>
-			<FORM METHOD="post"
-				ACTION="<%=request.getContextPath()%>/ad/ad.do">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do">
 				<b>選擇廣告編號:</b> <select size="1" name="ad_ID">
 					<c:forEach var="adVO" items="${adSvc.all}">
 						<option value="${adVO.ad_ID}">${adVO.ad_ID}
@@ -85,8 +81,7 @@ h4 {
 		</li>
 
 		<li>
-			<FORM METHOD="post"
-				ACTION="<%=request.getContextPath()%>/ad/ad.do">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do">
 				<b>選擇廣告姓名:</b> <select size="1" name="ad_ID">
 					<c:forEach var="adVO" items="${adSvc.all}">
 						<option value="${adVO.ad_ID}">${adVO.ad_title}

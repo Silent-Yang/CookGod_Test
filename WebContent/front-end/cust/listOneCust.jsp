@@ -70,7 +70,7 @@ th, td {
 
 	<table>
 		<tr>
-			
+
 			<th>顧客帳號</th>
 			<th>顧客密碼</th>
 			<th>顧客姓名</th>
@@ -86,14 +86,16 @@ th, td {
 			<th>顧客暱稱</th>
 		</tr>
 		<tr>
-			
+
 			<td><%=custVO.getCust_acc()%></td>
 			<td><%=custVO.getCust_pwd()%></td>
 			<td><%=custVO.getCust_name()%></td>
-			<c:if test="${custVO.cust_sex.equals('M')}" var="true" scope="request">
+			<c:if test="${custVO.cust_sex.equals('M')}" var="true"
+				scope="request">
 				<td>男生</td>
 			</c:if>
-			<c:if test="${custVO.cust_sex.equals('F')}" var="true" scope="request">
+			<c:if test="${custVO.cust_sex.equals('F')}" var="true"
+				scope="request">
 				<td>女生</td>
 			</c:if>
 			<td><%=custVO.getCust_tel()%></td>
@@ -102,8 +104,12 @@ th, td {
 			<td><%=custVO.getCust_mail()%></td>
 			<td><%=custVO.getCust_brd()%></td>
 			<td><%=custVO.getCust_reg()%></td>
-			<td><c:if test="${not empty custVO.cust_pic}"><img src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}"></c:if>
-				    <c:if test="${empty custVO.cust_pic}"><img src="<%=request.getContextPath()%>/images/null2.jpg"></c:if></td>
+			<td><c:if test="${not empty custVO.cust_pic}">
+					<img
+						src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}">
+				</c:if> <c:if test="${empty custVO.cust_pic}">
+					<img src="<%=request.getContextPath()%>/images/null2.jpg">
+				</c:if></td>
 
 			<c:if test="${custVO.cust_status.equals('a0')}" var="true"
 				scope="session">

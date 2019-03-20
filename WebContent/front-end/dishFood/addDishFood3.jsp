@@ -3,9 +3,12 @@
 <%@ page import="com.dishFood.model.*,com.food.model.*"%>
 
 
-<jsp:useBean id="dishFoodSvc" scope="page" class="com.dishFood.model.DishFoodService" />
-<jsp:useBean id="foodSvc" scope="page" class="com.food.model.FoodService" />
-<jsp:useBean id="dishSvc" scope="page" class="com.dish.model.DishService" />
+<jsp:useBean id="dishFoodSvc" scope="page"
+	class="com.dishFood.model.DishFoodService" />
+<jsp:useBean id="foodSvc" scope="page"
+	class="com.food.model.FoodService" />
+<jsp:useBean id="dishSvc" scope="page"
+	class="com.dish.model.DishService" />
 <%
 	DishFoodVO dishFoodVO = (DishFoodVO) request.getAttribute("dishFoodVO");
 	FoodVO foodVO = (FoodVO) request.getAttribute("foodVO");
@@ -83,28 +86,25 @@ th, td {
 	</c:if>
 
 	<table>
-	<tr>
-	</tr>
+		<tr>
+		</tr>
 
-	<FORM METHOD="post"	ACTION="<%=request.getContextPath()%>/dishFood/dishFood.do">
-	
-		<b>選擇菜色:</b> 
-			<select size="1" name="dish_ID">
+		<FORM METHOD="post"
+			ACTION="<%=request.getContextPath()%>/dishFood/dishFood.do">
+
+			<b>選擇菜色:</b> <select size="1" name="dish_ID">
 				<c:forEach var="dishFoodVO" items="${dishSvc.all}">
 					<option value="${dishFoodVO.dish_ID}">${dishSvc.getOneDish(dishFoodVO.dish_ID).dish_name}
 				</c:forEach>
-			</select>
-			
-		<br>
+			</select> <br>
 
-		<c:forEach var="dishFoodVO" items="${foodSvc.all}">
-			<input type="checkbox" name="food_ID" value="${dishFoodVO.food_ID}">${foodSvc.getOneFood(dishFoodVO.food_ID).food_name}<br>
-		</c:forEach>
-		
-			 
-		 <input type="hidden" name="action" value="AllFood">
-			<input type="submit" value="送出"><br>
+			<c:forEach var="dishFoodVO" items="${foodSvc.all}">
+				<input type="checkbox" name="food_ID" value="${dishFoodVO.food_ID}">${foodSvc.getOneFood(dishFoodVO.food_ID).food_name}<br>
+			</c:forEach>
 
+
+			<input type="hidden" name="action" value="AllFood"> <input
+				type="submit" value="送出"><br>
 	</table>
 	</FORM>
 

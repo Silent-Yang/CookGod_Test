@@ -20,7 +20,6 @@
 <style>
 table {
 	width: 450px;
-	
 	margin-top: 1px;
 	margin-bottom: 1px;
 }
@@ -40,69 +39,75 @@ th, td {
 	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
 		data-layout="vertical" data-sidebartype="full"
 		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true"/>
+		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
 		<aside class="left-sidebar" data-sidebarbg="skin5">
-<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
-		
+			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+
 		</aside>
 		<div class="page-wrapper">
 			<div class="page-breadcrumb">
-<%--=================================工作區================================================--%>
+				<%--=================================工作區================================================--%>
 
 
-	<h3>資料新增:</h3>
+				<h3>資料新增:</h3>
 
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/auth/auth.do"
-		name="form1" >
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+					<font style="color: red">請修正以下錯誤:</font>
+					<ul>
+						<c:forEach var="message" items="${errorMsgs}">
+							<li style="color: red">${message}</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/auth/auth.do" name="form1">
 
-		<table>
-		
-			<tr>
-<jsp:useBean id="empSvc" scope="session" class="com.emp.model.EmpService" />
-<jsp:useBean id="funSvc" scope="session" class="com.fun.model.FunService" />
-				<b>選擇員工編號:</b> <select size="1" name="emp_ID">
-					<c:forEach var="empVO" items="${empSvc.all}">
-						<option value="${empVO.emp_ID}">${empVO.emp_name}
-					</c:forEach>
-</select> 
-			
-			</tr>
-			
-			<tr>
-				<b>選擇權限編號:</b> <select size="1" name="fun_ID">
-					<c:forEach var="funVO" items="${funSvc.all}">
-						<option value="${funVO.fun_ID}">${funVO.fun_name}
-					</c:forEach>
-					</select> 
-			</tr>
-			
+					<table>
 
+						<tr>
+							<jsp:useBean id="empSvc" scope="session"
+								class="com.emp.model.EmpService" />
+							<jsp:useBean id="funSvc" scope="session"
+								class="com.fun.model.FunService" />
+							<b>選擇員工編號:</b>
+							<select size="1" name="emp_ID">
+								<c:forEach var="empVO" items="${empSvc.all}">
+									<option value="${empVO.emp_ID}">${empVO.emp_name}
+								</c:forEach>
+							</select>
 
-		</table>
-		
-		<br> <input type="hidden" name="action" value="insert"> <input
-			type="submit" value="送出新增">
+						</tr>
 
-	</FORM>
+						<tr>
+							<b>選擇權限編號:</b>
+							<select size="1" name="fun_ID">
+								<c:forEach var="funVO" items="${funSvc.all}">
+									<option value="${funVO.fun_ID}">${funVO.fun_name}
+								</c:forEach>
+							</select>
+						</tr>
 
 
 
+					</table>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<script src="https://github.com/totobe/jQuery/blob/master/jquery.twzipcode.min.js"></script>
+					<br> <input type="hidden" name="action" value="insert">
+					<input type="submit" value="送出新增">
 
-<%--=================================工作區================================================--%>			
+				</FORM>
+
+
+
+
+				<script
+					src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+				<script
+					src="https://github.com/totobe/jQuery/blob/master/jquery.twzipcode.min.js"></script>
+
+				<%--=================================工作區================================================--%>
 				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-<%--=================================jQuery===============================================--%>
+				<%--=================================jQuery===============================================--%>
 			</div>
 		</div>
 	</div>

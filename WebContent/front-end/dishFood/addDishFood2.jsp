@@ -3,9 +3,12 @@
 <%@ page import="com.dishFood.model.*,com.food.model.*"%>
 
 
-<jsp:useBean id="dishFoodSvc" scope="page" class="com.dishFood.model.DishFoodService" />
-<jsp:useBean id="foodSvc" scope="page" class="com.food.model.FoodService" />
-<jsp:useBean id="dishSvc" scope="page" class="com.dish.model.DishService" />
+<jsp:useBean id="dishFoodSvc" scope="page"
+	class="com.dishFood.model.DishFoodService" />
+<jsp:useBean id="foodSvc" scope="page"
+	class="com.food.model.FoodService" />
+<jsp:useBean id="dishSvc" scope="page"
+	class="com.dish.model.DishService" />
 
 
 <html>
@@ -55,7 +58,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>菜色食材新增 </h3>
+				<h3>菜色食材新增</h3>
 			</td>
 			<td>
 				<h4>
@@ -78,40 +81,44 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-	
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/dishFood/dishFood.do" style="margin-bottom: 0px;">
-		
+
+	<FORM METHOD="post"
+		ACTION="<%=request.getContextPath()%>/dishFood/dishFood.do"
+		style="margin-bottom: 0px;">
+
 		<c:forEach var="dishFoodVO" items="${dishFoodList}">
-		 <table>
-		 	<tr>
-				<td>菜色</td>
-				<td> ${dishSvc.getOneDish(dishFoodVO.dish_ID).dish_name}</td>
-			</tr>
-			<tr>
-				<td>食材</td>
-				<td> ${foodSvc.getOneFood(dishFoodVO.food_ID).food_name}</td>
-			</tr>
-			<tr>	
-				
-				<td>食材數量:</td>
-				<td><input type="TEXT" name="dish_f_qty" size="42"value="${empty dishFoodVO? "MANAGER" : dishFoodVO.dish_f_qty}" /></td>
-			</tr>
-			<tr>
-				<td>食材重量</td>
-				<td><input type="TEXT" name="dish_f_unit" size="42"value="${empty dishFoodVO? "MANAGER" : dishFoodVO.dish_f_unit}" /></td>
-			</tr>
+			<table>
+				<tr>
+					<td>菜色</td>
+					<td>${dishSvc.getOneDish(dishFoodVO.dish_ID).dish_name}</td>
+				</tr>
+				<tr>
+					<td>食材</td>
+					<td>${foodSvc.getOneFood(dishFoodVO.food_ID).food_name}</td>
+				</tr>
+				<tr>
+
+					<td>食材數量:</td>
+					<td><input type="TEXT" name="dish_f_qty" size="42"
+						value="${empty dishFoodVO? " MANAGER" : dishFoodVO.dish_f_qty}" /></td>
+				</tr>
+				<tr>
+					<td>食材重量</td>
+					<td><input type="TEXT" name="dish_f_unit" size="42"
+						value="${empty dishFoodVO? " MANAGER" : dishFoodVO.dish_f_unit}" /></td>
+				</tr>
 			</table>
-		</c:forEach> 
-		
-			<input type="hidden" name="dish_ID" value="${dishFoodVO.dish_ID}">
-			<input type="hidden" name="food_ID" value="${dishFoodVO.food_ID}">
-			<input type="hidden" name="action" value="insert">
-			<input type="submit" value="送出新增">
-		
-		
+		</c:forEach>
+
+		<input type="hidden" name="dish_ID" value="${dishFoodVO.dish_ID}">
+		<input type="hidden" name="food_ID" value="${dishFoodVO.food_ID}">
+		<input type="hidden" name="action" value="insert"> <input
+			type="submit" value="送出新增">
+
+
 	</FORM>
-	
-	
+
+
 
 </body>
 </html>

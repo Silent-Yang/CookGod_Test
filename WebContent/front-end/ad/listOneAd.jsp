@@ -76,7 +76,7 @@ th, td {
 			<th>廣告狀態</th>
 			<th>廣告類別</th>
 			<th>食材供應商</th>
-			
+
 		</tr>
 		<tr>
 			<td><%=adVO.getAd_ID()%></td>
@@ -86,7 +86,7 @@ th, td {
 			<td><%=adVO.getAd_status()%></td>
 			<td><%=adVO.getAd_type()%></td>
 			<td><%=adVO.getFood_sup_ID()%></td>
-		
+
 
 		</tr>
 	</table>
