@@ -1,17 +1,20 @@
 package com.menuOrder.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chefSch.model.ChefSchService;
+import com.chefSch.model.ChefSchVO;
 import com.menuOrder.model.MenuOrderService;
 import com.menuOrder.model.MenuOrderVO;
 
@@ -70,7 +73,7 @@ public class MenuOrderServlet extends HttpServlet {
 			}
 		}
 		//取出一筆訂單準備修改
-		if("getOneForUpdate".equals(action)) {
+		if("getOneForDispaly".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 			
@@ -92,7 +95,7 @@ public class MenuOrderServlet extends HttpServlet {
 				errView.forward(request, response);
 			}
 		}
-		if("getOneForDispaly".equals(action)) {
+		if("getOneForUpdate".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);
 			
@@ -100,24 +103,31 @@ public class MenuOrderServlet extends HttpServlet {
 				//1.接收請求參數，並做錯誤判斷				
 				String menu_od_ID = request.getParameter("menu_od_ID");
 				String menu_od_status = request.getParameter("menu_od_status");
-				String checkMenuOrder = request.getParameter("checkMenuOrder");
 				//2.開始查詢資料
 				MenuOrderService menuOrderSvc = new MenuOrderService();
 				
-				if("pass".equals(checkMenuOrder)) {
-					menuOrderSvc.updateMenuOrderStatus(menu_od_ID, menu_od_status);
-				}else if("fail".equals(checkMenuOrder)) {
-					menuOrderSvc.updateMenuOrderStatus(menu_od_ID, menu_od_status);
-				}
+				menuOrderSvc.updateMenuOrderStatus(menu_od_ID, menu_od_status);
+				
 				MenuOrderVO menuOrderVO = menuOrderSvc.getOneMenuOrder(menu_od_ID);
 				request.setAttribute("menuOrderVO", menuOrderVO);
 				
-				RequestDispatcher sucessView = request.getRequestDispatcher("/back-end/menuOrder/listOneMenuOrder.jsp");
+				String chef_ID = menuOrderVO.getChef_ID();
+				SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+				Timestamp date = menuOrderVO.getMenu_od_start();
+				Date chef_sch_date = Date.valueOf(sdFormat.format(date));
+				
+				ChefSchVO chefSchVO = null;
+				if("g1".equals(menu_od_status)) {
+					ChefSchService chefSchSvc = new ChefSchService();
+					chefSchVO = chefSchSvc.update(chef_ID, chef_sch_date, "c1");
+				}
+				
+				RequestDispatcher sucessView = request.getRequestDispatcher("/front-end/menuOrder/listOneMenuOrder.jsp");
 				sucessView.forward(request, response);
 				
 			}catch(Exception e) {
 				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/listOneMenuOrder.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/menuOrder/listOneMenuOrder.jsp");
 				errView.forward(request, response);
 			}
 		}

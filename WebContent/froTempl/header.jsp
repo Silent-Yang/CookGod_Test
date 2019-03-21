@@ -109,6 +109,7 @@
 												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/addFoodMall.jsp">新增食材商品</a></li>
 												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/listFoodMallsByFoodSupID.jsp">食材商品管理</a></li>
 												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/MFSupODs.jsp">訂單管理</a></li>
+												<li><a href="<%=request.getContextPath()%>/front-end/ad/select_page.jsp">廣告管理</a></li>
 											</ul>
 										</li>
 									</c:if>

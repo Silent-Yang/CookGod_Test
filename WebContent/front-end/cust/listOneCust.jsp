@@ -50,16 +50,20 @@ th, td {
 </style>
 
 </head>
-<body bgcolor='white'>
+<body>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
+
+	 <!-- ##### Contact Area Start #####-->
+    <section class="contact-area section-padding-100">
 	<%
 		if (custVO != null) {
 	%>
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>顧客資料 - ListOneCust.jsp</h3>
+				<h3>顧客資料</h3>
 				<h4>
 					<a
 						href="<%=request.getContextPath()%>/front-end/cust/select_page.jsp">回首頁</a>
@@ -70,7 +74,7 @@ th, td {
 
 	<table>
 		<tr>
-
+			
 			<th>顧客帳號</th>
 			<th>顧客密碼</th>
 			<th>顧客姓名</th>
@@ -86,16 +90,14 @@ th, td {
 			<th>顧客暱稱</th>
 		</tr>
 		<tr>
-
+			
 			<td><%=custVO.getCust_acc()%></td>
 			<td><%=custVO.getCust_pwd()%></td>
 			<td><%=custVO.getCust_name()%></td>
-			<c:if test="${custVO.cust_sex.equals('M')}" var="true"
-				scope="request">
+			<c:if test="${custVO.cust_sex.equals('M')}" var="true" scope="request">
 				<td>男生</td>
 			</c:if>
-			<c:if test="${custVO.cust_sex.equals('F')}" var="true"
-				scope="request">
+			<c:if test="${custVO.cust_sex.equals('F')}" var="true" scope="request">
 				<td>女生</td>
 			</c:if>
 			<td><%=custVO.getCust_tel()%></td>
@@ -104,12 +106,8 @@ th, td {
 			<td><%=custVO.getCust_mail()%></td>
 			<td><%=custVO.getCust_brd()%></td>
 			<td><%=custVO.getCust_reg()%></td>
-			<td><c:if test="${not empty custVO.cust_pic}">
-					<img
-						src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}">
-				</c:if> <c:if test="${empty custVO.cust_pic}">
-					<img src="<%=request.getContextPath()%>/images/null2.jpg">
-				</c:if></td>
+			<td><c:if test="${not empty custVO.cust_pic}"><img src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}"></c:if>
+				    <c:if test="${empty custVO.cust_pic}"><img src="<%=request.getContextPath()%>/images/null2.jpg"></c:if></td>
 
 			<c:if test="${custVO.cust_status.equals('a0')}" var="true"
 				scope="session">
@@ -122,9 +120,24 @@ th, td {
 			<td><%=custVO.getCust_niname()%></td>
 
 		</tr>
+		
+		
+				<td>
+					<FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/cust/cust.do"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="修改"> <input type="hidden"
+							name="cust_ID" value="${custVO.cust_ID}"> <input
+							type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+				</td>
 	</table>
 	<%
 		}
 	%>
+</section>
+    <!-- ##### Contact Area End #####-->
+
+	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
 </html>

@@ -89,19 +89,17 @@ th, td {
 							<td>
 								<form method="post"
 									action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
-									<input type="submit" value="通過"> <input type="hidden"
-										name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> <input
-										type="hidden" name="menu_od_status" value="g1"> <input
-										type="hidden" name="checkMenuOrder" value="pass"> <input
-										type="hidden" name="action" value="getOneForUpdate">
+									<input type="submit" value="通過"> 
+									<input type="hidden" name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> 
+									<input type="hidden" name="menu_od_status" value="g1"> 
+									<input type="hidden" name="action" value="getOneForUpdate">
 								</form>
 								<form method="post"
 									action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
-									<input type="submit" value="不通過"> <input type="hidden"
-										name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> <input
-										type="hidden" name="menu_od_status" value="g2"> <input
-										type="hidden" name="checkMenuOrder" value="fail"> <input
-										type="hidden" name="action" value="getOneForUpdate">
+									<input type="submit" value="不通過"> 
+									<input type="hidden" name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> 
+									<input type="hidden" name="menu_od_status" value="g2"> 
+									<input type="hidden" name="action" value="getOneForUpdate">
 								</form>
 							</td>
 						</tr>

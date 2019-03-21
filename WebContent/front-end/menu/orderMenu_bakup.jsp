@@ -132,7 +132,7 @@ h2 {
 						</div>
 					</div>
 					<div class="chef_sch_date">
-						<%@ include file="/chefSch/listChefSchDateByID.jsp"%>
+						<%@ include file="/front-end/chefSch/listChefSchDateByID.jsp"%>
 					</div>
 					<c:if test="${order_chef_sch_date!=null}">
 						<div class="chef_sch_time">
