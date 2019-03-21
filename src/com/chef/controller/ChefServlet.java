@@ -197,7 +197,7 @@ public class ChefServlet extends HttpServlet {
 				
 				
 				
-				RequestDispatcher successView = request.getRequestDispatcher("/froTempl/headertest.jsp");
+				RequestDispatcher successView = request.getRequestDispatcher("/front-end/login/addSuccess.jsp");
 				successView.forward(request, response);
 				//除錯
 			} catch (Exception e) {

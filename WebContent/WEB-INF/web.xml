@@ -175,6 +175,14 @@
 		<url-pattern>/menuOrder/menuOrder.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>ChefServlet</servlet-name>
+		<servlet-class>com.chef.controller.ChefServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChefServlet</servlet-name>
+		<url-pattern>/chef/chef.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>ChefSchServlet</servlet-name>
 		<servlet-class>com.chefSch.controller.ChefSchServlet</servlet-class>
 	</servlet>

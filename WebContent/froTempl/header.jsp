@@ -104,21 +104,28 @@
 									<c:if test="${not empty foodSupVO}">
 										<li><a href="">食材供應商專區</a>
 											<ul class="dropdown">
-												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/foodSupInfo.jsp">個人資料</a></li>
+												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/foodSupInfo.jsp">查看個人資料</a></li>
+												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/update_foodSup_input.jsp">編輯個人資料</a></li>
 												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/addFoodMall.jsp">新增食材商品</a></li>
 												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/listFoodMallsByFoodSupID.jsp">食材商品管理</a></li>
 												<li><a href="<%=request.getContextPath()%>/front-end/foodSup/MFSupODs.jsp">訂單管理</a></li>
-											</ul></li>
+											</ul>
+										</li>
+									</c:if>
+									<c:if test="${not empty custVO}">
+										<li><a href="">顧客專區</a>
+											<ul class="dropdown">
+												<li><a href="<%=request.getContextPath()%>/front-end/cust/listOneCust.jsp">查看個人資料</a></li>
+												<li><a href="<%=request.getContextPath()%>/front-end/cust/update_cust_input.jsp">編輯個人資料</a></li>
+												<li><a href="">食材訂單管理</a></li>
+											</ul>
+										</li>
 									</c:if>
 
 									<c:if test="${not empty custVO}">
 										<li><a>Hello:<font color=#ea7500>
 													${custVO.cust_name} </font>您好
 										</a></li>
-										
-										
-										
-										
 										<li><a><i class="fa fa-dribbble"></i><span class="badge badge-light">4${custVO.cust_ID}</span></a>
 											<ul class="dropdown">
 												<c:forEach var="broadcastVO" items="${broadcastSvc.all}">

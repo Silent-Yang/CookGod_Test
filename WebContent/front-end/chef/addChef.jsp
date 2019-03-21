@@ -8,16 +8,12 @@
 	ChefVO chefVO = (ChefVO) request.getAttribute("chefVO");
 %>
 
-<!DOCTYPE html>
 <html>
 
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>主廚資料新增 - addCust.jsp</title>
-<link
-	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
-	rel="stylesheet">
-
+<link href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" rel="stylesheet">
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -53,123 +49,125 @@ th, td {
 	padding: 1px;
 }
 </style>
+
 </head>
 
-<body bgcolor='white'>
-				<h3>資料新增:</h3>
+<body>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
+	<!-- ##### Contact Area Start #####-->
+	<section class="contact-area section-padding-100">
+	<h3>資料新增:</h3>
 
-				<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<font style="color: red">請修正以下錯誤:</font>
-					<ul>
-						<c:forEach var="message" items="${errorMsgs}">
-							<li style="color: red">${message}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/chef/chef.do" name="form1"
-					enctype="multipart/form-data">
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/chef/chef.do"
+		name="form1" enctype="multipart/form-data">
 
-					<table>
-						<tr>
-							<td>主廚帳號:</td>
-							<td><input type="TEXT" id="cust_acc" name="cust_acc"
-								size="45"
-								value="<%=(custVO == null) ? "Aa158556" : custVO.getCust_acc()%>" />
-							<p id="answer"></p></td>
-						</tr>
+		<table>
+			<tr>
+				<td>主廚帳號:</td>
+				<td><input type="TEXT" id="cust_acc" name="cust_acc" size="45"
+					value="<%=(custVO == null) ? "" : custVO.getCust_acc()%>" placeholder="請輸入帳號"/><p id="answer"></p></td>
+			</tr>
 
-						<tr>
-							<td>主廚密碼:</td>
-							<td><input type="password" name="cust_pwd" size="45"
-								value="<%=(custVO == null) ? "Aa123456" : custVO.getCust_pwd()%>" /></td>
-						</tr>
+			<tr>
+				<td>主廚密碼:</td>
+				<td><input type="password" name="cust_pwd" size="45"
+					value="<%=(custVO == null) ? "" : custVO.getCust_pwd()%>" placeholder="請輸入密碼"/></td>
+			</tr>
 
-						<tr>
-							<td>主廚姓名:</td>
-							<td><input type="TEXT" name="cust_name" size="45"
-								value="<%=(custVO == null) ? "teddy" : custVO.getCust_name()%>" /></td>
-						</tr>
+			<tr>
+				<td>主廚姓名:</td>
+				<td><input type="TEXT" name="cust_name" size="45"
+					value="<%=(custVO == null) ? "" : custVO.getCust_name()%>" placeholder="請輸入姓名"/></td>
+			</tr>
 
-						<tr>
-							<td>身分證字號:</td>
-							<td><input type="TEXT" name="cust_pid" size="45"
-								value="<%=(custVO == null) ? "a987654321" : custVO.getCust_pid()%>" /></td>
-						</tr>
+			<tr>
+				<td>身分證字號:</td>
+				<td><input type="TEXT" name="cust_pid" size="45"
+					value="<%=(custVO == null) ? "" : custVO.getCust_pid()%>" placeholder="請輸入身分證字號"/></td>
+			</tr>
 
-						<tr>
-							<td>主廚性別:</td>
-							<td><input type="radio" name="cust_sex" size="10" value="M"
-								${custVO.cust_sex=='M'||custVO ==null ? 'checked':'' } />男 <input
-								type="radio" name="cust_sex" size="10" value="F"
-								${custVO.cust_sex=='F'? 'checked':'' } />女</td>
-						</tr>
+			<tr>
+				<td>主廚性別:</td>
+				<td> <input type="radio" name="cust_sex" size="10" value="M" ${custVO.cust_sex=='M'||custVO ==null ? 'checked':'' } />男 
+					 <input type="radio" name="cust_sex" size="10" value="F" ${custVO.cust_sex=='F'? 'checked':'' }/>女
+				</td>
+			</tr>
 
-						<tr>
-							<td>主廚生日:</td>
-							<td><input type="TEXT" name="cust_brd" id="f_date1"
-								size="45" /></td>
-						</tr>
+			<tr>
+				<td>主廚生日:</td>
+				<td><input type="TEXT" name="cust_brd" id="f_date1" size="45" /></td>
+			</tr>
 
-						<tr>
-							<td>主廚電話:</td>
-							<td><input type="TEXT" name="cust_tel" size="45"
-								value="<%=(custVO == null) ? "09090909" : custVO.getCust_tel()%>" /></td>
-						</tr>
+			<tr>
+				<td>主廚電話:</td>
+				<td><input type="TEXT" name="cust_tel" size="45"
+					value="<%=(custVO == null) ? "09090909" : custVO.getCust_tel()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>主廚地址:</td>
-							<td><input type="TEXT" name="cust_addr" size="45"
-								value="<%=(custVO == null) ? "09090909" : custVO.getCust_addr()%>" />
-							</td>
-						</tr>
+			<tr>
+				<td>主廚地址:</td>
+				<td><input type="TEXT" name="cust_addr" size="45"
+					value="<%=(custVO == null) ? "09090909" : custVO.getCust_addr()%>" />
+					</td>
+			</tr>
 
-						<tr>
-							<td>主廚信箱:</td>
-							<td><input type="TEXT" name="cust_mail" size="45"
-								value="<%=(custVO == null) ? "gggccc@yahoo" : custVO.getCust_mail()%>" /></td>
-						</tr>
+			<tr>
+				<td>主廚信箱:</td>
+				<td><input type="TEXT" name="cust_mail" size="45"
+					value="<%=(custVO == null) ? "gggccc@yahoo" : custVO.getCust_mail()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>主廚暱稱:</td>
-							<td><input type="TEXT" name="cust_niname" size="45"
-								value="<%=(custVO == null) ? "555" : custVO.getCust_niname()%>" /></td>
-						</tr>
+			<tr>
+				<td>主廚暱稱:</td>
+				<td><input type="TEXT" name="cust_niname" size="45"
+					value="<%=(custVO == null) ? "555" : custVO.getCust_niname()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>主廚大頭照:</td>
-							<td><input type="file" name="cust_pic" size="45" id="doc"
-								onchange="javascript:setImagePreview();" /></td>
-						</tr>
-						<tr>
-							<td>主廚服務地區:</td>
-							<td><input type="radio" name="chef_area" size="10" value="0"
-								${chefVO.chef_area=='0'||chefVO ==null ? 'checked':'' } />北<br>
-								<input type="radio" name="chef_area" size="10" value="1"
-								${chefVO.chef_area=='1'? 'checked':'' } />中<br> <input
-								type="radio" name="chef_area" size="10" value="2"
-								${chefVO.chef_area=='2'? 'checked':'' } />南<br> <input
-								type="radio" name="chef_area" size="10" value="3"
-								${chefVO.chef_area=='3'? 'checked':'' } />東<br></td>
-						</tr>
-						<tr>
-							<td>主廚簡介:</td>
-							<td><input type="text" name="chef_resume" size="50"
-								value="${chefVO==null? '請輸入簡介...':chefVO.chef_resume}">
-							</td>
-						</tr>
-					</table>
-					<div id="localImag">
-						<img id="preview" width=-1 height=-1 style="display: none" />
-					</div>
-					<br> <input type="hidden" name="action" value="insert">
-					<input type="submit" value="送出新增">
+			<tr>
+				<td>主廚大頭照:</td>
+				<td><input type="file" name="cust_pic" size="45" id="doc"
+					onchange="javascript:setImagePreview();" /></td>
+			</tr>
+			<tr>
+				<td>主廚服務地區:</td>
+				<td> 
+					<input type="radio" name="chef_area" size="10" value="0" ${chefVO.chef_area=='0'||chefVO ==null ? 'checked':'' }/>北<br>
+					<input type="radio" name="chef_area" size="10" value="1" ${chefVO.chef_area=='1'? 'checked':'' }/>中<br>
+					<input type="radio" name="chef_area" size="10" value="2" ${chefVO.chef_area=='2'? 'checked':'' }/>南<br>
+					<input type="radio" name="chef_area" size="10" value="3" ${chefVO.chef_area=='3'? 'checked':'' }/>東<br>
+				</td>
+			</tr>
+			<tr>
+				<td>主廚簡介:</td>
+				<td>
+					<input type="text"  name = "chef_resume" size="50" value="${chefVO==null? '請輸入簡介...':chefVO.chef_resume}">
+				</td>
+			</tr>
+		</table>
+		<div id="localImag">
+			<img id="preview" width=-1 height=-1 style="display: none" />
+		</div>
+		<br> <input type="hidden" name="action" value="insert"> 
+		     <input type="submit" value="送出新增">
 
-				</FORM>
-	<script
-		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	</FORM>
+	
+<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+ </section>
+    <!-- ##### Contact Area End #####-->
+    <jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
+
+<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 <%
 	java.sql.Date cust_brd = null;
 	try {
@@ -178,7 +176,6 @@ th, td {
 		cust_brd = new java.sql.Date(System.currentTimeMillis());
 	}
 %>
-
 
 <style>
 .xdsoft_datetimepicker .xdsoft_datepicker {
@@ -193,63 +190,16 @@ th, td {
 <script>
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
-           theme: '',              //theme: 'dark',
- 	       timepicker:true,       //timepicker:true,
- 	       step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '${custVO.cust_brd}', // value:   new Date(),
-			
-			//disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-			//startDate:	            '2017/07/10',  // 起始日
-			//minDate:               '-1970-01-01', // 去除今日(不含)之前
-			//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-		});
-
-	// ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
-
-	//      1.以下為某一天之前的日期無法選擇
-	//      var somedate1 = new Date('2017-06-15');
-	//      $('#f_date1').datetimepicker({
-	//          beforeShowDay: function(date) {
-	//        	  if (  date.getYear() <  somedate1.getYear() || 
-	//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-	//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-	//              ) {
-	//                   return [false, ""]
-	//              }
-	//              return [true, ""];
-	//      }});
-
-	//      2.以下為某一天之後的日期無法選擇
-	//      var somedate2 = new Date('2017-06-15');
-	//      $('#f_date1').datetimepicker({
-	//          beforeShowDay: function(date) {
-	//        	  if (  date.getYear() >  somedate2.getYear() || 
-	//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-	//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-	//              ) {
-	//                   return [false, ""]
-	//              }
-	//              return [true, ""];
-	//      }});
-
-	//      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
-	//      var somedate1 = new Date('2017-06-15');
-	//      var somedate2 = new Date('2017-06-25');
-	//      $('#f_date1').datetimepicker({
-	//          beforeShowDay: function(date) {
-	//        	  if (  date.getYear() <  somedate1.getYear() || 
-	//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-	//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-	//		             ||
-	//		            date.getYear() >  somedate2.getYear() || 
-	//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-	//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-	//              ) {
-	//                   return [false, ""]
-	//              }
-	//              return [true, ""];
-	//      }});
+ 	       theme: '',              //theme: 'dark',
+	       timepicker:false,       //timepicker:true,
+	       //step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
+	       format:'Y-m-d' ,         //format:'Y-m-d H:i:s',
+		   //value: '<%=cust_brd%>' , // value:   new Date(),
+           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+           //startDate:	            '2017/07/10',  // 起始日
+           minDate:               '-1970-01-01', // 去除今日(不含)之前
+           maxDate:               '+1970-04-01'  // 去除今日(不含)之後
+        });
 </script>
 
 <script>
@@ -329,5 +279,6 @@ th, td {
 				callback();
 			}, time);
 		}
-	</script>
+</script>
+
 </html>
