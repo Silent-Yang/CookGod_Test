@@ -56,7 +56,8 @@ h4 {
 	<ul>
 		<li><a
 			href='<%=request.getContextPath()%>/front-end/broadcast/listAllBroadcast.jsp'>List</a>
-			all Broadcast. <br> <br></li>
+			all Broadcast. <br>
+		<br></li>
 
 
 		<li>

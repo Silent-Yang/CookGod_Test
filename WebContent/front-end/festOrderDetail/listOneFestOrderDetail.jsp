@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<title>新增檢舉文章資料 - listOneFestOrderDetail.jsp</title>
+<title>新增節慶主題料理訂單明細 - listOneFestOrderDetail.jsp</title>
 
 <style>
 table#table-1 {
@@ -50,7 +50,6 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
 	<table id="table-1">
 		<tr>
 			<td>

@@ -60,7 +60,7 @@ public class MenuOrderServlet extends HttpServlet {
 				MenuOrderService menuOrderSvc = new MenuOrderService();
 				menuOrderVO = menuOrderSvc.addMenuOrder(menu_od_book, cust_ID, chef_ID, menu_ID);
 				//3.新增完成&轉交
-				RequestDispatcher successView = request.getRequestDispatcher("/front-end/chef/chef_profile.jsp");
+				RequestDispatcher successView = request.getRequestDispatcher("/front-end/menu/orderMenuSuccess.jsp");
 				successView.forward(request, response);
 				//4.其他可能的錯誤處理
 			}catch(Exception e){

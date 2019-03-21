@@ -1,46 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<jsp:useBean id="foodSupSvc" class="com.foodSup.model.FoodSupService" />
-<jsp:useBean id="foodSvc" class="com.food.model.FoodService" />
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<jsp:useBean id="foodSupSvc" class="com.foodSup.model.FoodSupService"/>
+<jsp:useBean id="foodSvc" class="com.food.model.FoodService"/>
 <html>
 <head>
 </head>
 <body>
 	<jsp:include page="/froTempl/header.jsp" flush="true" />
-
-	<!-- ##### Contact Area Start #####-->
-	<section class="contact-area section-padding-100">
-		<jsp:include page="/front-end/foodMall/shoppingcartIn.jsp" />
-		<div id="mallItem" class="container foodMCard">
-			<div class="col">食材供應商 :
-				${foodSupSvc.getOneFoodSup(foodMallVO.food_sup_ID).food_sup_name}</div>
-			<div class="col" id="foodMName">標題 : ${foodMallVO.food_m_name}
-			</div>
-			<div class="col">食材名 :
-				${foodSvc.getOneFood(foodMallVO.food_sup_ID).food_name}</div>
-			<div class="col">價格 : ${foodMallVO.food_m_price}</div>
-			<div class="col">單位 : ${foodMallVO.food_m_unit}</div>
-			<div class="col">產地 : ${foodMallVO.food_m_place}</div>
-			<div class="col">
-				<img
-					src="<%=request.getContextPath()%>/foodMall/foodMall.do?food_sup_ID=${foodMallVO.food_sup_ID}&food_ID=${foodMallVO.food_ID}"
-					height="400" width="300">
-			</div>
-			<div class="col">評價 : ${foodMallVO.food_m_rate}</div>
-			<div class="col">介紹 : ${foodMallVO.food_m_resume}</div>
-			<form class="foodMCard"
-				action="<%=request.getContextPath()%>/mall/mall.do" method="POST">
-				<button type="button" id="addShoppingcart" name="foodMBtn"
-					class="btn btn-primary">加入購物車</button>
+	
+	 <!-- ##### Contact Area Start #####-->
+    <section class="contact-area section-padding-100">
+    <jsp:include page="/front-end/foodMall/shoppingcartIn.jsp"/>
+    	<div id="mallItem" class="container foodMCard">
+	    	<div class="col">
+	    		食材供應商 : ${foodSupSvc.getOneFoodSup(foodMallVO.food_sup_ID).food_sup_name}
+	    	</div>
+	    	<div class="col" id="foodMName">
+	    		標題 : ${foodMallVO.food_m_name}
+	    	</div>
+	    	<div class="col">
+	    		食材名 : ${foodSvc.getOneFood(foodMallVO.food_sup_ID).food_name}
+	    	</div>
+	    	<div class="col">
+	    		價格 : ${foodMallVO.food_m_price}
+	    	</div>
+	    	<div class="col">
+	    		單位 : ${foodMallVO.food_m_unit}
+	    	</div>
+	    	<div class="col">
+	    		產地 : ${foodMallVO.food_m_place}
+	    	</div>
+	    	<div class="col">
+	    		<img src="<%=request.getContextPath()%>/foodMall/foodMall.do?food_sup_ID=${foodMallVO.food_sup_ID}&food_ID=${foodMallVO.food_ID}"
+	    			height = "400" width="300">
+	    	</div>
+	    	<div class="col">
+	    		評價 : ${foodMallVO.food_m_rate}
+	    	</div>
+	    	<div class="col">
+	    		介紹 : ${foodMallVO.food_m_resume}
+	    	</div>
+	    	<form class="foodMCard" action="<%=request.getContextPath()%>/mall/mall.do" method="POST">
+				<button type="button" id="addShoppingcart" name="foodMBtn" class="btn btn-primary">加入購物車</button>
 				<input type="hidden" name="food_ID" value="${foodMallVO.food_ID}">
-				<input type="hidden" name="food_sup_ID"
-					value="${foodMallVO.food_sup_ID}"> <input type="number"
-					name="food_od_qty" min="1" max="20" size="3" value="1">
+				<input type="hidden" name="food_sup_ID" value="${foodMallVO.food_sup_ID}">	
+				<input type="number" name="food_od_qty" min="1" max="20" size="3" value="1">
 			</form>
 			<p class="card-text errorMsgs"></p>
 		</div>
-	</section>
-	<!-- ##### Contact Area End #####-->
+    </section>
+    <!-- ##### Contact Area End #####-->
 	<script>
 		
 		$(document).ready(function(){

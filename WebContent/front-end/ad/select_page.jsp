@@ -4,42 +4,27 @@
 
 <html>
 <head>
-<title>IBM Ad: Home</title>
 
-<style>
-table#table-1 {
-	width: 450px;
-	background-color: #CCCCFF;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	border: 3px ridge Gray;
-	height: 80px;
-	text-align: center;
-}
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
 
 </head>
-<body bgcolor='white'>
+<body>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
+
+	 <!-- ##### Contact Area Start #####-->
+    <section class="contact-area section-padding-100">
 
 	<table id="table-1">
 		<tr>
-			<td><h3>IBM Ad: Home</h3>
-				<h4>( MVC )</h4></td>
+		<br>
+		<br>
+		<br>
+			<td><h3>管告管理</h3>
+				</td>
 		</tr>
 	</table>
 
-	<p>This is the Home page forAd: Home</p>
+	
 
 	<h3>資料查詢:</h3>
 
@@ -56,21 +41,25 @@ h4 {
 	<ul>
 		<li><a
 			href='<%=request.getContextPath()%>/front-end/ad/listAllAd.jsp'>List</a>
-			all Ad. <br> <br></li>
+			all Ad. <br>
+		<br></li>
 
 
 		<li>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/ad/ad.do">
 				<b>輸入廣告編號:</b> <input type="text" name="ad_ID"> <input
 					type="hidden" name="action" value="getOne_For_Display"> <input
 					type="submit" value="送出">
 			</FORM>
 		</li>
 
-		<jsp:useBean id="adSvc" scope="page" class="com.ad.model.AdService" />
+		<jsp:useBean id="adSvc" scope="page"
+			class="com.ad.model.AdService" />
 
 		<li>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/ad/ad.do">
 				<b>選擇廣告編號:</b> <select size="1" name="ad_ID">
 					<c:forEach var="adVO" items="${adSvc.all}">
 						<option value="${adVO.ad_ID}">${adVO.ad_ID}
@@ -81,7 +70,8 @@ h4 {
 		</li>
 
 		<li>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do">
+			<FORM METHOD="post"
+				ACTION="<%=request.getContextPath()%>/ad/ad.do">
 				<b>選擇廣告姓名:</b> <select size="1" name="ad_ID">
 					<c:forEach var="adVO" items="${adSvc.all}">
 						<option value="${adVO.ad_ID}">${adVO.ad_title}
@@ -99,5 +89,9 @@ h4 {
 		<li><a href='addAd.jsp'>Add</a> a new Ad.</li>
 	</ul>
 
+ </section>
+    <!-- ##### Contact Area End #####-->
+
+	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
 </html>

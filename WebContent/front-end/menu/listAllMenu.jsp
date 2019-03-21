@@ -84,13 +84,12 @@ th, td {
 					</c:if> <c:if test="${empty menuVO.menu_pic}">
 						<img class="menu_pic"
 							src="<%=request.getContextPath()%>/images/noimage.jpg">
-					</c:if></td>
-
+					</c:if>
+				</td>
 				<td>${menuVO.menu_name}</td>
 				<td>${menuVO.menu_resume}</td>
 				<td>${menuVO.menu_price}</td>
 				<td>${menuVO.menu_status}</td>
-
 			</tr>
 		</c:forEach>
 	</table>

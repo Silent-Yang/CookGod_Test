@@ -51,8 +51,12 @@ public class LoginFrontFoodSupFilter implements Filter {
 				res.sendRedirect(req.getContextPath() + "/front-end/loginFrontEnd.jsp");
 				return;
 			}
-		} else {
+		}else if(foodSupVO.getFood_sup_status().equals("s1")) {
 			chain.doFilter(request, response);
+		} else {
+			session.setAttribute("location", req.getRequestURI());
+			res.sendRedirect(req.getContextPath() + "/front-end/foodSup/update_foodSup_input.jsp");
+			return;
 		}
 	}
 }

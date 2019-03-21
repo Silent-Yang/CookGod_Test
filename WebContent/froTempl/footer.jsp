@@ -25,7 +25,7 @@
                 <div class="col-12 col-sm-6 col-md-3">
                     <div class="single-footer-widget mb-100">
                         <!-- Footer Logo -->
-                        <a href="index.html" class="footer-logo"><img src="<%=request.getContextPath()%>/froTempl/temp/img/core-img/logo.png" alt=""></a>
+                        <a href="<%=request.getContextPath()%>/froTempl/headertest.jsp" class="footer-logo"><img src="<%=request.getContextPath()%>/froTempl/temp/img/core-img/logo.png" alt=""></a>
                     </div>
                 </div>
 
@@ -36,7 +36,7 @@
                         <div class="col-sm-4">
                             <div class="single-footer-widget mb-100">
                                 <h5 class="widget-title">Address</h5>
-                                <p>1530 Doverfield Ave <br> Hacienda Heights, California(CA), 91745</p>
+                                <p>320桃園市<br> 中壢區中大路300號</p>
                             </div>
                         </div>
 
@@ -44,7 +44,7 @@
                         <div class="col-sm-4">
                             <div class="single-footer-widget mb-100">
                                 <h5 class="widget-title">Support</h5>
-                                <p><i class="fa fa-phone"></i> <br> +01 251 332 331</p>
+                                <p><i class="fa fa-phone"></i> <br>03 425 7387</p>
                             </div>
                         </div>
 
@@ -53,12 +53,8 @@
                             <div class="single-footer-widget mb-100">
                                 <h5 class="widget-title">Social</h5>
                                 <div class="footer-social-info">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                                    <a href="#"><i class="fa fa-flickr"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="https://www.facebook.com/iiichunglii/"><i class="fa fa-facebook"></i></a>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -75,7 +71,7 @@
                         <div class="copywrite-content">
                             <!-- Copywrite Text -->
                             <p class="copywrite-text"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> <i class="fa fa-heart-o" aria-hidden="true"></i> by <a target="_blank">CA106G3</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 </p>
                         </div>
@@ -83,11 +79,11 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     <div class="col-12 col-md-6">
                         <nav class="footer-nav">
                             <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Services</a></li>
-                                <li><a href="#">Portfolio</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="<%=request.getContextPath()%>/froTempl/headertest.jsp">首頁</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front-end/menu/listAllMenu.jsp">食神來了</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front-end/foodMall/listFoodMall.jsp">嚴選食材</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front-end/festMenu/listFestMall.jsp">節慶主題</a></li>
+                                <li><a href="<%=request.getContextPath()%>/front-end/login/addCust.jsp">加入我們</a></li>
                             </ul>
                         </nav>
                     </div>

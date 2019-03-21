@@ -87,7 +87,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFrontChefFilter</filter-name>
-		<url-pattern>/front-end/chef/*</url-pattern>
+		<url-pattern>/front-end/chef/1</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>

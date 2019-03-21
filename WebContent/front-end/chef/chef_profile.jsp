@@ -7,9 +7,8 @@
 <%	
 	ChefService chefSvc = new ChefService();
 	CustService custSvc = new CustService();
-	String chef_ID = (String)session.getAttribute("chef_ID");
-	CustVO custVO = custSvc.getOneCust(chef_ID);
-	ChefVO chefVO = chefSvc.getOneByChefID(chef_ID);
+	ChefVO chefVO =(ChefVO) session.getAttribute("chefVO");
+	CustVO custVO = custSvc.getOneCust(chefVO.getChef_ID());
 	session.setAttribute("custVO",custVO);
 	session.setAttribute("chefVO",chefVO);
 %>
@@ -66,11 +65,7 @@ div {
 			<h1>主廚個人檔案</h1>
 		</div>
 		<div class="row">
-			<div class="col-2">
-				<a href="<%=request.getContextPath()%>/menuCart/menu.jsp"
-					class="btn btn-secondary btn-lg btn-block" tabindex="-1"
-					role="button" aria-disabled="true">訂購套餐</a>
-			</div>
+			<div class="col-2"></div>
 			<div class="col-3">
 				<div class="card mb-3">
 					<c:if test="${not empty custVO.cust_pic}">
@@ -106,27 +101,27 @@ div {
 						value="編輯主廚簡介">
 				</form>
 				<form method="post"
-					action="<%=request.getContextPath()%>/menuOrder/unCheckMenuOrder.jsp">
+					action="<%=request.getContextPath()%>/front-end/menuOrder/unCheckMenuOrder.jsp">
 					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
 					<input type="submit" class="btn btn-secondary btn-lg btn-block"
 						value="查看未審核訂單">
 				</form>
 				<form method="post"
-					action="<%=request.getContextPath()%>/menuOrder/unFinishedMenuOrder.jsp">
+					action="<%=request.getContextPath()%>/front-end/menuOrder/unFinishedMenuOrder.jsp">
 					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
 					<input type="hidden" name="action" value="unFinishedMenuOrder">
 					<input type="submit" class="btn btn-secondary btn-lg btn-block"
 						value="查看未完成訂單">
 				</form>
 				<form method="post"
-					action="<%=request.getContextPath()%>/chefDish/addChefDish.jsp">
+					action="<%=request.getContextPath()%>/front-end/chefDish/addChefDish.jsp">
 					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
 					<input type="hidden" name="action" value="updateChefDish">
 					<input type="submit" class="btn btn-secondary btn-lg btn-block"
 						value="管理擅長菜色">
 				</form>
 				<form method="post"
-					action="<%=request.getContextPath()%>/chefSch/addChefSch.jsp">
+					action="<%=request.getContextPath()%>/front-end/chefSch/addChefSch.jsp">
 					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
 					<input type="hidden" name="action" value="updateChefDish">
 					<input type="submit" class="btn btn-secondary btn-lg btn-block"

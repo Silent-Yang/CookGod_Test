@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>員工資料修改 - update_festMenu_input.jsp</title>
+<title>節慶主題料理修改 - update_festMenu_input.jsp</title>
 
 <style>
 table#table-1 {
@@ -53,7 +53,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>節慶主題料理訂單修改 - update_festOrder_input.jsp</h3>
+				<h3>節慶主題料理修改 - update_festMenu_input.jsp</h3>
 				<h4>
 					<a
 						href="<%=request.getContextPath()%>/front-end/festMenu/select_page.jsp"><img
@@ -67,7 +67,8 @@ th, td {
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
+<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+		<font style="color: red"></font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>

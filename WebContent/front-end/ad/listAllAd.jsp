@@ -57,13 +57,17 @@ th, td {
 </style>
 
 </head>
-<body bgcolor='white'>
+<body>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
+	
+	 <!-- ##### Contact Area Start #####-->
+    <section class="contact-area section-padding-100">
 
-	<h4>此頁練習採用 EL 的寫法取值:</h4>
+	
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>所有廣告資料 - listAllAd.jsp</h3>
+				<h3>所有廣告資料</h3>
 				<h4>
 					<a
 						href="<%=request.getContextPath()%>/front-end/ad/select_page.jsp">回首頁</a>
@@ -86,39 +90,45 @@ th, td {
 		<tr>
 			<th>廣告編號</th>
 			<th>廣告標題</th>
-
 			<th>廣告上架日期</th>
 			<th>廣告下架日期</th>
 			<th>廣告狀態</th>
-			<th>廣告類別</th>
 			<th>食材供應商</th>
 		</tr>
-
-		<c:forEach var="adVO" items="${list}">
+		
+		<c:forEach var="adVO" items="${list}" >
 			<c:if test="${adVO.food_sup_ID == foodSupVO.getFood_sup_ID()}">
-				<tr>
-					<td>${adVO.ad_ID}</td>
-					<td>${adVO.ad_title}</td>
-
-					<td>${adVO.ad_start}</td>
-					<td>${adVO.ad_end}</td>
-					<td>${adVO.ad_status}</td>
-					<td>${adVO.ad_type}</td>
-					<td>${adVO.food_sup_ID}</td>
-			</c:if>
-			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
-					style="margin-bottom: 0px;">
-					<input type="submit" value="修改"> <input type="hidden"
-						name="ad_ID" value="${adVO.ad_ID}"> <input type="hidden"
-						name="action" value="getOne_For_Update">
-				</FORM>
-			</td>
-
+			<tr>
+				<td>${adVO.ad_ID}</td>
+				<td>${adVO.ad_title}</td>
+				<td>${adVO.ad_start}</td>
+				<td>${adVO.ad_end}</td>
+				<td>${adStatusMap[adVO.ad_status]}</td>
+				<td>${adVO.food_sup_ID}</td>
+			
+				<td>
+					<FORM METHOD="post"
+						ACTION="<%=request.getContextPath()%>/ad/ad.do"
+						style="margin-bottom: 0px;">
+						<input type="submit" value="修改"> <input type="hidden"
+							name="ad_ID" value="${adVO.ad_ID}"> <input
+							type="hidden" name="action" value="getOne_For_Update">
+					</FORM>
+				</td>
+				
 			</tr>
+			</c:if>
 		</c:forEach>
 	</table>
+	
+</section>
+    <!-- ##### Contact Area End #####-->
 
-
+	<jsp:include page="/froTempl/footer.jsp" flush="true" />
+<%--=================================jQuery===============================================--%>
+			</div>
+		</div>
+	</div>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 </body>
 </html>

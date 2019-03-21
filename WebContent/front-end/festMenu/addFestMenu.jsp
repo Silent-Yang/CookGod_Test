@@ -3,18 +3,18 @@
 <%@ page import="com.festMenu.model.*"%>
 
 <%
-    FestMenuVO festMenuVO = (FestMenuVO) request.getAttribute("festMenuVO");
+	FestMenuVO festMenuVO = (FestMenuVO) request.getAttribute("festMenuVO");
 %>
-<% 
-    java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
-    String formatDate = df.format(new java.util.Date());
-    out.println(formatDate);
-  %>
+<%
+	java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd");
+	String formatDate = df.format(new java.util.Date());
+	out.println(formatDate);
+%>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>檢舉文章資料新增 - addFestMenu.jsp</title>
+<title>節慶主題料理新增 - addFestMenu.jsp</title>
 
 <style>
 table#table-1 {
@@ -63,7 +63,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>節慶主題料理訂單新增 - addFestMenu.jsp</h3>
+				<h3>節慶主題料理新增 - addFestMenu.jsp</h3>
 			</td>
 			<td>
 				<h4>
@@ -92,25 +92,25 @@ th, td {
 			<tr>
 				<td>節慶主題料理名稱:</td>
 				<td><input type="TEXT" name="fest_m_name" size="20"
-					value="<%= (festMenuVO==null)? "節慶主題料理名稱一" :festMenuVO.getFest_m_name() %>" /></td>
+					value="<%=(festMenuVO == null) ? "節慶主題料理名稱一" : festMenuVO.getFest_m_name()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>數量:</td>
 				<td><input type="TEXT" name="fest_m_qty" size="20"
-					value="<%= (festMenuVO==null)? "3" :festMenuVO.getFest_m_qty() %>" /></td>
+					value="<%=(festMenuVO == null) ? "3" : festMenuVO.getFest_m_qty()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>開始預購日期:</td>
 				<td><input type="TEXT" name="fest_m_start" id="f_date1"
-					value="<%= (festMenuVO==null)? "請選擇開始預購日期" :festMenuVO.getFest_m_start()%>" /></td>
+					value="<%=(festMenuVO == null) ? "請選擇開始預購日期" : festMenuVO.getFest_m_start()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>結束預購日期:</td>
 				<td><input type="TEXT" name="fest_m_end" id="f_date2"
-					value="<%= (festMenuVO==null)? "請選擇結束預購日期" :festMenuVO.getFest_m_end()%>" /></td>
+					value="<%=(festMenuVO == null) ? "請選擇結束預購日期" : festMenuVO.getFest_m_end()%>" /></td>
 			</tr>
 
 			<tr>
@@ -122,20 +122,19 @@ th, td {
 			<tr>
 				<td>介紹:</td>
 				<td><input type="TEXT" name="fest_m_resume"
-					value="<%= (festMenuVO==null)?
-				"2000" :festMenuVO.getFest_m_resume() %>" /></td>
+					value="<%=(festMenuVO == null) ? "2000" : festMenuVO.getFest_m_resume()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>出貨日期:</td>
 				<td><input type="TEXT" name="fest_m_send" id="f_date3"
-					value="<%= (festMenuVO==null)? "請選擇出貨日期" :festMenuVO.getFest_m_send()%>" /></td>
+					value="<%=(festMenuVO == null) ? "請選擇出貨日期" : festMenuVO.getFest_m_send()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>節慶主題料理狀態:</td>
 				<td><input type="TEXT" name="fest_m_status" size="20"
-					value="<%= (festMenuVO==null)? "1" :festMenuVO.getFest_m_status() %>" /></td>
+					value="<%=(festMenuVO == null) ? "1" : festMenuVO.getFest_m_status()%>" /></td>
 			</tr>
 
 			<tr>
@@ -145,14 +144,14 @@ th, td {
 						<option value=1>f1:上架
 				    </select>  -->
 				<td><input type="TEXT" name="fest_m_kind" size="20"
-					value="<%= (festMenuVO==null)? "3" :festMenuVO.getFest_m_kind() %>" />
+					value="<%=(festMenuVO == null) ? "3" : festMenuVO.getFest_m_kind()%>" />
 				</td>
 			</tr>
 
 			<tr>
 				<td>價格:</td>
 				<td><input type="TEXT" name="fest_m_price" size="20"
-					value="<%= (festMenuVO==null)? "3" :festMenuVO.getFest_m_price() %>" /></td>
+					value="<%=(festMenuVO == null) ? "3" : festMenuVO.getFest_m_price()%>" /></td>
 			</tr>
 
 			<tr>
@@ -220,7 +219,7 @@ th, td {
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-	       value: '<%=fest_m_start%>', // value:   new Date(),
+<%-- 	       value: '<%=fest_m_start%>',  --%>
 		   // value:   new Date(),
 //           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
              //startDate:	            '2017/07/10',  // 起始日 
@@ -232,8 +231,8 @@ th, td {
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
-	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-	       value: '<%=fest_m_end%>', // value:   new Date(),
+ 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+<%-- 	       value: '<%=fest_m_end%>', // value:   new Date(), --%>
 		   // value:   new Date(),
 //           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
              //startDate:	            '2017/07/10',  // 起始日 
@@ -247,7 +246,8 @@ th, td {
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-	       value: '<%=fest_m_send%>', // value:   new Date(),
+<%-- 	       value: '<%=fest_m_send%> --%>
+// 	', // value:   new Date(),
 	// value:   new Date(),
 	//           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 	//startDate:	            '2017/07/10',  // 起始日 

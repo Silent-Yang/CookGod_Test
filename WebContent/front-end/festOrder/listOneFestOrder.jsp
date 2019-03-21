@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.festOrder.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
@@ -50,13 +51,14 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
+<!-- 	<h4>此頁暫練習採用 Script 的寫法取值:</h4> -->
 	<table id="table-1">
 		<tr>
 			<td>
 				<h3>節慶主題料理訂單資料 - ListOneFestOrder.jsp</h3>
 				<h4>
-					<a href="select_page.jsp">回首頁</a>
+					<a
+						href="<%=request.getContextPath()%>/front-end/festOrder/select_page.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>

@@ -17,6 +17,7 @@
 <link
 	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
 	rel="stylesheet">
+
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -52,21 +53,9 @@ th, td {
 	padding: 1px;
 }
 </style>
-
 </head>
 
 <body bgcolor='white'>
-	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
-		data-layout="vertical" data-sidebartype="full"
-		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
-		<aside class="left-sidebar" data-sidebarbg="skin5">
-			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
-
-		</aside>
-		<div class="page-wrapper">
-			<div class="page-breadcrumb">
-				<%--=================================工作區================================================--%>
 				<h3>資料新增:</h3>
 
 				<%-- 錯誤表列 --%>
@@ -178,13 +167,6 @@ th, td {
 					<input type="submit" value="送出新增">
 
 				</FORM>
-
-				<%--=================================工作區================================================--%>
-				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-				<%--=================================jQuery===============================================--%>
-			</div>
-		</div>
-	</div>
 	<script
 		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 </body>
@@ -196,8 +178,6 @@ th, td {
 		cust_brd = new java.sql.Date(System.currentTimeMillis());
 	}
 %>
-
-
 
 
 <style>
@@ -350,8 +330,4 @@ th, td {
 			}, time);
 		}
 	</script>
-
-
-
-
 </html>

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.menu.model.*"%>
 <%@ page import="com.menuDish.model.*"%>
 <jsp:useBean id="menuSvc" scope="page" class="com.menu.model.MenuService"/>
 <jsp:useBean id="dishSvc" scope="page" class="com.dish.model.DishService" />
@@ -8,7 +9,7 @@
 
 <%
     MenuDishService menuDishSvc = new MenuDishService();
-	String menu_ID = request.getAttribute("menu_ID").toString();
+	String menu_ID = session.getAttribute("menu_ID").toString();
     List<MenuDishVO> list = menuDishSvc.getAllByMenuID(menu_ID);
     pageContext.setAttribute("list",list);
 %>

@@ -3,13 +3,14 @@
 <%@ page import="com.festOrderDetail.model.*"%>
 
 <%
-    FestOrderDetailVO festOrderDetailVO = (FestOrderDetailVO) request.getAttribute("festOrderDetailVO");
+	FestOrderDetailVO festOrderDetailVO = (FestOrderDetailVO) request.getAttribute("festOrderDetailVO");
 %>
-<% /*
-    java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    String formatDate = df.format(new java.util.Date());
-    out.println(formatDate); */
-  %>
+<%
+	/*
+	   java.text.DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	   String formatDate = df.format(new java.util.Date());
+	   out.println(formatDate); */
+%>
 
 <html>
 <head>
@@ -72,7 +73,7 @@ th, td {
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
+		<font style="color: red"></font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>
@@ -88,39 +89,36 @@ th, td {
 			<tr>
 				<td>節慶主題料理訂單編號:</td>
 				<td><input type="TEXT" name="fest_or_ID" size="45"
-					value="<%= (festOrderDetailVO==null)? "FM20190219-000001" :festOrderDetailVO.getFest_or_ID()%>" /></td>
+					value="<%=(festOrderDetailVO == null) ? "FM20190219-000001" : festOrderDetailVO.getFest_or_ID()%>" /></td>
 			</tr>
 			<tr>
 				<td>節慶料理編號:</td>
 				<td><input type="TEXT" name="fest_m_ID" size="45"
-					value="<%= (festOrderDetailVO==null)? "FM0002" :festOrderDetailVO.getFest_m_ID() %>" /></td>
+					value="<%=(festOrderDetailVO == null) ? "FM0002" : festOrderDetailVO.getFest_m_ID()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>訂單評價:</td>
 				<td><input type="TEXT" name="fest_or_rate" size="45"
-					value="<%= (festOrderDetailVO==null)? 1 :festOrderDetailVO.getFest_or_rate()%>" /></td>
+					value="<%=(festOrderDetailVO == null) ? 1 : festOrderDetailVO.getFest_or_rate()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>訂單評價留言:</td>
 				<td><input type="TEXT" name="fest_or_msg"
-					value="<%= (festOrderDetailVO==null)?
-				"這筆訂單很不錯喔" :festOrderDetailVO.getFest_or_msg()%>" /></td>
+					value="<%=(festOrderDetailVO == null) ? "這筆訂單很不錯喔" : festOrderDetailVO.getFest_or_msg()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>訂單數量:</td>
 				<td><input type="TEXT" name="fest_or_qty"
-					value="<%= (festOrderDetailVO==null)? 
-				"45" :festOrderDetailVO.getFest_or_qty()%>" /></td>
+					value="<%=(festOrderDetailVO == null) ? "45" : festOrderDetailVO.getFest_or_qty()%>" /></td>
 			</tr>
 
 			<tr>
 				<td>訂單小計:</td>
 				<td><input type="TEXT" name="fest_or_stotal"
-					value="<%= (festOrderDetailVO==null)? 
-				"50" :festOrderDetailVO.getFest_or_stotal()%>" /></td>
+					value="<%=(festOrderDetailVO == null) ? "50" : festOrderDetailVO.getFest_or_stotal()%>" /></td>
 			</tr>
 		</table>
 		<br> <input type="hidden" name="action" value="insert"> <input
@@ -147,54 +145,51 @@ th, td {
 }
 </style>
 
-<script>   
-        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
+<script>
+	// ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
 
-        //      1.以下為某一天之前的日期無法選擇
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
+	//      1.以下為某一天之前的日期無法選擇
+	//      var somedate1 = new Date('2017-06-15');
+	//      $('#f_date1').datetimepicker({
+	//          beforeShowDay: function(date) {
+	//        	  if (  date.getYear() <  somedate1.getYear() || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+	//              ) {
+	//                   return [false, ""]
+	//              }
+	//              return [true, ""];
+	//      }});
 
-        
-        //      2.以下為某一天之後的日期無法選擇
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
+	//      2.以下為某一天之後的日期無法選擇
+	//      var somedate2 = new Date('2017-06-15');
+	//      $('#f_date1').datetimepicker({
+	//          beforeShowDay: function(date) {
+	//        	  if (  date.getYear() >  somedate2.getYear() || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+	//              ) {
+	//                   return [false, ""]
+	//              }
+	//              return [true, ""];
+	//      }});
 
-
-        //      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
+	//      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
+	//      var somedate1 = new Date('2017-06-15');
+	//      var somedate2 = new Date('2017-06-25');
+	//      $('#f_date1').datetimepicker({
+	//          beforeShowDay: function(date) {
+	//        	  if (  date.getYear() <  somedate1.getYear() || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
+	//		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
+	//		             ||
+	//		            date.getYear() >  somedate2.getYear() || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
+	//		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
+	//              ) {
+	//                   return [false, ""]
+	//              }
+	//              return [true, ""];
+	//      }});
 </script>
 </html>

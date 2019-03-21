@@ -16,9 +16,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>廣告資料新增 - addAd.jsp</title>
-<link
-	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" rel="stylesheet">
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -60,82 +58,83 @@ th, td {
 <body>
 	<jsp:include page="/froTempl/header.jsp" flush="true" />
 
-	<!-- ##### Contact Area Start #####-->
-	<section class="contact-area section-padding-100">
-		<h3>資料新增:</h3>
+	 <!-- ##### Contact Area Start #####-->
+    <section class="contact-area section-padding-100">	<h3>資料新增:</h3>
 
-		<%-- 錯誤表列 --%>
-		<c:if test="${not empty errorMsgs}">
-			<font style="color: red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
-				</c:forEach>
-			</ul>
-		</c:if>
-		<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
-			name="form1" enctype="multipart/form-data">
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ad/ad.do"
+		name="form1" enctype="multipart/form-data">
 
-			<table>
+		<table>
 
-				<tr>
-					<td>廣告標題:</td>
-					<td><input type="TEXT" name="ad_title" size="45"
-						value="<%=(adVO == null) ? "teddy" : adVO.getAd_title()%>" /></td>
-				</tr>
+			<tr>
+				<td>廣告標題:</td>
+				<td><input type="TEXT" name="ad_title" size="45"
+					value="<%=(adVO == null) ? "teddy" : adVO.getAd_title()%>" /></td>
+			</tr>
 
-
-				<tr>
-					<td>廣告上架日期:</td>
-					<td><input type="TEXT" name="ad_start" id="f_date1" size="45" /></td>
-				</tr>
-
-
-				<tr>
-					<td>廣告下架日期:</td>
-					<td><input type="TEXT" name="ad_end" id="f_date2" size="45" /></td>
-				</tr>
+			
+			<tr>
+				<td>廣告上架日期:</td>
+				<td><input type="TEXT" name="ad_start" id="f_date1" size="45" /></td>
+			</tr>
 
 
-				<tr>
-					<td>廣告類別:</td>
-					<td><input type="TEXT" name="ad_type" size="45"
-						value="<%=(adVO == null) ? "555" : adVO.getAd_type()%>" /></td>
-				</tr>
+			<tr>
+				<td>廣告下架日期:</td>
+				<td><input type="TEXT" name="ad_end" id="f_date2" size="45" /></td>
+			</tr>
 
-
-				<tr>
-					<td>廣告內文:</td>
-					<td><textarea name="ad_con"></textarea> <script>CKEDITOR.replace('ad_con');</script>
-					</td>
-				</tr>
-
-
-
-
-
-			</table>
+			
+			
+			
+			<tr>
+				<td>廣告圖片:</td>
+				<td><input type="file" name="ad_pic" size="45" id="doc"
+					onchange="javascript:setImagePreview();" /></td>
+			</tr>
+		
+			<tr>
+				<td>廣告內文:</td>
+				<td><input type="TEXT" name="ad_con" size="45"
+					value="<%=(adVO == null) ? "555" : adVO.getAd_con()%>" /></td>
+			</tr>
+			
+			
 
 
 
-			<br> <input type="hidden" name="action" value="insert">
+		</table>
+		<div id="localImag">
+			<img id="preview" width=-1 height=-1 style="diplay: none" />
+		</div>
+		
+		
+		<br> <input type="hidden" name="action" value="insert"> 
 			<input type="hidden" name="food_sup_ID" size="45"
-				value="<%=foodSupVO.getFood_sup_ID()%>" />
-			</td> <input type="submit" value="送出新增">
+					value="<%=foodSupVO.getFood_sup_ID()%>" /></td>	<input
+			type="submit" value="送出新增">
+			
 
-
-		</FORM>
-
-	</section>
-	<!-- ##### Contact Area End #####-->
+	</FORM>
+	
+</section>
+    <!-- ##### Contact Area End #####-->
 
 	<jsp:include page="/froTempl/footer.jsp" flush="true" />
-	<%--=================================jQuery===============================================--%>
+<%--=================================jQuery===============================================--%>
+			</div>
+		</div>
 	</div>
-	</div>
-	</div>
-	<script
-		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 </body>
 
 <script>
@@ -213,7 +212,41 @@ th, td {
 	//maxDate:               '+1970-01-01'  // 去除今日(不含)之後
 
 </script>
-
+<script>
+	function setImagePreview() {
+		var docObj = document.getElementById("doc");
+		var imgObjPreview = document.getElementById("preview");
+		if (docObj.files && docObj.files[0]) {
+			//火狐下，直接设img属性
+			imgObjPreview.style.display = 'block';
+			imgObjPreview.style.width = '200px';
+			imgObjPreview.style.height = '120px';
+			//imgObjPreview.src = docObj.files[0].getAsDataURL();
+			//火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+			imgObjPreview.src = window.URL.createObjectURL(docObj.files[0]);
+		} else {
+			//IE下，使用滤镜
+			docObj.select();
+			var imgSrc = document.selection.createRange().text;
+			var localImagId = document.getElementById("localImag");
+			//必须设置初始大小
+			localImagId.style.width = "250px";
+			localImagId.style.height = "200px";
+			//图片异常的捕捉，防止用户修改后缀来伪造图片
+			try {
+				localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+				localImagId.filters
+						.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+			} catch (e) {
+				alert("您上传的图片格式不正确，请重新选择!");
+				return false;
+			}
+			imgObjPreview.style.display = 'none';
+			document.selection.empty();
+		}
+		return true;
+	}
+</script>
 
 
 

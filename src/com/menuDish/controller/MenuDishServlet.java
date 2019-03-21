@@ -21,9 +21,9 @@ public class MenuDishServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
+		HttpSession session = req.getSession();
 		String action = req.getParameter("action");
 
-		
 		
 		// 單一查詢
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
@@ -150,7 +150,6 @@ public class MenuDishServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("AAA");
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
@@ -186,6 +185,7 @@ public class MenuDishServlet extends HttpServlet {
 					menuDishVO = menuDishSvc.addMenuDish(menu_ID,dish_ID);
 				}
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+				session.setAttribute("menu_ID", menu_ID);
 				String url = "/back-end/menuDish/listAllDishByMenuID.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
@@ -253,7 +253,6 @@ public class MenuDishServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-			System.out.println("AAA");
 			try {
 				/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 
@@ -289,7 +288,7 @@ public class MenuDishServlet extends HttpServlet {
 					menuDishVO = menuDishSvc.addMenuDish(menu_ID,dish_ID);
 				}
 				/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-				req.setAttribute("menu_ID", menu_ID);
+				session.setAttribute("menu_ID", menu_ID);
 				RequestDispatcher successView = req.getRequestDispatcher("/back-end/menuDish/listAllDishByMenuID.jsp"); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);
 

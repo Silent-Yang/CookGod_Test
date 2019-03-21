@@ -15,9 +15,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>食材供應商資料新增 - addCust.jsp</title>
-<link
-	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
-	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" rel="stylesheet">
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -56,128 +54,116 @@ th, td {
 
 </head>
 
-<body bgcolor='white'>
-	<div id="main-wrapper" data-navbarbg="skin6" data-theme="light"
-		data-layout="vertical" data-sidebartype="full"
-		data-boxed-layout="full">
-		<jsp:include page="/back-endTemplate/header.jsp" flush="true" />
-		<aside class="left-sidebar" data-sidebarbg="skin5">
-			<%--==============<jsp:include page="/back-end/XXXX/sidebar.jsp" flush="true" />=================================--%>
+<body>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
 
-		</aside>
-		<div class="page-wrapper">
-			<div class="page-breadcrumb">
-				<%--=================================工作區================================================--%>
-				<h3>資料新增:</h3>
+	 <!-- ##### Contact Area Start #####-->
+    <section class="contact-area section-padding-100">
+	<h3>資料新增:</h3>
 
-				<%-- 錯誤表列 --%>
-				<c:if test="${not empty errorMsgs}">
-					<font style="color: red">請修正以下錯誤:</font>
-					<ul>
-						<c:forEach var="message" items="${errorMsgs}">
-							<li style="color: red">${message}</li>
-						</c:forEach>
-					</ul>
-				</c:if>
-				<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/cust/cust.do" name="form1"
-					enctype="multipart/form-data">
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/cust/cust.do"
+		name="form1" enctype="multipart/form-data">
 
-					<table>
-						<tr>
-							<td>食材供應商帳號:</td>
-							<td><input type="TEXT" id="cust_acc" name="cust_acc"
-								size="45"
-								value="<%=(custVO == null) ? "Aa158556" : custVO.getCust_acc()%>" />
-							<p id="answer"></p></td>
-						</tr>
+		<table>
+			<tr>
+				<td>食材供應商帳號:</td>
+				<td><input type="TEXT" id="cust_acc" name="cust_acc" size="45"
+					value="<%=(custVO == null) ? "Aa158556" : custVO.getCust_acc()%>" /><p id="answer"></p></td>
+			</tr>
 
-						<tr>
-							<td>食材供應商密碼:</td>
-							<td><input type="password" name="cust_pwd" size="45"
-								value="<%=(custVO == null) ? "Aa123456" : custVO.getCust_pwd()%>" /></td>
-						</tr>
+			<tr>
+				<td>食材供應商密碼:</td>
+				<td><input type="password" name="cust_pwd" size="45"
+					value="<%=(custVO == null) ? "Aa123456" : custVO.getCust_pwd()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>食材供應商姓名:</td>
-							<td><input type="TEXT" name="cust_name" size="45"
-								value="<%=(custVO == null) ? "teddy" : custVO.getCust_name()%>" /></td>
-						</tr>
+			<tr>
+				<td>食材供應商姓名:</td>
+				<td><input type="TEXT" name="cust_name" size="45"
+					value="<%=(custVO == null) ? "teddy" : custVO.getCust_name()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>身分證字號:</td>
-							<td><input type="TEXT" name="cust_pid" size="45"
-								value="<%=(custVO == null) ? "a987654321" : custVO.getCust_pid()%>" /></td>
-						</tr>
+			<tr>
+				<td>身分證字號:</td>
+				<td><input type="TEXT" name="cust_pid" size="45"
+					value="<%=(custVO == null) ? "a987654321" : custVO.getCust_pid()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>食材供應商性別:</td>
-							<td><input type="radio" name="cust_sex" size="10" value="M"
-								${custVO.cust_sex=='M'||custVO ==null ? 'checked':'' } />男 <input
-								type="radio" name="cust_sex" size="10" value="F"
-								${custVO.cust_sex=='F'||custVO ==null ? 'checked':'' } />女</td>
-						</tr>
+			<tr>
+				<td>食材供應商性別:</td>
+				<td> <input type="radio" name="cust_sex" size="10" value="M" 
+				 ${custVO.cust_sex=='M'||custVO ==null ? 'checked':'' } />男 
+					 <input type="radio" name="cust_sex" size="10" value="F"  
+				${custVO.cust_sex=='F'||custVO ==null ? 'checked':'' }/>女
+				</td>
+			</tr>
 
-						<tr>
-							<td>食材供應商生日:</td>
-							<td><input type="TEXT" name="cust_brd" id="f_date1"
-								size="45" /></td>
-						</tr>
+			<tr>
+				<td>食材供應商生日:</td>
+				<td><input type="TEXT" name="cust_brd" id="f_date1" size="45" /></td>
+			</tr>
 
-						<tr>
-							<td>食材供應商電話:</td>
-							<td><input type="TEXT" name="cust_tel" size="45"
-								value="<%=(custVO == null) ? "09090909" : custVO.getCust_tel()%>" /></td>
-						</tr>
+			<tr>
+				<td>食材供應商電話:</td>
+				<td><input type="TEXT" name="cust_tel" size="45"
+					value="<%=(custVO == null) ? "09090909" : custVO.getCust_tel()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>食材供應商地址:</td>
-							<td><input type="TEXT" name="cust_addr" size="45"
-								value="<%=(custVO == null) ? "09090909" : custVO.getCust_addr()%>" />
-							</td>
-						</tr>
+			<tr>
+				<td>食材供應商地址:</td>
+				<td><input type="TEXT" name="cust_addr" size="45"
+					value="<%=(custVO == null) ? "09090909" : custVO.getCust_addr()%>" />
+					</td>
+			</tr>
 
-						<tr>
-							<td>食材供應商信箱:</td>
-							<td><input type="TEXT" name="cust_mail" size="45"
-								value="<%=(custVO == null) ? "gggccc@yahoo" : custVO.getCust_mail()%>" /></td>
-						</tr>
+			<tr>
+				<td>食材供應商信箱:</td>
+				<td><input type="TEXT" name="cust_mail" size="45"
+					value="<%=(custVO == null) ? "gggccc@yahoo" : custVO.getCust_mail()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>食材供應商暱稱:</td>
-							<td><input type="TEXT" name="cust_niname" size="45"
-								value="<%=(custVO == null) ? "555" : custVO.getCust_niname()%>" /></td>
-						</tr>
+			<tr>
+				<td>食材供應商暱稱:</td>
+				<td><input type="TEXT" name="cust_niname" size="45"
+					value="<%=(custVO == null) ? "555" : custVO.getCust_niname()%>" /></td>
+			</tr>
 
-						<tr>
-							<td>食材供應商大頭照:</td>
-							<td><input type="file" name="cust_pic" size="45" id="doc"
-								onchange="javascript:setImagePreview();" /></td>
-						</tr>
-						<tr>
-							<td>食材供應商簡歷:</td>
-							<td><input type="TEXT" name="food_sup_resume" size="45"
-								value="<%=(custVO == null) ? "555" : custVO.getCust_niname()%>" /></td>
-						</tr>
+			<tr>
+				<td>食材供應商大頭照:</td>
+				<td><input type="file" name="cust_pic" size="45" id="doc"
+					onchange="javascript:setImagePreview();" /></td>
+			</tr>
+			<tr>
+				<td>食材供應商簡歷:</td>
+				<td><input type="TEXT" name="food_sup_resume" size="45"
+					value="<%=(custVO == null) ? "555" : custVO.getCust_niname()%>" /></td>
+			</tr>
 
 
-					</table>
-					<div id="localImag">
-						<img id="preview" width=-1 height=-1 style="diplay: none" />
-					</div>
-					<br> <input type="hidden" name="action" value="insert2">
-					<input type="submit" value="送出新增">
-
-				</FORM>
-
-				<%--=================================工作區================================================--%>
-				<jsp:include page="/back-endTemplate/footer.jsp" flush="true" />
-				<%--=================================jQuery===============================================--%>
-			</div>
+		</table>
+		<div id="localImag">
+			<img id="preview" width=-1 height=-1 style="diplay: none" />
 		</div>
-	</div>
-	<script
-		src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+		<br> <input type="hidden" name="action" value="insert2"> 
+		     <input type="submit" value="送出新增">
+
+	</FORM>
+	
+	
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+ </section>
+    <!-- ##### Contact Area End #####-->
+
+	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
 <%
 	java.sql.Date cust_brd = null;

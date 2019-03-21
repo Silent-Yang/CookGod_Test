@@ -1,11 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.chef.model.*"%>
 <%@ page import="com.chefSch.model.*"%>
 
 <%	
 	ChefSchService chefSchSvc = new ChefSchService();
-	String chef_ID = request.getParameter("chef_ID");
+	ChefVO chefVO = (ChefVO)session.getAttribute("chefVO"); 
+	String chef_ID = chefVO.getChef_ID();
 	List<ChefSchVO> listAll = chefSchSvc.getAllChefSchByID(chef_ID);
 	pageContext.setAttribute("listAll", listAll);
 %>
@@ -41,13 +43,6 @@ th, td {
 </style>
 </head>
 <body>
-	<div class="card text-center" style="background-color: #D4E6F1">
-		<div class="card-body">
-			<h5 class="card-title">單位主廚排程</h5>
-			<p class="card-text">listChefSchByID.jsp</p>
-			<a href="index.jsp" class="btn btn-primary">回首頁</a>
-		</div>
-	</div>
 
 	<%--Error Message--%>
 	<c:if test="${not empty errorMsgs} }">
@@ -67,8 +62,7 @@ th, td {
 						<th>主廚姓名</th>
 						<th>排程日期</th>
 						<th>當天狀態</th>
-						<th>修改訂單</th>
-						<th>刪除訂單</th>
+						<th>刪除排程</th>
 					</tr>
 					<%@ include file="page1.file"%>
 					<c:forEach var="chefSchVO" items="${listAll}"
@@ -77,27 +71,18 @@ th, td {
 							<td>${chefSchVO.chef_ID}</td>
 							<td>${chefSchVO.chef_name}</td>
 							<td>${chefSchVO.chef_sch_date}</td>
-							<td>${chefSchVO.chef_sch_status}</td>
-							<td>
-								<form method="post"
-									action="<%=request.getContextPath()%>/chefSch/chefSch.do">
-									<input type="submit" value="編輯"> <input type="hidden"
-										name="chef_ID" value="${chefSchVO.chef_ID}"> <input
-										type="hidden" name="chef_sch_date"
-										value="${chefSchVO.chef_sch_date}"> <input
-										type="hidden" name="action" value="getOneForUpdate">
-								</form>
-							</td>
-							<td>
-								<form method="post"
-									action="<%=request.getContextPath()%>/chefSch/chefSch.do">
-									<input type="submit" value="刪除"> <input type="hidden"
-										name="chef_ID" value="${chefSchVO.chef_ID}"> <input
-										type="hidden" name="chef_sch_date"
-										value="${chefSchVO.chef_sch_date}"> <input
-										type="hidden" name="action" value="delete">
-								</form>
-							</td>
+							<td><c:if test="${chefSchVO.chef_sch_status=='c0'}">閒置</c:if>
+								<c:if test="${chefSchVO.chef_sch_status=='c1'}">預定</c:if></td>
+							<td><c:if test="${chefSchVO.chef_sch_status=='c0'}">
+									<form method="post"
+										action="<%=request.getContextPath()%>/chefSch/chefSch.do">
+										<input type="submit" value="刪除"> <input type="hidden"
+											name="chef_ID" value="${chefSchVO.chef_ID}"> <input
+											type="hidden" name="chef_sch_date"
+											value="${chefSchVO.chef_sch_date}"> <input
+											type="hidden" name="action" value="delete">
+									</form>
+								</c:if></td>
 						</tr>
 					</c:forEach>
 				</table>

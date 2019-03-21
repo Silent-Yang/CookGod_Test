@@ -76,7 +76,7 @@ th, td {
 			<th>推播狀態</th>
 			<th>推播類別</th>
 			<th>食材供應商</th>
-
+			
 		</tr>
 		<tr>
 			<td><%=broadcastVO.getBroadcast_ID()%></td>
@@ -84,7 +84,7 @@ th, td {
 			<td><%=broadcastVO.getBroadcast_start()%></td>
 			<td><%=broadcastVO.getBroadcast_status()%></td>
 			<td><%=broadcastVO.getCust_ID()%></td>
-
+		
 
 		</tr>
 	</table>

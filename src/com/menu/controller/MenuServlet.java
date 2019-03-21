@@ -101,8 +101,7 @@ public class MenuServlet extends HttpServlet {
 				//將資料加入資料庫
 				MenuService menuSvc = new MenuService();
 				menuVO = menuSvc.addMenu(menu_name, menu_resume, menu_pic, menu_price);
-				System.out.println(menuVO.getMenu_ID());
-				request.setAttribute("menuVO", menuVO);
+				session.setAttribute("menuVO", menuVO);
 				RequestDispatcher successView = request.getRequestDispatcher("/back-end/menuDish/addMenuDish.jsp");
 				successView.forward(request, response);
 				//除錯
@@ -152,7 +151,7 @@ public class MenuServlet extends HttpServlet {
 
 				/*************************** 其他可能的錯誤處理 *************************************/
 			} catch (Exception e) {
-				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/menu/listAllMenu.jsp");
+				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/menu/menu.jsp");
 				failureView.forward(request, response);
 			}
 		}

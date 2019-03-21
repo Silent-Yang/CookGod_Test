@@ -1,7 +1,7 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.menuOrder.model.*"%>
+<%@ page import="com.menu.model.*"%>
 
 <html>
 <head>
@@ -33,9 +33,9 @@ th, td {
 <body>
 	<div class="card text-center" style="background-color: #D4E6F1">
 		<div class="card-body">
-			<h5 class="card-title">¬d¸ß³æµ§­q³æ</h5>
-			<p class="card-text">listOneMenuOrder.jsp</p>
-			<a href="index.jsp" class="btn btn-primary">¦^­º­¶</a>
+			<h5 class="card-title">æŸ¥è©¢å–®ç­†å¥—é¤</h5>
+			<p class="card-text">listOneMenu.jsp</p>
+			<a href="index.jsp" class="btn btn-primary">å›žé¦–é </a>
 		</div>
 	</div>
 
@@ -53,16 +53,16 @@ th, td {
 			<div class="col-12">
 				<table>
 					<tr>
-						<th>­q³æ½s¸¹</th>
-						<th>­q³æª¬ºA</th>
-						<th>¤U­q¤é´Á</th>
-						<th>¹w¬ù¤é´Á</th>
-						<th>§¹¦¨¤é´Á</th>
-						<th>­q³æµû»ù</th>
-						<th>­q³æ¯d¨¥</th>
-						<th>ÅU«È½s¸¹</th>
-						<th>¥D¼p½s¸¹</th>
-						<th>®MÀ\½s¸¹</th>
+						<th>è¨‚å–®ç·¨è™Ÿ</th>
+						<th>è¨‚å–®ç‹€æ…‹</th>
+						<th>ä¸‹è¨‚æ—¥æœŸ</th>
+						<th>é ç´„æ—¥æœŸ</th>
+						<th>å®Œæˆæ—¥æœŸ</th>
+						<th>è¨‚å–®è©•åƒ¹</th>
+						<th>è¨‚å–®ç•™è¨€</th>
+						<th>é¡§å®¢ç·¨è™Ÿ</th>
+						<th>ä¸»å»šç·¨è™Ÿ</th>
+						<th>å¥—é¤ç·¨è™Ÿ</th>
 					</tr>
 					<tr>
 						<td>${menuOrderVO.menu_od_ID}</td>

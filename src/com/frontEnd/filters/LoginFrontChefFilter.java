@@ -50,8 +50,12 @@ public class LoginFrontChefFilter implements Filter {
 			res.sendRedirect(req.getContextPath() + "/front-end/loginFrontEnd.jsp");
 			return;
 			}
-		} else {
+		}else if(chefVO.getChef_status().equals("b1")) {
 			chain.doFilter(request, response);
+		} else {
+			session.setAttribute("location", req.getRequestURI());
+			res.sendRedirect(req.getContextPath() + "/front-end/chef/updateChefResume.jsp");
+			return;
 		}
 	}
 }

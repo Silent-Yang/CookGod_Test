@@ -22,6 +22,7 @@ public class MenuDishDAO implements MenuDishDAO_interface{
 	
 	private static final String INSERT_STMT ="INSERT INTO MENU_DISH(MENU_ID,DISH_ID)VALUES(?,?)";
 	private static final String GET_ALL_STMT ="SELECT * FROM MENU_DISH order by MENU_ID";
+	private static final String GET_ALL_BY_MENU_ID ="SELECT * FROM MENU_DISH where menu_id=? order by MENU_ID";
 	private static final String GET_ONE_STMT ="SELECT * FROM MENU_DISH where MENU_ID = ? AND DISH_ID = ? ";
 	private static final String DELETE ="DELETE FROM MENU_DISH where MENU_ID=? AND DISH_ID=?";
 	private static final String UPDATE ="UPDATE MENU_DISH set DISH_ID=? where MENU_ID=? AND DISH_ID=?";
@@ -277,7 +278,7 @@ public class MenuDishDAO implements MenuDishDAO_interface{
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_ONE_STMT);
+			pstmt = con.prepareStatement(GET_ALL_BY_MENU_ID);
 
 			pstmt.setString(1, menu_ID);
 			

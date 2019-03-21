@@ -5,48 +5,51 @@
 <head>
 <title>FestOrderDetail Home</title>
 
-<style>
-table#table-1 {
-	width: 450px;
-	background-color: #CCCCFF;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	border: 3px ridge Gray;
-	height: 80px;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
 
 </head>
-<body bgcolor='white'>
+<jsp:include page="/froTempl/header.jsp" flush="true" />
+<!-- ##### Contact Area Start #####-->
+<section class="contact-area section-padding-100">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<!-- Section Heading -->
+				<div class="section-heading text-center wow fadeInUp"
+					data-wow-delay="100ms">
+					<h2>Get In Touch</h2>
+					<img src="img/core-img/x.png" alt="">
+				</div>
+			</div>
+		</div>
 
-	<table id="table-1">
-		<tr>
-			<td><h3>IBM FestOrderDetail: Home</h3>
-				<h4>( MVC )</h4></td>
-		</tr>
-	</table>
+		<div class="row justify-content-center">
+			<div class="col-12 col-lg-8">
+				<!-- Contact Form -->
+				<div class="contact-form-area text-center">
+					<form action="<%=request.getContextPath()%>/festOrder/festOrder.do"
+						method="post">
+						<c:if test="${not empty errorMsgs}">
+							<font style="color: red"></font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
+						<body bgcolor='white'>
 
-	<p>This is the Home page for IBM FestOrderDetail: Home</p>
 
-	<h3>資料查詢:</h3>
+							<p>This is the Home page for Cook God FestOrderDetail: Home</p>
 
-	<h3>員工管理</h3>
+							<h3>資料查詢:</h3>
 
-	<ul>
-		<li><a href='addFestOrderDetail.jsp'>Add</a> a new Report.</li>
-	</ul>
+							<h3>節慶主題料理訂單明細 (FestOrderDetail)</h3>
 
+							<ul>
+								<li><a href='addFestOrderDetail.jsp'>Add</a> a new
+									FestOrderDetail.</li>
+							</ul>
+</section>
+<jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
 </html>

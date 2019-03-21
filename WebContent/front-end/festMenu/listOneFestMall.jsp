@@ -26,10 +26,10 @@
 			<div class="col">數量 : ${festMenuVO.fest_m_qty}</div>
 			<div class="col">開始預購日期 : ${festMenuVO.fest_m_start}</div>
 			<div class="col">結束預購日期 : ${festMenuVO.fest_m_end}</div>
-			<div class="col">結束預購日期 : ${festMenuVO.fest_m_send}</div>
+			<div class="col">統一寄送日期 : ${festMenuVO.fest_m_send}</div>
 			<div class="col">
 				<img
-					src="<%=request.getContextPath()%>/festmenu/festmenu.do?fest_m_ID=${festMenuVO.fest_m_ID}"
+					src="<%=request.getContextPath()%>/festMenu/festMenu.do?fest_m_ID=${festMenuVO.fest_m_ID}"
 					height="400" width="300">
 			</div>
 			<div class="col">種類 : ${festMenuVO.fest_m_kind}</div>
@@ -39,8 +39,7 @@
 				action="<%=request.getContextPath()%>/mall/mall.do" method="POST">
 				<button type="button" id="addShoppingcart" name="foodMBtn"
 					class="btn btn-primary">加入購物車</button>
-				<input type="hidden" name="fest_m_ID"
-					value="${festMenuVO.fest_m_ID}"> <input type="number"
+				<input type="hidden" name="fest_m_ID" value="${festMenuVO.fest_m_ID}"> <input type="number"
 					name="fest_or_qty" min="1" max="20" size="3" value="1">
 			</form>
 			<p class="card-text errorMsgs"></p>
@@ -54,60 +53,60 @@
 			$("#addShoppingcart").click(function(){
 				let foodMName = $("#festMName").text();
 				foodMName = foodMName.substring(foodMName.indexOf(':')+2);
-				console.log(foodMName);
 				$.ajax({
-					 type:"POST",
-					 url: "<%=request.getContextPath()%>/mall/mall.do",
-					 data: crtQryStrFoodM( $(this).attr("id") , "addFestMenu", $(this).parent("form").serializeArray()),
-					 dataType: "json",
-					 success: function (data){
-						 
-						 if(data["foodMCardID"]){
-							 $("#mallItem").find(".errorMsgs").text(data["cartErrorMsgs"]);	 
-						 }else{
-							
-							 cartItem(foodMName, data);
-						 }
-						 
-				     },
-		             error: function(errdata){
-		            	alert("ajax 錯誤");
-		            	console.log(errdata);
-		             }
-		         });
+					type:"POST",
+					url: "<%=request.getContextPath()%>/mall/mall.do",
+					data : crtQryStrFoodM("addFestMenu",$(this).parent("form").serializeArray()),
+					dataType : "json",
+					success : function(data) {
+						if (data["foodMCardID"]) {
+							$("#mallItem").find(".errorMsgs").text(data["cartErrorMsgs"]);
+						} else {
+							cartItem(foodMName,data);
+						}
+
+					},
+					error : function(errdata) {
+								alert("ajax 錯誤");
+								console.log(errdata);
+					}
+				});
 			});
 		});
 		// 產生查詢字串
-		function crtQryStrFoodM( foodMCardID , action, foodMArr){
+		function crtQryStrFoodM( action , festMArr) {
 			
-			let queryString = { "foodMCardID":foodMCardID , "action":action };
-			let foodMArrLen = foodMArr.length;
-			for(let i = 0; i < foodMArrLen; i++){
-				queryString[foodMArr[i].name] = foodMArr[i].value;
+			let queryString = {
+				"action" : action
+			};
+			let festMArrLen = festMArr.length;
+			for(let i = 0; i < festMArrLen; i++){
+				queryString[festMArr[i].name] = festMArr[i].value;
 			}
+			console.log(queryString);
 			
 			return queryString;
 		}
 		// 懶得在伺服器再查詢, 所以透過此方法再加入購物商時取得對應的食材名, 標題名, 供應商名
 		// 並暫存到記憶體中, 等伺服器回應時就可以一起加入到購物車
 		// 新增或更改已在購物車的商品
-		function cartItem(foodMName, data){
-			
+		function cartItem(foodMName, data) {
+
 			let shopCartTrs = $("#shopCartList>tr");
 			let shopCartLen = shopCartTrs.length;
 			let isNewCartItem = true;
-			
-			jQuery.each( shopCartTrs, function(i, val){
+
+			jQuery.each(shopCartTrs, function(i, val) {
 				let inputArr = $(this).find("form").serializeArray();
-				if(inputArr[0].value === data.fest_m_ID){
+				if (inputArr[0].value === data.fest_m_ID) {
 					$(this).children("td:eq(1)").text(data.fest_or_qty);
 					$(this).children("td:eq(2)").text(data.fest_or_stotal);
 					isNewCartItem = false;
 					return;
 				}
 			});
-			
-			if(isNewCartItem){
+
+			if (isNewCartItem) {
 				let shopCartItem = $("#copyShopFest").clone();
 				shopCartItem.children("td:eq(0)").text(foodMName);
 				shopCartItem.children("td:eq(1)").text(data.fest_or_qty);
@@ -118,9 +117,9 @@
 				shopCartItem.removeAttr('style');
 				shopCartItem.removeAttr('id');
 				$("#shopCartList").append(shopCartItem);
-				
+
 			}
-	
+
 		}
 	</script>
 </body>

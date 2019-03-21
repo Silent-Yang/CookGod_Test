@@ -1,23 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.chef.model.*"%>
-
 <html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
 <title>訂購套餐</title>
-
 <style type="text/css">
 .header {
 	background-color: gray;
@@ -30,10 +17,17 @@ h2 {
 	text-align: center;
 	line-height: 130px;
 }
+input{
+	margin-top:5px;
+}
 </style>
 </head>
 <body>
-	<%--Error Message--%>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
+
+	 <!-- ##### Contact Area Start #####-->
+    <section class="contact-area section-padding-100">
+    	<%--Error Message--%>
 	<c:if test="${not empty errorMsgs} }">
 		<font style="color: red; font-size: 30px;">Error</font>
 		<ul>
@@ -132,7 +126,7 @@ h2 {
 						</div>
 					</div>
 					<div class="chef_sch_date">
-						<%@ include file="/chefSch/listChefSchDateByID.jsp"%>
+						<%@ include file="/front-end/chefSch/listChefSchDateByID.jsp"%>
 					</div>
 					<c:if test="${order_chef_sch_date!=null}">
 						<div class="chef_sch_time">
@@ -159,27 +153,15 @@ h2 {
 		</div>
 		<div class="footer"></div>
 	</div>
+    </section>
+    <!-- ##### Contact Area End #####-->
 
-
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 <script
 	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 

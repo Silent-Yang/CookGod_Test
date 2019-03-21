@@ -20,7 +20,6 @@ public class MenuDishService {
 		dao.insert(menuDishVO);
 		
 		return menuDishVO;
-		
 	}
 	
 	public MenuDishVO updateMenuDish(String menu_ID,String dish_ID) {
@@ -42,6 +41,7 @@ public class MenuDishService {
 	public MenuDishVO getOneMenuDish(String menu_ID) {
 		return dao.findyByPrimaryKeys(menu_ID);
 	}
+	
 	public List<MenuDishVO> getAllByMenuID(String menu_ID) {
 		return dao.getAllByMenuID(menu_ID);
 	}
@@ -49,6 +49,4 @@ public class MenuDishService {
 	public List<MenuDishVO> getAll() {
 		return dao.getAll();
 	}
-	
-
 }

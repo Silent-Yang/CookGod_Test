@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.menuOrder.model.*"%>
@@ -41,9 +41,9 @@ th, td {
 <body>
 	<div class="card text-center" style="background-color: #D4E6F1">
 		<div class="card-body">
-			<h5 class="card-title">¬d¸ß©Ò¦³­q³æ</h5>
+			<h5 class="card-title">æŸ¥è©¢æ‰€æœ‰è¨‚å–®</h5>
 			<p class="card-text">listAllMenuOrder.jsp</p>
-			<a href="index.jsp" class="btn btn-primary">¦^­º­¶</a>
+			<a href="index.jsp" class="btn btn-primary">å›žé¦–é </a>
 		</div>
 	</div>
 
@@ -61,18 +61,18 @@ th, td {
 			<div class="col-12">
 				<table>
 					<tr>
-						<th>­q³æ½s¸¹</th>
-						<th>­q³æª¬ºA</th>
-						<th>¤U­q¤é´Á</th>
-						<th>¹w¬ù¤é´Á</th>
-						<th>§¹¦¨¤é´Á</th>
-						<th>­q³æµû»ù</th>
-						<th>­q³æ¯d¨¥</th>
-						<th>ÅU«È½s¸¹</th>
-						<th>¥D¼p½s¸¹</th>
-						<th>®MÀ\½s¸¹</th>
-						<th>­×§ï­q³æ</th>
-						<th>§R°£­q³æ</th>
+						<th>è¨‚å–®ç·¨è™Ÿ</th>
+						<th>è¨‚å–®ç‹€æ…‹</th>
+						<th>ä¸‹è¨‚æ—¥æœŸ</th>
+						<th>é ç´„æ—¥æœŸ</th>
+						<th>å®Œæˆæ—¥æœŸ</th>
+						<th>è¨‚å–®è©•åƒ¹</th>
+						<th>è¨‚å–®ç•™è¨€</th>
+						<th>é¡§å®¢ç·¨è™Ÿ</th>
+						<th>ä¸»å»šç·¨è™Ÿ</th>
+						<th>å¥—é¤ç·¨è™Ÿ</th>
+						<th>ä¿®æ”¹è¨‚å–®</th>
+						<th>åˆªé™¤è¨‚å–®</th>
 					</tr>
 					<%@ include file="page1.file"%>
 					<c:forEach var="menuOrderVO" items="${listAll}"
@@ -91,7 +91,7 @@ th, td {
 							<td>
 								<form method="post"
 									action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
-									<input type="submit" value="½s¿è"> <input type="hidden"
+									<input type="submit" value="ç·¨è¼¯"> <input type="hidden"
 										name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> <input
 										type="hidden" name="action" value="getOneForUpdate">
 								</form>
@@ -99,7 +99,7 @@ th, td {
 							<td>
 								<form method="post"
 									action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
-									<input type="submit" value="§R°£"> <input type="hidden"
+									<input type="submit" value="åˆªé™¤"> <input type="hidden"
 										name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> <input
 										type="hidden" name="action" value="delete">
 								</form>

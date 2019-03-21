@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="com.cust.model.CustVO"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page import="java.util.List" %>
 <%@ page import="com.ad.model.AdVO"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:useBean id="adSvc" class="com.ad.model.AdService"/>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="description" content="">
+<meta HTTP-EQUIV="Refresh" content="20">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -50,32 +55,31 @@
 								<h4 data-animation="fadeInUp" data-delay="500ms">
 									See the Cook God<span></span>
 								</h4>
-								<a href="#" class="btn pixel-btn mt-50"
-									data-animation="fadeInUp" data-delay="700ms">View Project</a>
+								
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			
+			</div>  
+		<c:forEach var="adVO" items="${adSvc.allNowAd}">	
 			<!-- Single Slide -->
             <div class="single-slide">
                 <!-- Background Image-->
-                <div class="slide-bg-img bg-img" style="background-image: url(<%=request.getContextPath()%>/froTempl/temp/img/bg-img/2.jpg);"></div>
+                <div class="slide-bg-img bg-img" style="background-image:url(<%=request.getContextPath()%>/ad/ad.do?ad_ID=${adVO.ad_ID});"></div>
                 <!-- Welcome Text -->
                 <div class="container h-100">
                     <div class="row h-100 align-items-center">
                         <div class="col-12 col-lg-9">
                             <div class="welcome-text">
-                                <h2 data-animation="fadeInUp" data-delay="300ms"><span>Creative Agency</span><br>of the year 2019</h2>
-                                <h4 data-animation="fadeInUp" data-delay="500ms">Visual Identity by John Doe Client: <span>Lorem ipsum</span></h4>
-                                <a href="#" class="btn pixel-btn mt-50" data-animation="fadeInUp" data-delay="700ms">View Project</a>
+                                <h2 data-animation="fadeInUp" data-delay="300ms"><span>${adVO.ad_title}</span><br>In Cook God</h2>
+                                <h4 data-animation="fadeInUp" data-delay="500ms">${adVO.ad_con}<span></span></h4>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            </div>  
+		</c:forEach>
 <!-- 			<div class="single-slide"> -->
 <!-- 				Background Image -->
 <!-- 				<div id="imgPos" class="slide-bg-img bg-img"></div> -->
@@ -114,7 +118,19 @@
 
 		var adWebSocket;
 		$(document).ready(function() {
-			adWSconnect();
+			//adWSconnect();
+			$('#adWall').owlCarousel({
+	            items: 1,
+	            loop: true,
+	            nav: true,
+	            navText: ['Prev', 'Next'],
+	            dots: false,
+	            autoplay: true,
+	            autoplayTimeout: 10000,
+	            smartSpeed: 500,
+	            animateIn: 'fadeIn',
+	            animateOut: 'fadeOut'
+	        });
 		});
 		// 觸發connect()時註冊方法, 並建立WebSocket物件
 
@@ -142,7 +158,7 @@
 // 				adWallVar.removeAttr("style");
 // 				adWallVar.removeAttr("id");
 				
-				$("#adWall").append(
+		<%--		$("#adWall").append(
 				`
 					<div class="single-slide" >
 						<!-- Background Image-->
@@ -166,25 +182,15 @@
 				`		
 				);
 				
-				$('#adWall').owlCarousel('destroy'); 
-				$('#adWall').owlCarousel({
-		            items: 1,
-		            loop: true,
-		            nav: true,
-		            navText: ['Prev', 'Next'],
-		            dots: false,
-		            autoplay: true,
-		            autoplayTimeout: 10000,
-		            smartSpeed: 500,
-		            animateIn: 'fadeIn',
-		            animateOut: 'fadeOut'
-		        });
+				$('#adWall').owlCarousel('destroy');--%> 
+				
 			};
 
 		}
 		function adWSsendMessage() {
 
 		}
+		
 	</script>
 </body>
 </html>
