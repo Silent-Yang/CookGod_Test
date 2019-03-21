@@ -54,7 +54,7 @@
    
   <li>
      <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/menuDish/menuDish.do" >
-       <b>選擇菜色:</b>
+       <b>選擇套餐:</b>
        <select size="1" name="menu_ID">
          <c:forEach var="menuDishVO" items="${menuDishSvc.all}" > 
           <option value="${menuDishVO.menu_ID}">${menuDishVO.menu_ID}

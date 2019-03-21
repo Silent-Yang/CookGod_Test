@@ -41,9 +41,12 @@ public class MenuDishService {
 	
 	public MenuDishVO getOneMenuDish(String menu_ID) {
 		return dao.findyByPrimaryKeys(menu_ID);
-	
 	}
-	public List <MenuDishVO> getAll() {
+	public List<MenuDishVO> getAllByMenuID(String menu_ID) {
+		return dao.getAllByMenuID(menu_ID);
+	}
+	
+	public List<MenuDishVO> getAll() {
 		return dao.getAll();
 	}
 	

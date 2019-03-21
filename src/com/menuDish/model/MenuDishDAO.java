@@ -150,7 +150,6 @@ public class MenuDishDAO implements MenuDishDAO_interface{
 
 	@Override
 	public MenuDishVO findyByPrimaryKeys (String menu_ID) {
-		
 		MenuDishVO menuDishVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -170,7 +169,6 @@ public class MenuDishDAO implements MenuDishDAO_interface{
 				menuDishVO = new MenuDishVO();
 				menuDishVO.setMenu_ID(rs.getString("menu_ID"));
 				menuDishVO.setDish_ID(rs.getString("dish_ID"));
-				
 			}
 
 			// Handle any driver errors
@@ -201,7 +199,7 @@ public class MenuDishDAO implements MenuDishDAO_interface{
 				}
 			}
 		}
-		return menuDishVO;
+		return menuDishVO ;
 	}
 
 
@@ -258,6 +256,69 @@ public class MenuDishDAO implements MenuDishDAO_interface{
 			}
 		}
 
+		return list;
+	}
+
+	@Override
+	public void insert2(MenuDishVO menuDishVO, Connection con) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public List<MenuDishVO> getAllByMenuID(String menu_ID) {
+		List<MenuDishVO> list = new ArrayList<MenuDishVO>();
+		MenuDishVO menuDishVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt.setString(1, menu_ID);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				menuDishVO = new MenuDishVO();
+				menuDishVO.setMenu_ID(rs.getString("menu_ID"));
+				menuDishVO.setDish_ID(rs.getString("dish_ID"));
+				list.add(menuDishVO); 
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 		return list;
 	}
 

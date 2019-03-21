@@ -8,7 +8,8 @@
 
 <%
     MenuDishService menuDishSvc = new MenuDishService();
-    List<MenuDishVO> list = menuDishSvc.getAll();
+	String menu_ID = request.getAttribute("menu_ID").toString();
+    List<MenuDishVO> list = menuDishSvc.getAllByMenuID(menu_ID);
     pageContext.setAttribute("list",list);
 %>
 
@@ -57,6 +58,13 @@
 </head>
 <body bgcolor='white'>
 
+<table id="table-1">
+	<tr><td>
+		 <h3>單一套餐菜色 </h3>
+		 <h4><a href="<%=request.getContextPath()%>/back-end/dish/select_page.jsp">回首頁</a></h4>
+	</td></tr>
+</table>
+
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -81,14 +89,14 @@
 	</tr>
 	
 	<c:forEach var="menuDishVO" items="${list}" varStatus="s" >
-	<tr>
+		<tr>
 			<td>${menuSvc.getOneMenu(menuDishVO.menu_ID).menu_name}</td>
 			<td>${dishSvc.getOneDish(menuDishVO.dish_ID).dish_name}</td>
-		<td>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/menuDish/menuDish.do" style="margin-bottom: 0px;">
-			<A href="<%=request.getContextPath()%>/menuDish/menuDish.do?dish_ID=${menuDishVO.dish_ID}&action=getAllDish">${dishSvc.getOneDish(menuDishVO.dish_ID).dish_name}</a>
-			</FORM>	
-		</td>        
+			<td>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/menuDish/menuDish.do" style="margin-bottom: 0px;">
+					<A href="<%=request.getContextPath()%>/menuDish/menuDish.do?dish_ID=${menuDishVO.dish_ID}&action=getAllDish">${dishSvc.getOneDish(menuDishVO.dish_ID).dish_name}</a>
+				</FORM>	
+			</td>        
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/menuDish/menuDish.do" style="margin-bottom: 0px;">

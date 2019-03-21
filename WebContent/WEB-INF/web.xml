@@ -24,7 +24,27 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginBackEndFilter</filter-name>
+		<url-pattern>/back-end/ad/*</url-pattern>
+		<url-pattern>/back-end/auth/*</url-pattern>
+		<url-pattern>/back-end/chefDish/*</url-pattern>
+		<url-pattern>/back-end/chefSch/*</url-pattern>
+		<url-pattern>/back-end/cust/*</url-pattern>
+		<url-pattern>/back-end/dish/*</url-pattern>
+		<url-pattern>/back-end/dishFood/*</url-pattern>
 		<url-pattern>/back-end/emp/*</url-pattern>
+		<url-pattern>/back-end/festMenu/*</url-pattern>
+		<url-pattern>/back-end/festOrder/*</url-pattern>
+		<url-pattern>/back-end/festOrderDetail/*</url-pattern>
+		<url-pattern>/back-end/food/*</url-pattern>
+		<url-pattern>/back-end/foodMall/*</url-pattern>
+		<url-pattern>/back-end/foodOrder/*</url-pattern>
+		<url-pattern>/back-end/foodSup/*</url-pattern>
+		<url-pattern>/back-end/forumArt/*</url-pattern>
+		<url-pattern>/back-end/forumMsg/*</url-pattern>
+		<url-pattern>/back-end/fun/*</url-pattern>
+		<url-pattern>/back-end/menuDish/*</url-pattern>
+		<url-pattern>/back-end/menuOrder/*</url-pattern>
+		<url-pattern>/back-end/report/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
@@ -45,7 +65,7 @@
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-
+	
 	<filter>
 		<filter-name>LoginFrontFoodSupFilter</filter-name>
 		<filter-class>com.frontEnd.filters.LoginFrontFoodSupFilter</filter-class>
@@ -53,27 +73,28 @@
 	<filter-mapping>
 		<filter-name>LoginFrontFoodSupFilter</filter-name>
 		<url-pattern>/front-end/ad/*</url-pattern>
+		<url-pattern>/front-end/FoodSup/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-
+	
 	<filter>
 		<filter-name>LoginFrontChefFilter</filter-name>
 		<filter-class>com.frontEnd.filters.LoginFrontChefFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>LoginFrontChefFilter</filter-name>
-		<url-pattern>/front-end/cust/template</url-pattern>
+		<url-pattern>/front-end/chef/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 		<dispatcher>ERROR</dispatcher>
 		<dispatcher>ASYNC</dispatcher>
 	</filter-mapping>
-
+	
 
 	<servlet>
 		<servlet-name>LoginFrontEnd</servlet-name>
@@ -96,6 +117,15 @@
 	<servlet>
 		<servlet-name>Logout</servlet-name>
 		<servlet-class>com.login.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogoutBack</servlet-name>
+		<url-pattern>/back-end/logoutBack.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LogoutBack</servlet-name>
+		<servlet-class>com.login.LogoutBack</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Logout</servlet-name>
@@ -135,14 +165,6 @@
 	<servlet-mapping>
 		<servlet-name>MenuServlet</servlet-name>
 		<url-pattern>/menu/menu.do</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>MenuDishServlet</servlet-name>
-		<servlet-class>com.menuDish.controller.MenuDishServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>MenuDishServlet</servlet-name>
-		<url-pattern>/menuDish/menuDish.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>MenuOrderServlet</servlet-name>
@@ -192,7 +214,7 @@
 		<servlet-name>FoodOrderServlet</servlet-name>
 		<url-pattern>/foodOrder/foodOrder.do</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet>
 		<servlet-name>FoodOrDetail</servlet-name>
 		<servlet-class>com.foodOrDetail.controller.FoodOrDetailServlet</servlet-class>
@@ -201,7 +223,7 @@
 		<servlet-name>FoodOrDetail</servlet-name>
 		<url-pattern>/foodOrDetail/foodOrDetail.do</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet>
 		<servlet-name>FoodSupServlet</servlet-name>
 		<servlet-class>com.foodSup.controller.FoodSupServlet</servlet-class>
@@ -210,7 +232,7 @@
 		<servlet-name>FoodSupServlet</servlet-name>
 		<url-pattern>/foodSup/foodSup.do</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet>
 		<servlet-name>FestOrderServlet</servlet-name>
 		<servlet-class>com.festOrder.controller.FestOrderServlet</servlet-class>
@@ -294,15 +316,42 @@
 		<servlet-name>FestMenuServlet</servlet-name>
 		<url-pattern>/festMenu/festMenu.do</url-pattern>
 	</servlet-mapping>
+	
+	    <servlet>
+		    <servlet-name>ScheduleServlet</servlet-name>
+		    <servlet-class>com.testuse.ScheduleServlet</servlet-class>
+		    <load-on-startup>10</load-on-startup>
+	  </servlet>
+	  <servlet-mapping>
+		    <servlet-name>ScheduleServlet</servlet-name>
+		    <url-pattern>/ScheduleServlet</url-pattern>
+	  </servlet-mapping>
 
 	<servlet>
-		<servlet-name>ScheduleServlet</servlet-name>
-		<servlet-class>com.testuse.ScheduleServlet</servlet-class>
-		<load-on-startup>10</load-on-startup>
+		<servlet-name>DishServlet</servlet-name>
+		<servlet-class>com.dish.controller.DishServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ScheduleServlet</servlet-name>
-		<url-pattern>/ScheduleServlet</url-pattern>
+		<servlet-name>DishServlet</servlet-name>
+		<url-pattern>/dish/dish.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>DishFoodServlet</servlet-name>
+	<servlet-class>com.dishFood.controller.DishFoodServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DishFoodServlet</servlet-name>
+		<url-pattern>/dishFood/dishFood.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+    <servlet-name>MenuDishServlet</servlet-name>
+    <servlet-class>com.menuDish.controller.MenuDishServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MenuDishServlet</servlet-name>
+    <url-pattern>/menuDish/menuDish.do</url-pattern>
+  </servlet-mapping>
 
 </web-app>
