@@ -2,10 +2,13 @@ package com.foodMall.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -15,12 +18,20 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.websocket.Session;
 
 import com.broadcast.model.BroadcastService;
+import com.food.model.FoodService;
+import com.food.model.FoodVO;
 import com.foodMall.model.FoodMallService;
 import com.foodMall.model.FoodMallVO;
+import com.foodSup.model.FoodSupService;
+import com.foodSup.model.FoodSupVO;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.sun.media.sound.FFT;
 
 import sun.misc.FpUtils;
 
@@ -141,13 +152,27 @@ public class FoodMallServlet extends HttpServlet{
 					food_m_price = new Integer(req.getParameter("food_m_price"));
 				}catch (NumberFormatException e) {
 					food_m_price = 0;
-					errorMsgs.put("em_price","食材價格請填數字");
+					errorMsgs.put("em_price","價格請填數字");
 				}
 				
 				String food_m_unit = req.getParameter("food_m_unit");
+				if (food_m_unit == null || food_m_unit.trim().length() == 0) {
+					errorMsgs.put("em_unit","請選擇單位");
+				}
+				
 				String food_m_place = req.getParameter("food_m_place");
 				if (food_m_place == null || food_m_place.trim().length() == 0) {
 					errorMsgs.put("em_place","食材產地:請勿空白");
+				}
+				
+				String food_type_ID = req.getParameter("food_type_ID");
+				if ("-1".equals(food_type_ID) || food_m_place.trim().length() == 0) {
+					errorMsgs.put("em_foodType","請選擇食材種類");
+				}
+				
+				String food_ID = req.getParameter("food_ID");
+				if ("-1".equals(food_ID)) {
+					errorMsgs.put("em_foodID", "請選擇食材");
 				}
 				
 				
@@ -172,7 +197,7 @@ public class FoodMallServlet extends HttpServlet{
 				}
 				String food_m_resume = req.getParameter("food_m_resume");
 				String food_sup_ID = req.getParameter("food_sup_ID");
-				String food_ID = req.getParameter("food_ID");
+
 				
 				FoodMallVO foodMallVO = new FoodMallVO();
 				foodMallVO.setFood_m_name(food_m_name);
@@ -186,6 +211,7 @@ public class FoodMallServlet extends HttpServlet{
 					
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("food_type_ID", food_type_ID);
 					req.setAttribute("foodMallVO", foodMallVO);
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/foodSup/addFoodMall.jsp");
@@ -204,7 +230,7 @@ public class FoodMallServlet extends HttpServlet{
 				
 				/***************************其他可能的錯誤處理**********************************/
 			}catch(Exception e) {
-				errorMsgs.put("Exception",e.getMessage());
+				errorMsgs.put("excMsgs",e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/foodSup/addFoodMall.jsp");
 				failureView.forward(req, res);
@@ -262,6 +288,9 @@ public class FoodMallServlet extends HttpServlet{
 				}
 				
 				String food_m_status = req.getParameter("food_m_status");
+				if(food_m_status == null || food_m_status.trim().length() == 0) {
+					errorMsgs.add("請選擇上/下架");
+				}
 				Integer food_m_price = null;
 				try{
 					food_m_price = new Integer(req.getParameter("food_m_price"));
@@ -316,26 +345,28 @@ public class FoodMallServlet extends HttpServlet{
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("foodMallVO", foodMallVO); // 含有輸入格式錯誤的foodMallVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/back-end/foodMall/update_foodMall_input.jsp");
+							.getRequestDispatcher("/front-end/foodSup/update_foodMall_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				
 				/***************************2.開始修改資料*****************************************/
 				FoodMallService foodMallSvc = new FoodMallService();
+				System.out.println(food_ID);
 				foodMallVO = foodMallSvc.updateFoodMall(food_sup_ID, food_ID, food_m_name, food_m_status, food_m_price, food_m_unit, food_m_place, food_m_pic, food_m_resume);
-				
+				System.out.println(foodMallVO);
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("foodMallVO", foodMallVO); // 資料庫update成功後,正確的的foodMallVO物件,存入req
-				String url = "/back-end/foodMall/listOneFoodMall.jsp";
+				String url = "/front-end/foodSup/listFoodMallsByFoodSupID.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
+
 				errorMsgs.add("修改資料失敗:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/back-end/foodMall/update_foodMall_input.jsp");
+						.getRequestDispatcher("/front-end/foodSup/update_foodMall_input.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -346,6 +377,10 @@ public class FoodMallServlet extends HttpServlet{
 		
 		if("backUpStatus".equals(action)) {
 			backUpStatus(req,res);
+		} else if("getSelFoodFSAdd".equals(action)) {
+			getSelFoodFSAdd(req,res);
+		} else if("fsGetOneForDisplay".equals(action)) {
+			fsGetOneForDisplay(req,res);
 		}
 		
 		
@@ -363,12 +398,14 @@ public class FoodMallServlet extends HttpServlet{
 			String food_ID = req.getParameter("food_ID");
 			
 			/***************************2.開始查詢資料****************************************/
-			FoodMallService foodMallSvc = new FoodMallService();
-			FoodMallVO foodMallVO = foodMallSvc.getOneFoodMall(food_sup_ID, food_ID);
 			
+			FoodMallService foodMallSvc = new FoodMallService();
+			System.out.println(food_sup_ID + " " +food_ID);
+			FoodMallVO foodMallVO = foodMallSvc.getOneFoodMall(food_sup_ID, food_ID);
+			System.out.println("test");
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/
 			req.setAttribute("foodMallVO", foodMallVO);         // 資料庫取出的foodMallVO物件,存入req
-			String url = "/front-end/foodMall/update_foodMall_input.jsp";
+			String url = "/front-end/foodSup/update_foodMall_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 
@@ -442,4 +479,109 @@ public class FoodMallServlet extends HttpServlet{
 		}
 	}
 	
+	private void fsGetOneForDisplay(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		List<String> errorMsgs = new LinkedList<String>();
+		// Store this set in the request scope, in case we need to
+		// send the ErrorPage view.
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		try {
+			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+			String str = req.getParameter("food_ID");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.add("請輸入食材編號");
+			}
+			String food_ID = str;
+			String strsID = req.getParameter("food_sup_ID");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.add("請輸入食材供應商編號");
+			}
+			String food_sup_ID = strsID;
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/back-end/foodMall/listAllFoodMall.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			/***************************2.開始查詢資料*****************************************/
+			FoodMallService foodMallSvc = new FoodMallService();
+			FoodMallVO foodMallVO = foodMallSvc.getOneFoodMall(food_sup_ID, food_ID);
+			if (foodMallVO == null) {
+				errorMsgs.add("查無資料");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/foodSup/listFoodMallsByFoodSupID.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			req.setAttribute("foodMallVO", foodMallVO); // 資料庫取出的foodMallVO物件,存入req
+			String url = "/front-end/foodSup/listOneFoodMall.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+
+			/***************************其他可能的錯誤處理*************************************/
+			
+			
+		}catch(Exception e) {
+			errorMsgs.add("無法取得資料:" + e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/foodSup/listFoodMallsByFoodSupID.jsp");
+			failureView.forward(req, res);
+		}
+	}
+	
+	private void getSelFoodFSAdd(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		JsonObject errorMsgs = new JsonObject();
+		
+		try {
+			HttpSession session = req.getSession();
+			String food_type_ID = req.getParameter("food_type_ID");
+			
+			FoodSupVO foodSupVO = (FoodSupVO) session.getAttribute("foodSupVO");
+			System.out.println(foodSupVO.getFood_sup_ID());
+			FoodService foodSvc = new FoodService();
+			System.out.println("test");
+			FoodSupService foodSupSvc = new FoodSupService();
+			
+			Set<FoodVO> foodVOset  = foodSvc.getFoodsByFood_type_ID(food_type_ID);
+			System.out.println(foodSupVO.getFood_sup_ID());
+			Set<FoodMallVO> foodSupApFoodMallVOset = foodSupSvc.getFoodMallsByFood_sup_ID(foodSupVO.getFood_sup_ID());
+			
+			List<FoodVO> canChoseFood = foodVOset.stream().filter(
+				foodVO -> !foodSupApFoodMallVOset.stream().anyMatch(
+					foodMallVO -> foodVO.getFood_ID().equals(foodMallVO.getFood_ID()))
+			).collect(Collectors.toList());
+			
+			
+			outJsonString(res, canChoseFood);
+			
+			
+		} catch(Exception e) {
+			errorMsgs.addProperty("errorMsgs", "無法取得資料 : " + e.getMessage());
+			writeJson(res, errorMsgs);
+		}
+	}
+	
+	private void writeJson(HttpServletResponse res, JsonObject outJson) throws IOException{
+		res.setContentType("application/Json");
+		res.setCharacterEncoding("UTF-8");
+		PrintWriter out = res.getWriter();
+		out.print(outJson);
+		out.flush();
+		out.close();
+	}
+	
+	private void outJsonString(HttpServletResponse res, Object objToJson) throws IOException {
+		res.setContentType("application/Json");
+		res.setCharacterEncoding("UTF-8");
+		Gson gson = new Gson();
+		PrintWriter out = res.getWriter();
+		out.print(gson.toJson(objToJson));
+		out.flush();
+		out.close();
+	}
 }

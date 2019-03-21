@@ -378,18 +378,18 @@ public class FoodMallJDBCDAO implements FoodMallDAO_interface {
 //		foodMallVO.setFood_m_rate(5);
 //		fMDao.insert(foodMallVO);
 		// 更新
-//		FoodMallVO foodMallVO = new FoodMallVO();
-//		foodMallVO.setFood_sup_ID("C00005");
-//		foodMallVO.setFood_ID("F00001");
-//		foodMallVO.setFood_m_name("馬玉山五穀米");
-//		foodMallVO.setFood_m_status("p4");
-//		foodMallVO.setFood_m_price(250);
-//		foodMallVO.setFood_m_unit("0.6kg");
-//		foodMallVO.setFood_m_place("馬玉山");
-//		foodMallVO.setFood_m_pic(picIOTest.getPictureByteArray("P:/pic/2.jpg"));
-//		foodMallVO.setFood_m_resume("煮起來又香又好吃, 對身體的健康又很有幫助");
-//		foodMallVO.setFood_m_rate(4);
-//		fMDao.update(foodMallVO);
+		FoodMallVO foodMallVO = new FoodMallVO();
+		foodMallVO.setFood_sup_ID("C00005");
+		foodMallVO.setFood_ID("F00001");
+		foodMallVO.setFood_m_name("馬玉山五穀米");
+		foodMallVO.setFood_m_status("p4");
+		foodMallVO.setFood_m_price(250);
+		foodMallVO.setFood_m_unit("0.6kg");
+		foodMallVO.setFood_m_place("馬玉山");
+		foodMallVO.setFood_m_pic(picIOTest.getPictureByteArray("P:/pic/2.jpg"));
+		foodMallVO.setFood_m_resume("煮起來又香又好吃, 對身體的健康又很有幫助");
+		foodMallVO.setFood_m_rate(4);
+		fMDao.update(foodMallVO);
 		// 查一筆
 //		FoodMallVO foodMallVO = fMDao.findByPrimaryKey("C00009", "F00009");
 //		System.out.println(foodMallVO.getFood_sup_ID());
@@ -436,18 +436,18 @@ public class FoodMallJDBCDAO implements FoodMallDAO_interface {
 //			
 //		}
 		
-		List<FoodOrDetailVO> list = fMDao.getFoodOrDetailsByF_IDAFS_ID("C00012", "F00024");
-		
-		for(FoodOrDetailVO foodOrDetailVO:list) {
-			System.out.print(foodOrDetailVO.getFood_or_ID() + " ");
-			System.out.print(foodOrDetailVO.getFood_sup_ID() + " ");
-			System.out.print(foodOrDetailVO.getFood_ID() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_qty() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_stotal() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_rate() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_msg() + " ");
-			System.out.println();
-		}
+//		List<FoodOrDetailVO> list = fMDao.getFoodOrDetailsByF_IDAFS_ID("C00012", "F00024");
+//		
+//		for(FoodOrDetailVO foodOrDetailVO:list) {
+//			System.out.print(foodOrDetailVO.getFood_or_ID() + " ");
+//			System.out.print(foodOrDetailVO.getFood_sup_ID() + " ");
+//			System.out.print(foodOrDetailVO.getFood_ID() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_qty() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_stotal() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_rate() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_msg() + " ");
+//			System.out.println();
+//		}
 		
 	}
 

@@ -298,4 +298,10 @@ public class BroadcastJNDIDAO implements BroadcastDAO_interface {
 		}
 		return list;
 	}
+
+	@Override
+	public int count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

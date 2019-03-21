@@ -252,6 +252,7 @@ public class FoodSupServlet extends HttpServlet{
 			/***************************2.開始修改資料*****************************************/
 			FoodSupService foodSupSvc = new FoodSupService();
 			foodSupVO = foodSupSvc.updateStatus(food_sup_ID, food_sup_status);
+			foodSupVO = foodSupSvc.getOneFoodSup(food_sup_ID);
 			
 			/***************************3.修改完成,準備轉交(Send the Success view)*************/
 			

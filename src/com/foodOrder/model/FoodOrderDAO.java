@@ -39,6 +39,8 @@ public class FoodOrderDAO implements FoodOrderDAO_interface {
 			"SELECT FOOD_OR_ID, FOOD_OR_STATUS, to_char(FOOD_OR_START,'yyyy-mm-dd') FOOD_OR_START,to_char(FOOD_OR_SEND,'yyyy-mm-dd') FOOD_OR_SEND,to_char( FOOD_OR_RCV,'yyyy-mm-dd') FOOD_OR_RCV, to_char( FOOD_OR_END,'yyyy-mm-dd') FOOD_OR_END, FOOD_OR_NAME, FOOD_OR_ADDR, FOOD_OR_TEL, CUST_ID FROM FOOD_ORDER ORDER BY FOOD_OR_ID";
 	private static final String GET_ONE_STMT =
 			"SELECT FOOD_OR_ID, FOOD_OR_STATUS, to_char(FOOD_OR_START,'yyyy-mm-dd') FOOD_OR_START,to_char(FOOD_OR_SEND,'yyyy-mm-dd') FOOD_OR_SEND,to_char( FOOD_OR_RCV,'yyyy-mm-dd') FOOD_OR_RCV, to_char( FOOD_OR_END,'yyyy-mm-dd') FOOD_OR_END, FOOD_OR_NAME, FOOD_OR_ADDR, FOOD_OR_TEL, CUST_ID FROM FOOD_ORDER WHERE FOOD_OR_ID = ?";
+	private static final String GET_BYSTAT_STMT =
+			"SELECT FOOD_OR_ID, FOOD_OR_STATUS, to_char(FOOD_OR_START,'yyyy-mm-dd') FOOD_OR_START,to_char(FOOD_OR_SEND,'yyyy-mm-dd') FOOD_OR_SEND,to_char( FOOD_OR_RCV,'yyyy-mm-dd') FOOD_OR_RCV, to_char( FOOD_OR_END,'yyyy-mm-dd') FOOD_OR_END, FOOD_OR_NAME, FOOD_OR_ADDR, FOOD_OR_TEL, CUST_ID FROM FOOD_ORDER WHERE FOOD_OR_STATUS = ? ORDER BY FOOD_OR_ID";
 	private static final String DELETE = 
 			"DELETE FROM FOOD_ORDER WHERE FOOD_OR_ID = ?";
 	private static final String UPDATE = 
@@ -175,8 +177,8 @@ public class FoodOrderDAO implements FoodOrderDAO_interface {
 			pstmt.setString(6, foodOrderVO.getFood_or_addr());
 			pstmt.setString(7, foodOrderVO.getFood_or_tel());
 			pstmt.setString(8, foodOrderVO.getFood_or_ID());
-
-
+			System.out.println(foodOrderVO.getFood_or_ID());
+			System.out.println(foodOrderVO.getFood_or_status());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -361,7 +363,71 @@ public class FoodOrderDAO implements FoodOrderDAO_interface {
 		}
 		return foodOrderVOs;
 	}
+	
+	@Override
+	public List<FoodOrderVO> getByStatus(String food_or_status) {
+		List<FoodOrderVO> foodOrderVOs = new ArrayList<FoodOrderVO>(); 
+		FoodOrderVO foodOrderVO = null;
 
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_BYSTAT_STMT);
+			pstmt.setString(1, food_or_status);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				foodOrderVO = new FoodOrderVO();
+				foodOrderVO.setFood_or_ID(rs.getString(1));
+				foodOrderVO.setFood_or_status(rs.getString(2));
+				foodOrderVO.setFood_or_start(rs.getDate(3));
+				foodOrderVO.setFood_or_send(rs.getDate(4));
+				foodOrderVO.setFood_or_rcv(rs.getDate(5));
+				foodOrderVO.setFood_or_end(rs.getDate(6));
+				foodOrderVO.setFood_or_name(rs.getString(7));
+				foodOrderVO.setFood_or_addr(rs.getString(8));
+				foodOrderVO.setFood_or_tel(rs.getString(9));
+				foodOrderVO.setCust_ID(rs.getString(10));
+				foodOrderVOs.add(foodOrderVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return foodOrderVOs;
+	}
+	
 	@Override
 	public Set<FoodOrDetailVO> getFoodOrDetailsByFood_or_ID(String food_or_ID){
 		Set<FoodOrDetailVO> set = new LinkedHashSet<FoodOrDetailVO>();
@@ -389,6 +455,7 @@ public class FoodOrderDAO implements FoodOrderDAO_interface {
 				foodOrDetailVO.setFood_od_stotal(rs.getInt(5));
 				foodOrDetailVO.setFood_od_rate(rs.getInt(6));
 				foodOrDetailVO.setFood_od_msg(rs.getString(7));
+				foodOrDetailVO.setFood_od_status(rs.getString(8));
 				set.add(foodOrDetailVO);
 				
 			}

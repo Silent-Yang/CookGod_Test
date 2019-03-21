@@ -15,5 +15,7 @@ public interface BroadcastDAO_interface {
 
 	public List<BroadcastVO> getAll();
 
+	public int count();
+
 
 }

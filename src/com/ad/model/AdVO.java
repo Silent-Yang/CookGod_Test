@@ -9,6 +9,7 @@ public class AdVO {
 	private Timestamp ad_end;
 	private String ad_type;
 	private String ad_title;
+	private byte[] ad_pic;
 	private String ad_con;
 	private String food_sup_ID;
 	public String getAd_ID() {
@@ -46,6 +47,12 @@ public class AdVO {
 	}
 	public void setAd_title(String ad_title) {
 		this.ad_title = ad_title;
+	}
+	public byte[] getAd_pic() {
+		return ad_pic;
+	}
+	public void setAd_pic(byte[] ad_pic) {
+		this.ad_pic = ad_pic;
 	}
 	public String getAd_con() {
 		return ad_con;

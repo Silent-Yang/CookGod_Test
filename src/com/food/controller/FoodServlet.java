@@ -148,12 +148,12 @@ public class FoodServlet extends HttpServlet {
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String food_ID = req.getParameter("food_ID").trim();
 				String food_name = req.getParameter("food_name");
-				String food_nameReg = "^[(\u4e00-\u9fa5)]{1,30}$";
+				String food_nameReg = "^[(\u4e00-\u9fa5)]{1,15}$";
 				
 				if(food_name == null || food_name.trim().length() == 0) {
 					errorMsgs.add("食材名稱: 起勿空白");
 				}else if(!food_name.trim().matches(food_nameReg)) {
-					errorMsgs.add("食材名稱: 只能是中文且長度必需在1到30之間");
+					errorMsgs.add("食材名稱: 只能是中文且長度必需在1到15之間");
 				}
 				
 				// 這裡為何要trim兩次

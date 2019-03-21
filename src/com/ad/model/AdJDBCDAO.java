@@ -406,4 +406,14 @@ public class AdJDBCDAO implements AdDAO_interface {
 		}
 		
 	}
+	@Override
+	public List<AdVO> getAllNowAd() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void updateStatus(AdVO adVO) {
+		// TODO Auto-generated method stub
+		
+	}
 }

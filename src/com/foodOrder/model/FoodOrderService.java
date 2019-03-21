@@ -36,7 +36,7 @@ public class FoodOrderService {
 	
 	
 	public FoodOrderVO updateFoodOrder(String food_or_status, java.sql.Date food_or_send, java.sql.Date food_or_rcv, java.sql.Date food_or_end,
-			String food_or_name, String food_or_addr, String food_or_tel, String cust_ID) {
+			String food_or_name, String food_or_addr, String food_or_tel, String food_or_ID) {
 		FoodOrderVO foodOrderVO = new FoodOrderVO();
 		foodOrderVO.setFood_or_status(food_or_status);
 		foodOrderVO.setFood_or_send(food_or_send);
@@ -45,7 +45,7 @@ public class FoodOrderService {
 		foodOrderVO.setFood_or_name(food_or_name);
 		foodOrderVO.setFood_or_addr(food_or_addr);
 		foodOrderVO.setFood_or_tel(food_or_tel);
-		foodOrderVO.setCust_ID(cust_ID);
+		foodOrderVO.setFood_or_ID(food_or_ID);
 		dao.update(foodOrderVO);
 		return foodOrderVO;
 	}

@@ -1,13 +1,16 @@
 package com.testuse;
 
 import java.io.*;
+import java.time.LocalTime;
 
 import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.servlet.*;
 import javax.servlet.http.*;
-import javax.sql.*;
+
 
 import com.ad.model.AdService;
 import com.ad.model.AdVO;
@@ -18,21 +21,25 @@ import java.util.Map.Entry;
 
 
 public class ScheduleServlet extends HttpServlet{    
-    Timer timer ; 
 
+    
     int count = 0;        
     public void destroy(){
-        timer.cancel();
+    	
+    	
     }
     
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
     }
      //設定排程器       
-    public void init(){        
+    public void init(){
+    	Timer timer= new Timer();
+    	getServletContext().setAttribute("Servlettimer", timer);
     	ServletContext servletContext = getServletContext();
     	Set<javax.websocket.Session> webSessions = (Set<javax.websocket.Session>) servletContext.getAttribute("webSessions");
         timer = new Timer();
-        Calendar cal = new GregorianCalendar(2019, Calendar.MARCH, 16, 0, 0, 0);        
+        Calendar cal = new GregorianCalendar(2019, Calendar.MARCH, 20, 0, 0, 0);  
+        LocalTime now = LocalTime.now();
         TimerTask task = new TimerTask(){
         	//設定排程器執行內容
             public void run(){
@@ -53,20 +60,24 @@ public class ScheduleServlet extends HttpServlet{
             	//方法二
             	AdService adSvc =new AdService();
             	List<AdVO> adVOs = adSvc.getAllNowAd();
+            
+            	JsonObjectBuilder jsObjBuilder = Json.createObjectBuilder();
+            	JsonArrayBuilder jsArrBuilder = Json.createArrayBuilder();
             	
-            	JsonObject jsonObject =null;
-            	
-            	int count = 0;
+//            	int count = 0;
             	for(AdVO adVO: adVOs) {
-            		Json.createObjectBuilder().add("adWall" + count++, adVO.getAd_con());
+            		JsonObject jsonObject = jsObjBuilder.add("ad_ID", adVO.getAd_ID()).add("ad_con", adVO.getAd_con()).add("ad_title",adVO.getAd_title()).build();
+            		jsArrBuilder.add(jsonObject);
             	}
-            	webSessions.forEach(webSession->webSession.getAsyncRemote().sendText(adCon.toString()
-            			));
+            	JsonArray jsArr = jsArrBuilder.build();
+            	webSessions.forEach(webSession->webSession.getAsyncRemote().sendText(jsArr.toString()));
             
             
             }
         };
 
         timer.schedule(task, 10*1000);
+//        timer.schedule(new task, 20*1000);
+//        timer.scheduleAtFixedRate(task, 10*1000, 10*1000);
     }
 }

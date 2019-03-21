@@ -32,41 +32,67 @@ public class BroadcastWebSocket implements ServletContextListener{
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		ServletContext servletContext = event.getServletContext();
-		Map< String, String> foodTypeMap = new HashMap< String, String>();
+		Map< String, String> foodTypeMap = new LinkedHashMap< String, String>();
 		foodTypeMap.put("g0", "肉");
 		foodTypeMap.put("g1", "蔬果");
 		foodTypeMap.put("g2", "海鮮");
 		foodTypeMap.put("g3", "米,麵,粉");
 		foodTypeMap.put("g4", "南北雜貨");
 				
-		Map<String, String> mallStatusMap = new HashMap<String, String>();
+		Map<String, String> mallStatusMap = new LinkedHashMap<String, String>();
 		mallStatusMap.put("p0", "審核不通過");
 		mallStatusMap.put("p1", "審核通過");
 		mallStatusMap.put("p2", "未審核");
 		mallStatusMap.put("p3", "下架");
 		mallStatusMap.put("p4", "上架");
 		
-		Map<String, String> foodSupStatusMap = new HashMap<String, String>();
+		Map<String, String> foodSupStatusMap = new LinkedHashMap<String, String>();
 		foodSupStatusMap.put("s0", "未審核");
 		foodSupStatusMap.put("s1", "審核通過");
 		foodSupStatusMap.put("s2", "審核不過");
 		foodSupStatusMap.put("s3", "解除合作");
 		
-		Map<String, String> mallOrStatusMap = new HashMap<String, String>();
+		Map<String, String> mallOrStatusMap = new LinkedHashMap<String, String>();
 		mallOrStatusMap.put("o0", "未付款");
 		mallOrStatusMap.put("o1", "未出貨");
 		mallOrStatusMap.put("o2", "已出貨");
 		mallOrStatusMap.put("o3", "送達");
 		mallOrStatusMap.put("o4", "訂單完成");
 		
-		Map<String, String> foodODStatusMap = new HashMap<String, String>();
+		Map<String, String> foodODStatusMap = new LinkedHashMap<String, String>();
 		foodODStatusMap.put("d0", "未出貨");
 		foodODStatusMap.put("d1", "已出貨");
 		foodODStatusMap.put("d2", "確認到貨");
 		
-		Map<String, String> dishStatusMap = new HashMap<String, String>();
+		Map<String, String> dishStatusMap = new LinkedHashMap<String, String>();
 		dishStatusMap.put("D0", "下架");
 		dishStatusMap.put("D1", "上架");
+		
+		Map<String, String> foodUnitMap = new HashMap<String, String>();
+		
+		foodUnitMap.put("g", "克");
+		foodUnitMap.put("Kg", "公斤");
+		foodUnitMap.put("hea", "顆");
+		foodUnitMap.put("pie", "塊");
+		foodUnitMap.put("sti", "條");
+		foodUnitMap.put("clo", "瓣");
+		foodUnitMap.put("sin", "隻");
+		foodUnitMap.put("jin","斤");
+		
+		Map<String, String> adStatusMap = new LinkedHashMap<String, String>();
+		adStatusMap.put("d0", "未審核");
+		adStatusMap.put("d1", "審核通過");
+		adStatusMap.put("d2", "審核不過");
+		
+		Map<String, String> reportStatusMap = new LinkedHashMap<String, String>();
+		reportStatusMap.put("r0", "檢舉不同意");
+		reportStatusMap.put("r1", "檢舉同意");
+		reportStatusMap.put("r2", "檢舉處理中");
+		
+		Map<String, String> adTypeMap = new LinkedHashMap<String, String>();
+		adTypeMap.put("e0", "食材供應商廣告");
+		adTypeMap.put("e1", "節慶主題廣告");
+		adTypeMap.put("e2", "主打商品廣告");
 		
 		servletContext.setAttribute("foodTypeMap", foodTypeMap);
 		servletContext.setAttribute("mallStatusMap", mallStatusMap);
@@ -75,6 +101,11 @@ public class BroadcastWebSocket implements ServletContextListener{
 		servletContext.setAttribute("foodODStatusMap", foodODStatusMap);
 		servletContext.setAttribute("dishStatusMap", dishStatusMap);
 		servletContext.setAttribute("bcSessionMap", bcSessionMap);
+		servletContext.setAttribute("foodUnitMap", foodUnitMap);
+		servletContext.setAttribute("adStatusMap", adStatusMap);
+		servletContext.setAttribute("reportStatusMap", reportStatusMap);
+		servletContext.setAttribute("adTypeMap", adTypeMap);
+		
 	}
 	
 	

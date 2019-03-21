@@ -26,6 +26,7 @@ public class BroadcastDAO implements BroadcastDAO_interface {
 	private static final String GET_ONE_STMT_CUST_ID = "SELECT * FROM BROADCAST WHERE CUST_ID = ? ORDER BY BROADCAST_START  DESC";
 	private static final String DELETE = "DELETE FROM BROADCAST WHERE BROADCAST_ID = ?";
 	private static final String UPDATE = "UPDATE BROADCAST SET BROADCAST_STATUS= ? WHERE BROADCAST_ID = ?";
+	private static final String COUNT = "SELECT COUNT(BROADCAST_STATUS) FROM BROADCAST WHERE BROADCAST_STATUS='B0'";
 
 	@Override
 	public void insert(BroadcastVO broadcastVO) {
@@ -297,5 +298,51 @@ public class BroadcastDAO implements BroadcastDAO_interface {
 			}
 		}
 		return list;
+	}
+	@Override
+	public int count() {
+		
+		int count =0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(COUNT);
+			count=rs.getInt("COUNT");
+		
+
+			rs = pstmt.executeQuery();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return count;
+		
 	}
 }

@@ -22,7 +22,7 @@ public class AdDAO implements AdDAO_interface {
 	}
 	
 	private static final String INSERT_STMT =
-			"Insert into AD (AD_ID,AD_STATUS,AD_START,AD_END,AD_TYPE,AD_TITLE,AD_CON,FOOD_SUP_ID)  VALUES ('AD'||LPAD((AD_SEQ.NEXTVAL),4,'0'), ?, ?, ?, ?, ?, ? ,?)";
+			"Insert into AD (AD_ID,AD_STATUS,AD_START,AD_END,AD_TYPE,AD_TITLE,AD_PIC,AD_CON,FOOD_SUP_ID)  VALUES ('AD'||LPAD((AD_SEQ.NEXTVAL),4,'0'), ?, ?, ?, ?, ?, ?,? ,?)";
 	private static final String GET_ALL_STMT = 
 			"SELECT * FROM AD ORDER BY AD_ID";
 	private static final String GET_ONE_STMT = 
@@ -32,7 +32,9 @@ public class AdDAO implements AdDAO_interface {
 	private static final String DELETE =
 			"DELETE FROM AD where AD_ID=? ";
 	private static final String UPDATE =
-			"UPDATE AD set AD_STATUS=?, AD_START=?, AD_END=?, AD_TYPE=?, AD_TITLE=?, AD_CON=?, FOOD_SUP_ID=? where AD_ID=?";
+			"UPDATE AD set AD_STATUS=?, AD_START=?, AD_END=?, AD_TYPE=?, AD_TITLE=?,AD_PIC=?, AD_CON=?, FOOD_SUP_ID=? where AD_ID=?";
+	private static final String UPDATE_STATUS =
+			"UPDATE AD set AD_STATUS=? Where AD_ID=?";
 	private static final String GET_NOW_AD_STMT = 
 			"SELECT * FROM AD where systimestamp >= AD_START AND systimestamp <=AD_END AND AD_STATUS ='d1'";
 	@Override
@@ -50,8 +52,9 @@ public class AdDAO implements AdDAO_interface {
 			pstmt.setTimestamp(3, adVO.getAd_end());
 			pstmt.setString(4, adVO.getAd_type());
 			pstmt.setString(5, adVO.getAd_title());
-			pstmt.setString(6, adVO.getAd_con());
-			pstmt.setString(7, adVO.getFood_sup_ID());
+			pstmt.setBytes(6, adVO.getAd_pic());
+			pstmt.setString(7, adVO.getAd_con());
+			pstmt.setString(8, adVO.getFood_sup_ID());
 			
 			pstmt.executeUpdate();		
 		}catch(SQLException se) {
@@ -88,9 +91,44 @@ public class AdDAO implements AdDAO_interface {
 			pstmt.setTimestamp(3, adVO.getAd_end());
 			pstmt.setString(4, adVO.getAd_type());
 			pstmt.setString(5, adVO.getAd_title());
-			pstmt.setString(6, adVO.getAd_con());
-			pstmt.setString(7, adVO.getFood_sup_ID());
-			pstmt.setString(8, adVO.getAd_ID());
+			pstmt.setBytes(6, adVO.getAd_pic());
+			pstmt.setString(7, adVO.getAd_con());
+			pstmt.setString(8, adVO.getFood_sup_ID());
+			pstmt.setString(9, adVO.getAd_ID());
+			
+			
+			pstmt.executeUpdate();		
+		}catch(SQLException se) {
+			throw new RuntimeException("A database error occured."+se.getMessage());
+		}finally {
+			if(pstmt != null) {
+				try {
+					pstmt.close();
+				}catch(SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con != null) {
+				try {
+					con.close();
+				}catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	public void updateStatus(AdVO adVO) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_STATUS);
+			
+			pstmt.setString(1, adVO.getAd_status());
+			
+			pstmt.setString(2, adVO.getAd_ID());
 			
 			
 			pstmt.executeUpdate();		
@@ -171,6 +209,7 @@ public class AdDAO implements AdDAO_interface {
 				adVO.setAd_end(rs.getTimestamp("AD_END"));
 				adVO.setAd_type(rs.getString("AD_TYPE"));
 				adVO.setAd_title(rs.getString("AD_TITLE"));
+				adVO.setAd_pic(rs.getBytes("AD_PIC"));
 				adVO.setAd_con(rs.getString("AD_CON"));
 				adVO.setFood_sup_ID(rs.getString("FOOD_SUP_ID"));
 			}
@@ -227,6 +266,7 @@ public class AdDAO implements AdDAO_interface {
 				adVO.setAd_end(rs.getTimestamp("AD_END"));
 				adVO.setAd_type(rs.getString("AD_TYPE"));
 				adVO.setAd_title(rs.getString("AD_TITLE"));
+				adVO.setAd_pic(rs.getBytes("AD_PIC"));
 				adVO.setAd_con(rs.getString("AD_CON"));
 				adVO.setFood_sup_ID(rs.getString("FOOD_SUP_ID"));
 				list.add(adVO);
@@ -284,6 +324,7 @@ public class AdDAO implements AdDAO_interface {
 				adVO.setAd_end(rs.getTimestamp("AD_END"));
 				adVO.setAd_type(rs.getString("AD_TYPE"));
 				adVO.setAd_title(rs.getString("AD_TITLE"));
+				adVO.setAd_pic(rs.getBytes("AD_PIC"));
 				adVO.setAd_con(rs.getString("AD_CON"));
 				adVO.setFood_sup_ID(rs.getString("FOOD_SUP_ID"));
 			}
@@ -338,6 +379,7 @@ public class AdDAO implements AdDAO_interface {
 				adVO.setAd_end(rs.getTimestamp("AD_END"));
 				adVO.setAd_type(rs.getString("AD_TYPE"));
 				adVO.setAd_title(rs.getString("AD_TITLE"));
+				adVO.setAd_pic(rs.getBytes("AD_PIC"));
 				adVO.setAd_con(rs.getString("AD_CON"));
 				adVO.setFood_sup_ID(rs.getString("FOOD_SUP_ID"));
 				list.add(adVO);

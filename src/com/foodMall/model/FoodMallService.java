@@ -52,7 +52,7 @@ public class FoodMallService {
 		foodMallVO.setFood_m_pic(food_m_pic);
 		foodMallVO.setFood_m_resume(food_m_resume);
 
-		dao.insert(foodMallVO);
+		dao.update(foodMallVO);
 		return foodMallVO;
 		
 	}

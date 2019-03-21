@@ -10,9 +10,8 @@ package com.emp.controller;
 	import javax.servlet.ServletOutputStream;
 	import javax.servlet.http.*;
 	import javax.servlet.annotation.MultipartConfig;
-	import javax.servlet.http.Part;
 
-	import com.emp.model.*;
+import com.emp.model.*;
 
 
 	@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
@@ -286,9 +285,11 @@ package com.emp.controller;
 					EmpService empSvc = new EmpService();
 
 					empVO = empSvc.updateEmp(emp_acc, emp_pwd, emp_name,emp_pic);
+					
 //					empVO = empSvc.updateEmp("C0055", "dddd", emp_name, "f", "050505", "8888", "H123456789", "@54564", emp_brd, emp_reg,by , "c","ff" );
 					/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
-					req.setAttribute("empVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req
+					HttpSession session = req.getSession();
+					session.setAttribute("empVO", empVO); // 資料庫update成功後,正確的的empVO物件,存入req
 					String url = "/back-end/emp/listOneEmp.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);

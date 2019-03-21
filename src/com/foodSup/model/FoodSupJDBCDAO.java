@@ -554,31 +554,31 @@ public class FoodSupJDBCDAO implements FoodSupDAO_interface {
 //		}
 		
 		// 查詢某一食材商的全部食材
-//		Set<FoodMallVO> foodMallVOs = foodSupJDBCDAO.getFoodMallsByFood_sup_ID("C00012");
-//		for(FoodMallVO foodMallVO:foodMallVOs) {
-//			System.out.print(foodMallVO.getFood_sup_ID());
-//			System.out.print(foodMallVO.getFood_ID());
-//			System.out.print(foodMallVO.getFood_m_name());
-//			System.out.print(foodMallVO.getFood_m_status());
-//			System.out.print(foodMallVO.getFood_m_price());
-//			System.out.print(foodMallVO.getFood_m_unit());
-//			System.out.print(foodMallVO.getFood_m_place());
-//			System.out.print(foodMallVO.getFood_m_resume());
-//			System.out.println(foodMallVO.getFood_m_rate());
-//		}
-		
-		
-		List<FoodOrDetailVO> foodODVOs = foodSupJDBCDAO.getFoodODByFood_sup_ID("C00012");
-		for(FoodOrDetailVO foodOrDetailVO:foodODVOs) {
-			System.out.print(foodOrDetailVO.getFood_or_ID() + " ");
-			System.out.print(foodOrDetailVO.getFood_sup_ID() + " ");
-			System.out.print(foodOrDetailVO.getFood_ID() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_qty() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_stotal() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_rate() + " ");
-			System.out.print(foodOrDetailVO.getFood_od_msg() + " ");
-			System.out.println();
+		Set<FoodMallVO> foodMallVOs = foodSupJDBCDAO.getFoodMallsByFood_sup_ID("C00012");
+		for(FoodMallVO foodMallVO:foodMallVOs) {
+			System.out.print(foodMallVO.getFood_sup_ID());
+			System.out.print(foodMallVO.getFood_ID());
+			System.out.print(foodMallVO.getFood_m_name());
+			System.out.print(foodMallVO.getFood_m_status());
+			System.out.print(foodMallVO.getFood_m_price());
+			System.out.print(foodMallVO.getFood_m_unit());
+			System.out.print(foodMallVO.getFood_m_place());
+			System.out.print(foodMallVO.getFood_m_resume());
+			System.out.println(foodMallVO.getFood_m_rate());
 		}
+		
+//		
+//		List<FoodOrDetailVO> foodODVOs = foodSupJDBCDAO.getFoodODByFood_sup_ID("C00012");
+//		for(FoodOrDetailVO foodOrDetailVO:foodODVOs) {
+//			System.out.print(foodOrDetailVO.getFood_or_ID() + " ");
+//			System.out.print(foodOrDetailVO.getFood_sup_ID() + " ");
+//			System.out.print(foodOrDetailVO.getFood_ID() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_qty() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_stotal() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_rate() + " ");
+//			System.out.print(foodOrDetailVO.getFood_od_msg() + " ");
+//			System.out.println();
+//		}
 	}
 
 }

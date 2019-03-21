@@ -1,7 +1,10 @@
 package com.broadcast.model;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 import java.sql.Timestamp;
 
 public class BroadcastService {
@@ -46,6 +49,13 @@ public class BroadcastService {
 
 	public List<BroadcastVO> getOneBroadcastByCustID(String cust_ID) {
 		return dao.findByCust_ID(cust_ID);
+	}
+	public int countSelect(String cust_ID) {
+		List<BroadcastVO> test=getOneBroadcastByCustID(cust_ID);
+		List test1=new ArrayList<>();
+		test1=test.stream().filter(e->e.getBroadcast_status().equals("B0")).collect(Collectors.toList());
+		return test1.size();
+		
 	}
 
 }

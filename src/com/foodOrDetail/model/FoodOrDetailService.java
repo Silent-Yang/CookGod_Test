@@ -24,7 +24,7 @@ public class FoodOrDetailService {
 	}
 	
 	public FoodOrDetailVO updateFoodOrDetail(String food_or_ID, String food_sup_ID, String food_ID,
-			Integer food_od_qty, Integer food_od_stotal, Integer food_od_rate, String food_od_msg) {
+			Integer food_od_qty, Integer food_od_stotal, Integer food_od_rate, String food_od_msg, String food_od_status) {
 		FoodOrDetailVO foodOrDetailVO = new FoodOrDetailVO();
 		foodOrDetailVO.setFood_or_ID(food_or_ID);;
 		foodOrDetailVO.setFood_sup_ID(food_sup_ID);
@@ -33,6 +33,7 @@ public class FoodOrDetailService {
 		foodOrDetailVO.setFood_od_stotal(food_od_stotal);
 		foodOrDetailVO.setFood_od_rate(food_od_rate);
 		foodOrDetailVO.setFood_od_msg(food_od_msg);
+		foodOrDetailVO.setFood_od_status(food_od_status);
 		dao.update(foodOrDetailVO);
 		return foodOrDetailVO;
 	}

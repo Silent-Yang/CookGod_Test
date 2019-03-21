@@ -30,6 +30,8 @@ public class FoodOrderJDBCDAO implements FoodOrderDAO_interface{
 			"INSERT INTO FOOD_ORDER (FOOD_OR_ID, FOOD_OR_STATUS, FOOD_OR_START, FOOD_OR_NAME, FOOD_OR_ADDR, FOOD_OR_TEL, CUST_ID) VALUES ('FO'||TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(TO_CHAR(FOOD_ORDER_SEQ.NEXTVAL), 6, '0'), ?, sysdate, ?, ?, ?, ? )";
 	private static final String GET_ALL_STMT = 
 			"SELECT FOOD_OR_ID, FOOD_OR_STATUS, to_char(FOOD_OR_START,'yyyy-mm-dd') FOOD_OR_START,to_char(FOOD_OR_SEND,'yyyy-mm-dd') FOOD_OR_SEND,to_char( FOOD_OR_RCV,'yyyy-mm-dd') FOOD_OR_RCV, to_char( FOOD_OR_END,'yyyy-mm-dd') FOOD_OR_END, FOOD_OR_NAME, FOOD_OR_ADDR, FOOD_OR_TEL, CUST_ID FROM FOOD_ORDER ORDER BY FOOD_OR_ID";
+	private static final String GET_BYSTAT_STMT =
+			"SELECT FOOD_OR_ID, FOOD_OR_STATUS, to_char(FOOD_OR_START,'yyyy-mm-dd') FOOD_OR_START,to_char(FOOD_OR_SEND,'yyyy-mm-dd') FOOD_OR_SEND,to_char( FOOD_OR_RCV,'yyyy-mm-dd') FOOD_OR_RCV, to_char( FOOD_OR_END,'yyyy-mm-dd') FOOD_OR_END, FOOD_OR_NAME, FOOD_OR_ADDR, FOOD_OR_TEL, CUST_ID FROM FOOD_ORDER WHERE FOOD_OR_STATUS = ? ORDER BY FOOD_OR_ID";
 	private static final String GET_ONE_STMT =
 			"SELECT FOOD_OR_ID, FOOD_OR_STATUS, to_char(FOOD_OR_START,'yyyy-mm-dd') FOOD_OR_START,to_char(FOOD_OR_SEND,'yyyy-mm-dd') FOOD_OR_SEND,to_char( FOOD_OR_RCV,'yyyy-mm-dd') FOOD_OR_RCV, to_char( FOOD_OR_END,'yyyy-mm-dd') FOOD_OR_END, FOOD_OR_NAME, FOOD_OR_ADDR, FOOD_OR_TEL, CUST_ID FROM FOOD_ORDER WHERE FOOD_OR_ID = ?";
 	private static final String DELETE = 
@@ -379,6 +381,70 @@ public class FoodOrderJDBCDAO implements FoodOrderDAO_interface{
 	}
 	
 	@Override
+	public List<FoodOrderVO> getByStatus(String food_or_status) {
+		List<FoodOrderVO> foodOrderVOs = new ArrayList<FoodOrderVO>(); 
+		FoodOrderVO foodOrderVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = DriverManager.getConnection(URL, USER, PASSWORD);
+			pstmt = con.prepareStatement(GET_BYSTAT_STMT);
+			pstmt.setString(1, food_or_status);
+			
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO 也稱為 Domain objects
+				foodOrderVO = new FoodOrderVO();
+				foodOrderVO.setFood_or_ID(rs.getString(1));
+				foodOrderVO.setFood_or_status(rs.getString(2));
+				foodOrderVO.setFood_or_start(rs.getDate(3));
+				foodOrderVO.setFood_or_send(rs.getDate(4));
+				foodOrderVO.setFood_or_rcv(rs.getDate(5));
+				foodOrderVO.setFood_or_end(rs.getDate(6));
+				foodOrderVO.setFood_or_name(rs.getString(7));
+				foodOrderVO.setFood_or_addr(rs.getString(8));
+				foodOrderVO.setFood_or_tel(rs.getString(9));
+				foodOrderVO.setCust_ID(rs.getString(10));
+				foodOrderVOs.add(foodOrderVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return foodOrderVOs;
+	}
+	
+	@Override
 	public Set<FoodOrDetailVO> getFoodOrDetailsByFood_or_ID(String food_or_ID){
 		Set<FoodOrDetailVO> set = new LinkedHashSet<FoodOrDetailVO>();
 		FoodOrDetailVO foodOrDetailVO = null;
@@ -405,6 +471,7 @@ public class FoodOrderJDBCDAO implements FoodOrderDAO_interface{
 				foodOrDetailVO.setFood_od_stotal(rs.getInt(5));
 				foodOrDetailVO.setFood_od_rate(rs.getInt(6));
 				foodOrDetailVO.setFood_od_msg(rs.getString(7));
+				foodOrDetailVO.setFood_od_status(rs.getString(8));
 				set.add(foodOrDetailVO);
 				
 			}
@@ -479,20 +546,20 @@ public class FoodOrderJDBCDAO implements FoodOrderDAO_interface{
 //		System.out.println(foodOrderVO.getFood_or_tel());
 //		System.out.println(foodOrderVO.getCust_ID());
 		// 查詢全部
-//		List<FoodOrderVO> foodOrderVOs = foodOrderJDBCDAO.getAll();
-//		for(FoodOrderVO foodOrderVO: foodOrderVOs) {		
-//			System.out.print(foodOrderVO.getFood_or_ID() + " ");
-//			System.out.print(foodOrderVO.getFood_or_status() + " ");
-//			System.out.print(foodOrderVO.getFood_or_start() + " ");
-//			System.out.print(foodOrderVO.getFood_or_send() + " ");
-//			System.out.print(foodOrderVO.getFood_or_rcv() + " ");
-//			System.out.print(foodOrderVO.getFood_or_end() + " ");
-//			System.out.print(foodOrderVO.getFood_or_name() + " ");
-//			System.out.print(foodOrderVO.getFood_or_addr() + " ");
-//			System.out.print(foodOrderVO.getFood_or_tel() + " ");
-//			System.out.print(foodOrderVO.getCust_ID() + " ");
-//			System.out.println();
-//		}
+		List<FoodOrderVO> foodOrderVOs = foodOrderJDBCDAO.getByStatus("o1");
+		for(FoodOrderVO foodOrderVO: foodOrderVOs) {		
+			System.out.print(foodOrderVO.getFood_or_ID() + " ");
+			System.out.print(foodOrderVO.getFood_or_status() + " ");
+			System.out.print(foodOrderVO.getFood_or_start() + " ");
+			System.out.print(foodOrderVO.getFood_or_send() + " ");
+			System.out.print(foodOrderVO.getFood_or_rcv() + " ");
+			System.out.print(foodOrderVO.getFood_or_end() + " ");
+			System.out.print(foodOrderVO.getFood_or_name() + " ");
+			System.out.print(foodOrderVO.getFood_or_addr() + " ");
+			System.out.print(foodOrderVO.getFood_or_tel() + " ");
+			System.out.print(foodOrderVO.getCust_ID() + " ");
+			System.out.println();
+		}
 		
 //		Set<FoodOrDetailVO> foodOrDetailVOs = foodOrderJDBCDAO.getFoodOrDetailsByFood_or_ID("FO20181124-000002");
 //		for(FoodOrDetailVO foodOrDetailVO: foodOrDetailVOs) {
@@ -503,29 +570,30 @@ public class FoodOrderJDBCDAO implements FoodOrderDAO_interface{
 //			System.out.print(foodOrDetailVO.getFood_od_stotal());
 //			System.out.print(foodOrDetailVO.getFood_od_rate());
 //			System.out.print(foodOrDetailVO.getFood_od_msg());
+//			System.out.print(foodOrDetailVO.getFood_od_status());
 //			System.out.println();
 //		}
 		
-		FoodOrderVO foodOrderVO = new FoodOrderVO();
-		foodOrderVO.setFood_or_status("o0");
-		foodOrderVO.setFood_or_name("李舜生");
-		foodOrderVO.setFood_or_addr("中央大學");
-		foodOrderVO.setFood_or_tel("0958111222");
-		foodOrderVO.setCust_ID("C00013");
-		List<FoodOrDetailVO> list = new LinkedList<>();
-		FoodOrDetailVO foodOrDetailVO = new FoodOrDetailVO();
-		foodOrDetailVO.setFood_sup_ID("C00005");
-		foodOrDetailVO.setFood_ID("F00001");
-		foodOrDetailVO.setFood_od_qty(3);
-		foodOrDetailVO.setFood_od_stotal(700);
-		list.add(foodOrDetailVO);
-		FoodOrDetailVO foodOrDetailVO1 = new FoodOrDetailVO();
-		foodOrDetailVO1.setFood_sup_ID("C00012");
-		foodOrDetailVO1.setFood_ID("F00024");
-		foodOrDetailVO1.setFood_od_qty(3);
-		foodOrDetailVO1.setFood_od_stotal(700);
-		list.add(foodOrDetailVO1);
-		
-		foodOrderJDBCDAO.insertWithFoodDetails(foodOrderVO, list);
+//		FoodOrderVO foodOrderVO = new FoodOrderVO();
+//		foodOrderVO.setFood_or_status("o0");
+//		foodOrderVO.setFood_or_name("李舜生");
+//		foodOrderVO.setFood_or_addr("中央大學");
+//		foodOrderVO.setFood_or_tel("0958111222");
+//		foodOrderVO.setCust_ID("C00013");
+//		List<FoodOrDetailVO> list = new LinkedList<>();
+//		FoodOrDetailVO foodOrDetailVO = new FoodOrDetailVO();
+//		foodOrDetailVO.setFood_sup_ID("C00005");
+//		foodOrDetailVO.setFood_ID("F00001");
+//		foodOrDetailVO.setFood_od_qty(3);
+//		foodOrDetailVO.setFood_od_stotal(700);
+//		list.add(foodOrDetailVO);
+//		FoodOrDetailVO foodOrDetailVO1 = new FoodOrDetailVO();
+//		foodOrDetailVO1.setFood_sup_ID("C00012");
+//		foodOrDetailVO1.setFood_ID("F00024");
+//		foodOrDetailVO1.setFood_od_qty(3);
+//		foodOrDetailVO1.setFood_od_stotal(700);
+//		list.add(foodOrDetailVO1);
+//		
+//		foodOrderJDBCDAO.insertWithFoodDetails(foodOrderVO, list);
 	}
 }
