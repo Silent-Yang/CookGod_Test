@@ -25,16 +25,12 @@ public class DishService {
 		dao.insert(dishVO);
 		
 		return dishVO;
-	}		 
-		
-		
-		public DishVO updateDish(String dish_ID,String dish_name,byte[] dish_pic,
-				String dish_resume,String dish_status,Integer dish_price) {
+	}	 
+	public DishVO updateDish(String dish_ID,String dish_name,byte[] dish_pic,String dish_resume,String dish_status,Integer dish_price) {
 			//BLOB宣告byte[],java.sql.Date宣告日期
 		DishVO dishVO = new DishVO();
-			
-		dishVO.setDish_ID(dish_ID);
 		
+		dishVO.setDish_ID(dish_ID);
 		dishVO.setDish_name(dish_name);
 		dishVO.setDish_status(dish_status);
 		dishVO.setDish_pic(dish_pic);
@@ -44,9 +40,7 @@ public class DishService {
 		dao.update(dishVO);
 		
 		return dishVO;
-	
 		}
-		
 		
 		public void deleteDish(String dish_ID) {
 			dao.delete(dish_ID);
@@ -59,9 +53,4 @@ public class DishService {
 		public List<DishVO> getAll(){
 			return dao.getAll();
 		}
-		
-		
-		
 	}
-
-

@@ -103,7 +103,7 @@ public class MenuServlet extends HttpServlet {
 				menuVO = menuSvc.addMenu(menu_name, menu_resume, menu_pic, menu_price);
 				System.out.println(menuVO.getMenu_ID());
 				request.setAttribute("menuVO", menuVO);
-				RequestDispatcher successView = request.getRequestDispatcher("/back-end/menuDish/addmenuDish.jsp");
+				RequestDispatcher successView = request.getRequestDispatcher("/back-end/menuDish/addMenuDish.jsp");
 				successView.forward(request, response);
 				//除錯
 			} catch (Exception e) {

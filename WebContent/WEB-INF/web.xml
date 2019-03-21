@@ -137,6 +137,14 @@
 		<url-pattern>/menu/menu.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>MenuDishServlet</servlet-name>
+		<servlet-class>com.menuDish.controller.MenuDishServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MenuDishServlet</servlet-name>
+		<url-pattern>/menuDish/menuDish.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>MenuOrderServlet</servlet-name>
 		<servlet-class>com.menuOrder.controller.MenuOrderServlet</servlet-class>
 	</servlet>
