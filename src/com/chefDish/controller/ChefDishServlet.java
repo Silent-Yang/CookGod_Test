@@ -45,18 +45,18 @@ public class ChefDishServlet extends HttpServlet {
 				}catch(Exception e){
 					errorMsgs.add("擅長菜色已存在");
 					request.setAttribute("chefDishVO", chefDishVO);
-					RequestDispatcher errView = request.getRequestDispatcher("/chefDish/addChefDish.jsp"); 
+					RequestDispatcher errView = request.getRequestDispatcher("/front-end/chefDish/addChefDish.jsp"); 
 					errView.forward(request, response);
 					return;
 				}
 				//3.新增成功
-				RequestDispatcher successView = request.getRequestDispatcher("/chefDish/addChefDish.jsp");
+				RequestDispatcher successView = request.getRequestDispatcher("/front-end/chefDish/addChefDish.jsp");
 				successView.forward(request, response);				
 			//其他可能的Error
 			}catch(Exception e){
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher errView = 
-						request.getRequestDispatcher("/chefDish/addChefDish.jsp");
+						request.getRequestDispatcher("/front-end/chefDish/addChefDish.jsp");
 				errView.forward(request, response);
 			}
 		}
@@ -77,12 +77,12 @@ public class ChefDishServlet extends HttpServlet {
 				//資料庫取出的menuOrderVO物件,存入request
 				request.setAttribute("chefDishVO", chefDishVO);
 				RequestDispatcher successView = 
-						request.getRequestDispatcher("/chefDish/updateChefDish.jsp");
+						request.getRequestDispatcher("/front-end/chefDish/updateChefDish.jsp");
 				successView.forward(request, response);
 			}catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher errView = 
-						request.getRequestDispatcher("/chefDish/listAllChefDish.jsp");
+						request.getRequestDispatcher("/front-end/chefDish/listAllChefDish.jsp");
 				errView.forward(request, response);
 			}	
 		}
@@ -104,7 +104,7 @@ public class ChefDishServlet extends HttpServlet {
 				if(!errorMsgs.isEmpty()) {
 					request.setAttribute("chefDishVO", chefDishVO);
 					RequestDispatcher errView = 
-							request.getRequestDispatcher("/chefDish/updateChefDish.jsp");
+							request.getRequestDispatcher("/front-end/chefDish/updateChefDish.jsp");
 					errView.forward(request, response);
 					return;
 				}
@@ -116,12 +116,12 @@ public class ChefDishServlet extends HttpServlet {
 				//3.修改完成，準備轉交
 				request.setAttribute("chefDishVO", chefDishVO);
 				RequestDispatcher successView = 
-						request.getRequestDispatcher("/chefDish/listOneChefDish.jsp");
+						request.getRequestDispatcher("/front-end/chefDish/listOneChefDish.jsp");
 				successView.forward(request, response);
 			}catch (Exception e) {
 				errorMsgs.add("Update error:" + e.getMessage());
 				RequestDispatcher errView = 
-						request.getRequestDispatcher("/chefDish/updateChefDish.jsp");
+						request.getRequestDispatcher("/front-end/chefDish/updateChefDish.jsp");
 				errView.forward(request, response);
 			}	
 		}
@@ -137,12 +137,12 @@ public class ChefDishServlet extends HttpServlet {
 				ChefDishService chefDishSvc = new ChefDishService();
 				chefDishSvc.delete(chef_ID, dish_ID);
 				//3.刪除完成，準備轉交
-				RequestDispatcher sucessView = request.getRequestDispatcher("/chefDish/listAllChefDish.jsp");
+				RequestDispatcher sucessView = request.getRequestDispatcher("/front-end/chefDish/listAllChefDish.jsp");
 				sucessView.forward(request, response);
 				//其他可能的錯誤處理
 			}catch(Exception e){
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/chefDish/listAllChefDish.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/chefDish/listAllChefDish.jsp");
 				errView.forward(request, response);
 			}
 		}
