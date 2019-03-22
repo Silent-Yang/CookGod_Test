@@ -16,7 +16,6 @@
 <link
 	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css"
 	rel="stylesheet">
-	<
 </head>
 <body>
     <!-- All Jquery -->
