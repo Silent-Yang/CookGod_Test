@@ -63,34 +63,41 @@ th, td {
 				<table>
 					<tr>
 						<th>主廚編號</th>
+						<th>主廚狀態</th>
 						<th>主廚服務地區</th>
 						<th>主廚頻道</th>
-						<th>主廚簡介</th>
-						<th>編輯喜愛食材供應商</th>
-						<th>刪除喜愛食材供應商</th>
+						<th style="width:400px;">主廚簡介</th>
+						<th>編輯主廚</th>
+						<th>刪除主廚</th>
 					</tr>
 					<%@ include file="page1.file"%>
 					<c:forEach var="chefVO" items="${list}" begin="<%=pageIndex %>"
 						end="<%=pageIndex+rowsPerPage-1 %>">
 						<tr>
 							<td>${chefVO.chef_ID}</td>
+							<td>
+								<c:if test="${chefVO.chef_status=='b0'}">未審核</c:if>
+								<c:if test="${chefVO.chef_status=='b1'}">審核通過</c:if>
+								<c:if test="${chefVO.chef_status=='b2'}">審核不過</c:if>
+								<c:if test="${chefVO.chef_status=='b3'}">停權</c:if>
+							</td>
 							<td>${chefVO.chef_area}</td>
 							<td>${chefVO.chef_channel}</td>
 							<td>${chefVO.chef_resume}</td>
 							<td>
 								<form method="post"
 									action="<%=request.getContextPath()%>/chef/chef.do">
-									<input type="submit" value="編輯"> <input type="hidden"
-										name="chef_ID" value="${chefVO.chef_ID}"> <input
-										type="hidden" name="action" value="getOneForUpdate">
+									<input type="submit" value="編輯"> 
+									<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}"> 
+									<input type="hidden" name="action" value="getOneForDisplay">
 								</form>
 							</td>
 							<td>
 								<form method="post"
 									action="<%=request.getContextPath()%>/chef/chef.do">
-									<input type="submit" value="刪除"> <input type="hidden"
-										name="chef_ID" value="${chefVO.chef_ID}"> <input
-										type="hidden" name="action" value="delete">
+									<input type="submit" value="刪除"> 
+									<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}"> 
+									<input type="hidden" name="action" value="delete">
 								</form>
 							</td>
 						</tr>

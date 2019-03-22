@@ -23,7 +23,7 @@ public class ChefDAO implements ChefDAO_Interface{
 	}
 	
 	private static final String Insert_Stmt = 
-			"INSERT INTO CHEF (CHEF_ID, CHEF_AREA, CHEF_STATUS, CHEF_CHANNEL, CHEF_RESUME) VALUES (?, ?, '0', 'NoChannel', ?)";
+			"INSERT INTO CHEF (CHEF_ID, CHEF_AREA, CHEF_STATUS, CHEF_CHANNEL, CHEF_RESUME) VALUES (?, ?, 'b0', 'NoChannel', ?)";
 	private static final String Insert_Stmt_With_Cust = 
 			"INSERT INTO CUST (CUST_ID,CUST_ACC,CUST_PWD,CUST_NAME,CUST_SEX,CUST_TEL,CUST_ADDR,CUST_PID,CUST_MAIL,CUST_BRD,CUST_REG,CUST_PIC,CUST_STATUS,CUST_NINAME) VALUES ('C'||LPAD((CUST_SEQ.NEXTVAL),5,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String Updata_Stmt_From_Emp = 
@@ -232,6 +232,7 @@ public class ChefDAO implements ChefDAO_Interface{
 			while (rs.next()) {				
 				chefVO = new ChefVO();				
 				chefVO.setChef_ID(rs.getString("CHEF_ID"));
+				chefVO.setChef_status(rs.getString("CHEF_STATUS"));
 				chefVO.setChef_area(rs.getString("CHEF_AREA"));
 				chefVO.setChef_channel(rs.getString("CHEF_CHANNEL"));
 				chefVO.setChef_resume(rs.getString("CHEF_RESUME"));
@@ -327,6 +328,7 @@ public class ChefDAO implements ChefDAO_Interface{
 			while (rs.next()) {				
 				chefVO = new ChefVO();				
 				chefVO.setChef_ID(rs.getString("CHEF_ID"));
+				chefVO.setChef_status(rs.getString("CHEF_STATUS"));
 				chefVO.setChef_area(rs.getString("CHEF_AREA"));
 				chefVO.setChef_channel(rs.getString("CHEF_CHANNEL"));
 				chefVO.setChef_resume(rs.getString("CHEF_RESUME"));
@@ -376,6 +378,7 @@ public class ChefDAO implements ChefDAO_Interface{
 			while (rs.next()) {
 				chefVO = new ChefVO();				
 				chefVO.setChef_ID(rs.getString("CHEF_ID"));
+				chefVO.setChef_status(rs.getString("CHEF_STATUS"));
 				chefVO.setChef_area(rs.getString("CHEF_AREA"));
 				chefVO.setChef_channel(rs.getString("CHEF_CHANNEL"));
 				chefVO.setChef_resume(rs.getString("CHEF_RESUME"));

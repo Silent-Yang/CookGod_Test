@@ -18,6 +18,8 @@ import com.chef.model.ChefVO;
 import com.cust.model.*;
 
 import com.foodSup.model.FoodSupVO;
+import com.menu.model.MenuService;
+import com.menu.model.MenuVO;
 import com.menuOrder.model.MenuOrderService;
 import com.menuOrder.model.MenuOrderVO;
 import com.testuse.SendEmail;
@@ -250,6 +252,26 @@ public class ChefServlet extends HttpServlet {
 			}catch(Exception e){
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
 				RequestDispatcher errView = request.getRequestDispatcher("/front-end/chef/updateChefResume.jsp");
+				errView.forward(request, response);
+			}
+		}
+		if ("getOneForDisplay".equals(action)) { // 來自select_page.jsp的請求
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try{			
+				String chef_ID = request.getParameter("chef_ID");
+				
+				ChefService chefSvc = new ChefService();
+				ChefVO chefVO = chefSvc.getOneByChefID(chef_ID);
+				
+				request.setAttribute("chefVO", chefVO);
+				
+				RequestDispatcher successView = request.getRequestDispatcher("/back-end/chef/updateChef.jsp");
+				successView.forward(request, response);
+			}catch(Exception e){
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/back-end/chef/listOneByChefID.jsp");
 				errView.forward(request, response);
 			}
 		}

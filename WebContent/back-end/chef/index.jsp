@@ -51,7 +51,7 @@
 					class="com.chef.model.ChefService" />
 
 				<form method="post"
-					action="<%=request.getContextPath()%>/front-end/chef/listOneByChefID.jsp">
+					action="<%=request.getContextPath()%>/back-end/chef/listOneByChefID.jsp">
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" name="chef_ID"
 							placeholder="請輸入主廚編號">
@@ -62,7 +62,7 @@
 				</form>
 
 				<form method="post"
-					action="<%=request.getContextPath()%>/front-end/chef/listOneByChefID.jsp">
+					action="<%=request.getContextPath()%>/back-end/chef/listOneByChefID.jsp">
 					<div class="input-group">
 						<select size="1" name="chef_ID" class="form-control">
 							<option value="請選擇主廚編號">請選擇主廚編號
@@ -76,8 +76,7 @@
 					</div>
 				</form>
 
-				<form method="post"
-					action="<%=request.getContextPath()%>/front-end/chef/listAllByChefArea.jsp">
+				<form method="post" action="<%=request.getContextPath()%>/back-end/chef/listAllByChefArea.jsp">
 					<div class="input-group">
 						<select size="1" name="chef_area" class="form-control">
 							<option value="請選擇服務地區">請選擇服務地區
@@ -85,6 +84,20 @@
 							<option value="1">中</option>
 							<option value="2">南</option>
 							<option value="3">東</option>
+						</select>
+						<div class="input-group-append">
+							<input type="submit" class="btn btn-outline-secondary" value="送出">
+						</div>
+					</div>
+				</form>
+				<form method="post" action="<%=request.getContextPath()%>/back-end/chef/listAllByMenuID.jsp">
+					<div class="input-group">
+						<jsp:useBean id="menuSvc" scope="page" class="com.menu.model.MenuService" />
+						<select size="1" name="menu_ID" class="form-control">
+							<option value="請選擇套餐編號">請選擇套餐編號</option>
+							<c:forEach var="menuVO" items="${menuSvc.all}">
+								<option value="${menuVO.menu_ID}">${menuVO.menu_ID}</option>
+							</c:forEach>
 						</select>
 						<div class="input-group-append">
 							<input type="submit" class="btn btn-outline-secondary" value="送出">

@@ -1,15 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.chef.model.*"%>
+<%@ page import="com.menuOrder.model.*"%>
+<%@ page import="com.cust.model.*"%>
 
-<%	
-	ChefService chefSvc = new ChefService();
-	String menu_ID = request.getParameter("menu_ID");
-	List<ChefVO> list = chefSvc.getAllByMenuID(menu_ID);
-	pageContext.setAttribute("list",list);
+<%
+	MenuOrderService menuOrderSvc = new MenuOrderService();
+	CustVO custVO =(CustVO) session.getAttribute("custVO");
+	String cust_ID = custVO.getCust_ID();
+	List<MenuOrderVO> listAll = menuOrderSvc.getAllByCustID(cust_ID);
+	pageContext.setAttribute("listAll", listAll);
 %>
-
 <html>
 <head>
 
@@ -24,7 +25,7 @@
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 	crossorigin="anonymous">
 
-<title>List_All_By_Chef_Area.jsp</title>
+<title>List_All_Menu_Order.jsp</title>
 <style type="text/css">
 table {
 	border: 2px solid gray;
@@ -41,16 +42,9 @@ th, td {
 </style>
 </head>
 <body>
-	<div class="card text-center" style="background-color: #D4E6F1">
-		<div class="card-body">
-			<h5 class="card-title">主廚</h5>
-			<p class="card-text">listOneByChefID.jsp</p>
-			<a href="index.jsp" class="btn btn-primary">回首頁</a>
-		</div>
-	</div>
 
 	<%--Error Message--%>
-	<c:if test="${not empty errorMsgs}">
+	<c:if test="${not empty errorMsgs} }">
 		<font style="color: red; font-size: 30px;">Error</font>
 		<ul>
 			<c:forEach var="errMsgs" items="${errorMsgs}">
@@ -63,34 +57,47 @@ th, td {
 			<div class="col-12">
 				<table>
 					<tr>
+						<th>訂單編號</th>
+						<th>訂單狀態</th>
+						<th>下訂日期</th>
+						<th>預約日期</th>
+						<th>完成日期</th>
+						<th>訂單評價</th>
+						<th>訂單留言</th>
+						<th>顧客編號</th>
 						<th>主廚編號</th>
-						<th>主廚服務地區</th>
-						<th>主廚頻道</th>
-						<th style="width:400px;">主廚簡介</th>
-						<th>編輯主廚</th>
-						<th>刪除主廚</th>
+						<th>套餐編號</th>
+						<th>修改訂單</th>
+						<th>刪除訂單</th>
 					</tr>
 					<%@ include file="page1.file"%>
-					<c:forEach var="chefVO" items="${list}" begin="<%=pageIndex %>"
-						end="<%=pageIndex+rowsPerPage-1 %>">
+					<c:forEach var="menuOrderVO" items="${listAll}"
+						begin="<%=pageIndex %>" end="<%=pageIndex+rowsPerPage-1 %>">
 						<tr>
-							<td>${chefVO.chef_ID}</td>
-							<td>${chefVO.chef_area}</td>
-							<td>${chefVO.chef_channel}</td>
-							<td>${chefVO.chef_resume}</td>
+							<td>${menuOrderVO.menu_od_ID}</td>
+							<td>${menuOrderVO.menu_od_status}</td>
+							<td>${menuOrderVO.menu_od_start}</td>
+							<td>${menuOrderVO.menu_od_book}</td>
+							<td>${menuOrderVO.menu_od_end}</td>
+							<td>${menuOrderVO.menu_od_rate}</td>
+							<td>${menuOrderVO.menu_od_msg}</td>
+							<td>${menuOrderVO.cust_ID}</td>
+							<td>${menuOrderVO.chef_ID}</td>
+							<td>${menuOrderVO.menu_ID}</td>
 							<td>
 								<form method="post"
-									action="<%=request.getContextPath()%>/chef/chef.do">
-									<input type="submit" value="編輯"> 
-									<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}"> 
-									<input type="hidden" name="action" value="getOneForDisplay">
+									action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
+									<input type="submit" value="編輯"> <input type="hidden"
+										name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> <input
+										type="hidden" name="action" value="getOneForUpdate">
 								</form>
 							</td>
 							<td>
-								<form method="post" action="<%=request.getContextPath()%>/chef/chef.do">
-									<input type="submit" value="刪除"> 
-									<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}"> 
-									<input type="hidden" name="action" value="delete">
+								<form method="post"
+									action="<%=request.getContextPath()%>/menuOrder/menuOrder.do">
+									<input type="submit" value="刪除"> <input type="hidden"
+										name="menu_od_ID" value="${menuOrderVO.menu_od_ID}"> <input
+										type="hidden" name="action" value="delete">
 								</form>
 							</td>
 						</tr>

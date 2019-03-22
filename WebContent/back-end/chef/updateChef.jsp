@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.chefDish.model.*"%>
+<%@ page import="com.chef.model.*"%>
+<% //String chef_ID = request.getParameter(chef_ID); %>
 
 <html>
 <head>
@@ -20,9 +21,10 @@
 <body>
 	<div class="card text-center" style="background-color: #D4E6F1">
 		<div class="card-body">
-			<h5 class="card-title">修改喜愛食材供應商備註</h5>
-			<p class="card-text">updateFavFdSup.jsp</p>
-			<a href="index.jsp" class="btn btn-primary">回首頁</a>
+			<h5 class="card-title">編輯主廚簡歷</h5>
+			<a
+				href="<%=request.getContextPath()%>/front-end/chef/chef_profile.jsp"
+				class="btn btn-primary">回上一頁</a>
 		</div>
 	</div>
 
@@ -39,25 +41,40 @@
 		<div class="row">
 			<div class="col-12">
 				<form method="post"
-					action="<%=request.getContextPath()%>/favFdSup/favFdSup.do">
-					<jsp:useBean id="favFdSup" scope="page"
-						class="com.favFdSup.model.FavFdSupService" />
+					action="<%=request.getContextPath()%>/chef/chef.do">
+					<jsp:useBean id="chef" scope="page"
+						class="com.chef.model.ChefService" />
 					<div class="form-group">
-						<label>主廚編號</label> <input type="text" readonly
-							class="form-control" name="chef_ID" value="${favFdSupVO.chef_ID}" />
+						<label>主廚編號</label> 
+						<input type="text" readonly class="form-control" name="chef_ID" value="${chefVO.chef_ID}" />
 					</div>
+
 					<div class="form-group">
-						<label>食材供應商編號</label> <input type="text" readonly
-							class="form-control" name="food_sup_ID"
-							value="${favFdSupVO.food_sup_ID}" />
+						<label>主廚簡介</label>
+						<textarea readonly rows="3" cols="100" name="chef_resume" class="form-control">${chefVO.chef_resume}</textarea>
 					</div>
+					
+					<%	
+						String status[] = new String [4];
+						status[0]="b0";
+						status[1]="b1";
+						status[2]="b2";
+						status[3]="b3";
+						request.setAttribute("mystatus", status);
+					%>
+
 					<div class="form-group">
-						<label>食材供應商備註</label>
-						<textarea rows="3" cols="100" name="fav_fd_sup_note"
-							class="form-control">${favFdSupVO.fav_fd_sup_note}</textarea>
+						<label>主廚狀態</label> <select size="1" name="chef_status"
+							class="form-control">
+							<c:forEach var="mydata" items="${mystatus}">
+								<option value="${mydata}"
+									${(chefVO.chef_status==mydata)? 'selected':'' }>${mydata}
+							</c:forEach>
+						</select>
 					</div>
-					<input type="hidden" name="action" value="update"> <input
-						type="submit" class="btn btn-success btn-lg btn-block" value="修改">
+					
+					<input type="hidden" name="action" value="update"> 
+					<input type="submit" class="btn btn-success btn-lg btn-block" value="修改">
 				</form>
 			</div>
 		</div>

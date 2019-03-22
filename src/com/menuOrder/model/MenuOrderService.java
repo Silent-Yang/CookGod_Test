@@ -51,6 +51,9 @@ public class MenuOrderService {
 	public List<MenuOrderVO> getAll(){
 		return dao.getAll();
 	}
+	public List<MenuOrderVO> getAllByCustID(String cust_ID){
+		return dao.getAllByCustID(cust_ID);
+	}
 	public List<MenuOrderVO> getUnCheck(String chef_ID){
 		return dao.getUnCheck(chef_ID);
 	}

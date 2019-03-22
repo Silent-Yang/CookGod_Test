@@ -131,6 +131,89 @@ public class MenuOrderServlet extends HttpServlet {
 				errView.forward(request, response);
 			}
 		}
+		if("getOneForRate".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try {				
+				//1.接收請求參數，並做錯誤判斷				
+				String menu_od_ID = request.getParameter("menu_od_ID");
+				//2.開始查詢資料
+				MenuOrderService menuOrderSvc = new MenuOrderService();
+				MenuOrderVO menuOrderVO = menuOrderSvc.getOneMenuOrder(menu_od_ID);
+				
+				//3.查詢完成，準備轉交
+				request.setAttribute("menuOrderVO", menuOrderVO);
+				RequestDispatcher sucessView = request.getRequestDispatcher("/front-end/menuOrder/rateMenuOrder.jsp");
+				sucessView.forward(request, response);
+				
+			}catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/menuOrder/listAllMenuOrderByCustID.jsp");
+				errView.forward(request, response);
+			}
+		}
+		if("getOneForRating".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try {				
+				//1.接收請求參數，並做錯誤判斷				
+				String menu_od_ID = request.getParameter("menu_od_ID");
+				String menu_od_status = request.getParameter("menu_od_status");
+				
+				Timestamp menu_od_book = null;	
+				try {
+					menu_od_book = Timestamp.valueOf(request.getParameter("menu_od_book").trim());
+				}catch(Exception e){
+					menu_od_book = null;
+					errorMsgs.add("請輸入正確預約日期");
+				}
+				java.sql.Date menu_od_end = null;
+				try {
+					menu_od_end = java.sql.Date.valueOf(request.getParameter("menu_od_end").trim());
+				}catch(Exception e){
+					menu_od_end = null;
+					errorMsgs.add("請輸入正確完成日期");
+				}
+				Integer menu_od_rate = new Integer(request.getParameter("menu_od_rate"));
+				String menu_od_msg = request.getParameter("menu_od_msg");
+				String cust_ID = request.getParameter("cust_ID");
+				String chef_ID = request.getParameter("chef_ID");
+				String menu_ID = request.getParameter("menu_ID");
+				
+				MenuOrderVO menuOrderVO = new MenuOrderVO();
+				menuOrderVO.setMenu_od_ID(menu_od_ID);
+				menuOrderVO.setMenu_od_status(menu_od_status);
+				menuOrderVO.setMenu_od_book(menu_od_book);
+				menuOrderVO.setMenu_od_end(menu_od_end);
+				menuOrderVO.setMenu_od_rate(menu_od_rate);
+				menuOrderVO.setMenu_od_msg(menu_od_msg);
+				menuOrderVO.setChef_ID(cust_ID);
+				menuOrderVO.setChef_ID(chef_ID);
+				menuOrderVO.setMenu_ID(menu_ID);
+				
+				if(!errorMsgs.isEmpty()) {
+					request.setAttribute("menuOrderVO", menuOrderVO);
+					RequestDispatcher errView = request.getRequestDispatcher("/front-end/menuOrder/rateMenuOrder.jsp");
+					errView.forward(request, response);
+					return;
+				}
+				
+				//2.開始修改資料
+				MenuOrderService menuOrderSvc = new MenuOrderService();
+				menuOrderVO = menuOrderSvc.updateMenuOrder(menu_od_ID, menu_od_status, menu_od_book, menu_od_end, menu_od_rate, menu_od_msg, cust_ID, chef_ID, menu_ID);
+				
+				//3.修改完成，轉交資料
+				RequestDispatcher sucessView = request.getRequestDispatcher("/front-end/menuOrder/listAllMenuOrderByCustID.jsp");
+				sucessView.forward(request, response);
+				
+			}catch(Exception e) {
+				errorMsgs.add("給評失敗:"+e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/menuOrder/rateMenuOrder.jsp");
+				errView.forward(request, response);
+			}
+		}
 		//修改訂單
 		if("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
@@ -247,12 +330,12 @@ public class MenuOrderServlet extends HttpServlet {
 				MenuOrderService menuOrderSvc = new MenuOrderService();
 				menuOrderSvc.deleteMenuOrder(menu_od_ID);
 				//3.刪除完成，準備轉交
-				RequestDispatcher sucessView = request.getRequestDispatcher("/back-end/menuOrder/listAllMenuOrder.jsp");
+				RequestDispatcher sucessView = request.getRequestDispatcher("/front-end/menuOrder/listAllMenuOrder.jsp");
 				sucessView.forward(request, response);
 				//其他可能的錯誤處理
 			}catch(Exception e){
 				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher errView = request.getRequestDispatcher("/back-end/menuOrder/listAllMenuOrder.jsp");
+				RequestDispatcher errView = request.getRequestDispatcher("/front-end/menuOrder/listAllMenuOrder.jsp");
 				errView.forward(request, response);
 			}
 		}

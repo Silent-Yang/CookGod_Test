@@ -114,10 +114,11 @@
 										</li>
 									</c:if>
 									<c:if test="${not empty custVO}">
-										<li><a href="">顧客專區</a>
+										<li><a href="">會員專區</a>
 											<ul class="dropdown">
 												<li><a href="<%=request.getContextPath()%>/front-end/cust/listOneCust.jsp">查看個人資料</a></li>
 												<li><a href="<%=request.getContextPath()%>/front-end/cust/update_cust_input.jsp">編輯個人資料</a></li>
+												<li><a href="<%=request.getContextPath()%>/front-end/menuOrder/listAllMenuOrderByCustID.jsp">套餐訂單管理</a></li>
 												<li><a href="">食材訂單管理</a></li>
 											</ul>
 										</li>

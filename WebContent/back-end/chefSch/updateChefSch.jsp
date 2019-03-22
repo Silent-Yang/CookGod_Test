@@ -54,11 +54,11 @@
 					</div>
 
 					<%	
-							String status[] = new String [2];
-							status[0]="0";
-							status[1]="1";							
-							request.setAttribute("mystatus", status);
-						%>
+						String status[] = new String [2];
+						status[0]="0";
+						status[1]="1";							
+						request.setAttribute("mystatus", status);
+					%>
 
 					<div class="form-group">
 						<label>訂單狀態</label> <select size="1" name="chef_sch_status"

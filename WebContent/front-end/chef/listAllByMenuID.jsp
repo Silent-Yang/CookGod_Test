@@ -67,8 +67,8 @@ th, td {
 						<th>主廚服務地區</th>
 						<th>主廚頻道</th>
 						<th>主廚簡介</th>
-						<th>編輯喜愛食材供應商</th>
-						<th>刪除喜愛食材供應商</th>
+						<th>編輯主廚</th>
+						<th>刪除主廚</th>
 					</tr>
 					<%@ include file="page1.file"%>
 					<c:forEach var="chefVO" items="${list}" begin="<%=pageIndex %>"
