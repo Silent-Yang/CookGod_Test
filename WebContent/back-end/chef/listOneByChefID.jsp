@@ -66,7 +66,7 @@ th, td {
 						<th>主廚服務地區</th>
 						<th>主廚頻道</th>
 						<th style="width:400px;">主廚簡介</th>
-						<th>編輯主廚</th>
+						<th>審核主廚</th>
 						<th>刪除主廚</th>
 					</tr>
 					<tr>

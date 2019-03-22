@@ -275,6 +275,30 @@ public class ChefServlet extends HttpServlet {
 				errView.forward(request, response);
 			}
 		}
+		if("getOneForUpdate".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			request.setAttribute("errorMsgs", errorMsgs);
+			
+			try{			
+				String chef_ID = request.getParameter("chef_ID");
+				String chef_status = request.getParameter("chef_status");
+				String chef_area = request.getParameter("chef_area");
+				String chef_channel = request.getParameter("chef_channel");
+				String chef_resume = request.getParameter("chef_resume");
+				
+				ChefService chefSvc = new ChefService();
+				ChefVO chefVO = chefSvc.updateChef(chef_ID, chef_status, chef_area, chef_channel, chef_resume);
+				chefVO = chefSvc.getOneByChefID(chef_ID);
+				
+				request.setAttribute("chefVO", chefVO);
+				RequestDispatcher successView = request.getRequestDispatcher("/back-end/chef/listOneByChefID.jsp");
+				successView.forward(request, response);
+			}catch(Exception e){
+				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher errView = request.getRequestDispatcher("/back-end/chef/updateChef.jsp");
+				errView.forward(request, response);
+			}
+		}
 		if("listAllByChefArea".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			request.setAttribute("errorMsgs", errorMsgs);

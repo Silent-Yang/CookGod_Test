@@ -39,8 +39,9 @@ public class ChefService {
 		return chefVO;
 	}
 	
-	public ChefVO updateChef(String chef_status,String chef_area,String chef_channel,String chef_resume) {
+	public ChefVO updateChef(String chef_ID,String chef_status,String chef_area,String chef_channel,String chef_resume) {
 		ChefVO chefVO = new ChefVO();
+		chefVO.setChef_ID(chef_ID);
 		chefVO.setChef_status(chef_status);
 		chefVO.setChef_area(chef_area);
 		chefVO.setChef_channel(chef_channel);

@@ -40,10 +40,9 @@
 	<div class="container justify-content-center">
 		<div class="row">
 			<div class="col-12">
-				<form method="post"
-					action="<%=request.getContextPath()%>/chef/chef.do">
-					<jsp:useBean id="chef" scope="page"
-						class="com.chef.model.ChefService" />
+				<form method="post" action="<%=request.getContextPath()%>/chef/chef.do">
+					<jsp:useBean id="chef" scope="page" class="com.chef.model.ChefService" />
+					
 					<div class="form-group">
 						<label>主廚編號</label> 
 						<input type="text" readonly class="form-control" name="chef_ID" value="${chefVO.chef_ID}" />
@@ -72,8 +71,9 @@
 							</c:forEach>
 						</select>
 					</div>
-					
-					<input type="hidden" name="action" value="update"> 
+					<input type="hidden" name="chef_channel" value="${chefVO.chef_channel}">
+					<input type="hidden" name="chef_area" value="${chefVO.chef_area}">
+					<input type="hidden" name="action" value="getOneForUpdate"> 
 					<input type="submit" class="btn btn-success btn-lg btn-block" value="修改">
 				</form>
 			</div>
