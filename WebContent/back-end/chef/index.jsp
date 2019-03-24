@@ -27,11 +27,9 @@
 	</div>
 
 	<a class="btn btn-outline-success"
-		href='<%=request.getContextPath()%>/front-end/chef/addChef.jsp'
+		href='<%=request.getContextPath()%>/back-end/chef/addChef.jsp'
 		role="button" style="width: 50%; float: left;">新增主廚</a>
-	<a class="btn btn-outline-success"
-		href='<%=request.getContextPath()%>/front-end/chef/listAllChef.jsp'
-		role="button" style="width: 50%;">查詢所有主廚</a>
+
 
 	<%--Error Message --%>
 	<c:if test="${not empty errorMsgs}">

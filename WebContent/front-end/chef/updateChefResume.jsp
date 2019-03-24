@@ -1,81 +1,149 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.chef.model.*"%>
-<% //String chef_ID = request.getParameter(chef_ID); %>
+>
 
 <html>
 <head>
 <!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<style>
+table#table-1 {
+	background-color: #CCCCFF;
+	border: 2px solid black;
+	text-align: center;
+}
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
+table#table-1 h4 {
+	color: red;
+	display: block;
+	margin-bottom: 1px;
+}
 
-<title>updateFavFdSup.jsp</title>
+h4 {
+	color: blue;
+	display: inline;
+}
+</style>
+
+<style>
+table {
+	width: 700px;
+	background-color: white;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+table, th, td {
+	border: 0px solid #CCCCFF;
+	
+	
+}
+
+th, td {
+	padding: 1px;
+	width: 1px;
+}
+</style>
+
+
+<title>主廚資料修改</title>
 </head>
 <body>
-	<div class="card text-center" style="background-color: #D4E6F1">
-		<div class="card-body">
-			<h5 class="card-title">編輯主廚簡歷</h5>
-			<a
-				href="<%=request.getContextPath()%>/front-end/chef/chef_profile.jsp"
-				class="btn btn-primary">回上一頁</a>
-		</div>
-	</div>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
 
-	<%--Error Message --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red; font-size: 20px;">Error:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
-	<div class="container justify-content-center">
-		<div class="row">
-			<div class="col-12">
-				<form method="post"
-					action="<%=request.getContextPath()%>/chef/chef.do">
-					<jsp:useBean id="chef" scope="page"
-						class="com.chef.model.ChefService" />
-					<div class="form-group">
-						<label>主廚編號</label> <input type="text" readonly
-							class="form-control" name="chef_ID" value="${chefVO.chef_ID}" />
-					</div>
+	<!-- ##### Breadcrumb Area Start ##### -->
+	<jsp:include page="/froTempl/headerChef.jsp" flush="true" />
+	<!-- ##### Breadcrumb Area End ##### -->
 
-					<div class="form-group">
-						<label>主廚簡介</label>
-						<textarea rows="3" cols="100" name="chef_resume"
-							class="form-control">${chefVO.chef_resume}</textarea>
-					</div>
-					<input type="hidden" name="action" value="updateResume"> <input
-						type="submit" class="btn btn-success btn-lg btn-block" value="修改">
-				</form>
-			</div>
-		</div>
-	</div>
+	<!-- ##### Contact Area Start #####-->
+	<section class="contact-area section-padding-100">
+		<section class="contact-area section-padding-100">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<!-- Section Heading -->
+						<div class="section-heading text-center wow fadeInUp"
+							data-wow-delay="100ms">
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous">
-	</script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous">
-	</script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous">
-	</script>
+							<h2 style="font-weight: bold">主廚資料修改</h2>
+							<img
+								src="<%=request.getContextPath()%>/froTempl/temp/img/core-img/x.png"
+								alt="">
+
+
+
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red">請修正以下錯誤:</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
+
+							<div class="row justify-content-center">
+								<div class="col-12 col-lg-8">
+									<!-- Contact Form -->
+									<div class="contact-form-area text-center">
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/chef/chef.do"
+											name="form1">
+											<table>
+												<tr>
+													<td>主廚編號:</td>
+													<td>${chefVO.chef_ID}</td>
+												</tr>
+												<tr>
+													<td><font color=red><b>*</b></font>主廚名稱:</td>
+													<td>${custVO.cust_name}</td>
+												</tr>
+												<tr>
+													<td>服務地區:</td>
+													<td><input type="radio" name="chef_area" size="10"
+														value="0"
+														${chefVO.chef_area=='0'||chefVO ==null ? 'checked':'' }
+														class="form-control wow fadeInUp" data-wow-delay="100ms" />北<br>
+														<input type="radio" name="chef_area" size="10" value="1"
+														${chefVO.chef_area=='1'? 'checked':'' }
+														class="form-control wow fadeInUp" data-wow-delay="100ms" />中<br>
+														<input type="radio" name="chef_area" size="10" value="2"
+														${chefVO.chef_area=='2'? 'checked':'' }
+														class="form-control wow fadeInUp" data-wow-delay="100ms" />南<br>
+														<input type="radio" name="chef_area" size="10" value="3"
+														${chefVO.chef_area=='3'? 'checked':'' }
+														class="form-control wow fadeInUp" data-wow-delay="100ms" />東<br></td>
+												</tr>
+												<tr>
+													<td>狀態:</td>
+													<td>${chefStatusMap[chefVO.chef_status]}</td>
+												</tr>
+												<tr>
+													<td>介紹:</td>
+													<td><textarea name="chef_resume">${chefVO.chef_resume}</textarea>
+														<script>
+															CKEDITOR.replace('chef_resume');
+														</script></td>
+												</tr>
+											</table>
+											<br> <input type="hidden" name="action" value="update">
+											<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
+											<input type="hidden" name="chef_status"
+												value="${chefVO.chef_status}">
+											<button type="submit" class="btn pixel-btn wow fadeInUp"
+												data-wow-delay="300ms">送出</button>
+										</form>
+									</div>
+								</div>
+							</div>
+
+						</div>
+		</section>
+		<!-- ##### Contact Area End #####-->
+
+
+
+	</section>
+	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
 </html>

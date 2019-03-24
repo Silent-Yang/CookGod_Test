@@ -180,7 +180,7 @@ public class ChefServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					request.setAttribute("custVO", custVO);// 以下練習正則(規)表示式(regular-expression)
 					request.setAttribute("chefVO", chefVO);
-					RequestDispatcher failureView = request.getRequestDispatcher("/front-end/chef/addChef.jsp");
+					RequestDispatcher failureView = request.getRequestDispatcher("/front-end/login/addChef.jsp");
 
 					failureView.forward(request, response);
 					return;
@@ -204,7 +204,7 @@ public class ChefServlet extends HttpServlet {
 				//除錯
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/chef/addChef.jsp");
+				RequestDispatcher failureView = request.getRequestDispatcher("/front-end/login/addChef.jsp");
 				failureView.forward(request, response);
 			}
 		}

@@ -40,13 +40,6 @@ th, td {
 </style>
 </head>
 <body>
-	<div class="card text-center" style="background-color: #D4E6F1">
-		<div class="card-body">
-			<h5 class="card-title">主廚</h5>
-			<p class="card-text">listOneByChefID.jsp</p>
-			<a href="index.jsp" class="btn btn-primary">回首頁</a>
-		</div>
-	</div>
 
 	<%--Error Message--%>
 	<c:if test="${not empty errorMsgs} }">
@@ -65,9 +58,7 @@ th, td {
 						<th>主廚編號</th>
 						<th>主廚服務地區</th>
 						<th>主廚頻道</th>
-						<th>主廚簡介</th>
-						<th>編輯主廚</th>
-						<th>刪除主廚</th>
+						<th style="width:400px;">主廚簡介</th>
 					</tr>
 					<%@ include file="page1.file"%>
 					<c:forEach var="chefVO" items="${list}" begin="<%=pageIndex %>"
@@ -77,22 +68,6 @@ th, td {
 							<td>${chefVO.chef_area}</td>
 							<td>${chefVO.chef_channel}</td>
 							<td>${chefVO.chef_resume}</td>
-							<td>
-								<form method="post"
-									action="<%=request.getContextPath()%>/chef/chef.do">
-									<input type="submit" value="編輯"> <input type="hidden"
-										name="chef_ID" value="${chefVO.chef_ID}"> <input
-										type="hidden" name="action" value="getOneForUpdate">
-								</form>
-							</td>
-							<td>
-								<form method="post"
-									action="<%=request.getContextPath()%>/chef/chef.do">
-									<input type="submit" value="刪除"> <input type="hidden"
-										name="chef_ID" value="${chefVO.chef_ID}"> <input
-										type="hidden" name="action" value="delete">
-								</form>
-							</td>
 						</tr>
 					</c:forEach>
 				</table>

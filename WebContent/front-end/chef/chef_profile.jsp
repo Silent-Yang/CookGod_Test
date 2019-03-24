@@ -1,149 +1,185 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.chef.model.*"%>
-<%@ page import="com.cust.model.*"%>
-
-<%	
-	ChefService chefSvc = new ChefService();
-	CustService custSvc = new CustService();
-	ChefVO chefVO =(ChefVO) session.getAttribute("chefVO");
-	CustVO custVO = custSvc.getOneCust(chefVO.getChef_ID());
-	session.setAttribute("custVO",custVO);
-	session.setAttribute("chefVO",chefVO);
-%>
-
-<!doctype html>
-<html lang="en">
+<html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
-
-<title>主廚個人檔案!</title>
-
-<style type="text/css">
-.header {
-	background-color: gray;
-	height: 150px;
-	width: 100%;
-}
-
-h1 {
-	color: white;
-	text-align: center;
-	line-height: 130px;
-}
-
-div {
-	border: 1px solid gray;
-}
-
-#chef_name {
-	padding: 10px;
-}
-
-#chef_resume {
-	padding: 10px;
-}
-
-.btn {
-	margin: 15px 15px 0px 0px;
-}
-</style>
+<title>主廚資料</title>
 </head>
 <body>
-	<div class="container-fliud">
-		<div class="header">
-			<h1>主廚個人檔案</h1>
-		</div>
-		<div class="row">
-			<div class="col-2"></div>
-			<div class="col-3">
-				<div class="card mb-3">
-					<c:if test="${not empty custVO.cust_pic}">
-						<img
-							src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}"
-							style="display: block; margin: auto; width: 300px;; height: 400px;">
-					</c:if>
-					<c:if test="${empty custVO.cust_pic}">
-						<img src="<%=request.getContextPath()%>/images/noimage.jpg"
-							style="display: block; margin: auto; width: 300px;; height: 400px;">
-					</c:if>
-				</div>
-			</div>
-			<div class="col-4">
-				<div id="chef_name">
-					<h3>${custVO.cust_name}</h3>
-				</div>
-				<div id="chef_resume">${chefVO.chef_resume}</div>
-			</div>
-			<div class="col-3">
-				<form method="post"
-					action="<%=request.getContextPath()%>/cust/cust.do">
-					<input type="hidden" name="cust_ID" value="${custVO.cust_ID}">
-					<input type="hidden" name="action" value="getOne_For_Update">
-					<input type="submit" class="btn btn-secondary btn-lg btn-block"
-						value="編輯個人資料">
-				</form>
-				<form method="post"
-					action="<%=request.getContextPath()%>/chef/chef.do">
-					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
-					<input type="hidden" name="action" value="getOneForEditChefResume">
-					<input type="submit" class="btn btn-secondary btn-lg btn-block"
-						value="編輯主廚簡介">
-				</form>
-				<form method="post"
-					action="<%=request.getContextPath()%>/front-end/menuOrder/unCheckMenuOrder.jsp">
-					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
-					<input type="submit" class="btn btn-secondary btn-lg btn-block"
-						value="查看未審核訂單">
-				</form>
-				<form method="post"
-					action="<%=request.getContextPath()%>/front-end/menuOrder/unFinishedMenuOrder.jsp">
-					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
-					<input type="hidden" name="action" value="unFinishedMenuOrder">
-					<input type="submit" class="btn btn-secondary btn-lg btn-block"
-						value="查看未完成訂單">
-				</form>
-				<form method="post"
-					action="<%=request.getContextPath()%>/front-end/chefDish/addChefDish.jsp">
-					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
-					<input type="hidden" name="action" value="updateChefDish">
-					<input type="submit" class="btn btn-secondary btn-lg btn-block"
-						value="管理擅長菜色">
-				</form>
-				<form method="post"
-					action="<%=request.getContextPath()%>/front-end/chefSch/addChefSch.jsp">
-					<input type="hidden" name="chef_ID" value="${chefVO.chef_ID}">
-					<input type="hidden" name="action" value="updateChefDish">
-					<input type="submit" class="btn btn-secondary btn-lg btn-block"
-						value="新增主廚排程">
-				</form>
-			</div>
-		</div>
-		<div class="footer"></div>
-	</div>
+	<jsp:include page="/froTempl/header.jsp" flush="true" />
+	<!-- ##### Breadcrumb Area Start ##### -->
+	<jsp:include page="/froTempl/headerChef.jsp" flush="true" />
+	<!-- ##### Breadcrumb Area End ##### -->
 
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
-		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
-		crossorigin="anonymous"></script>
+
+	<!-- ##### Feature Area Start ##### -->
+	<section class="pixel-feature-area d-flex flex-wrap">
+		<!-- Feature Thumbnail -->
+		<div class="feature-thumbnail bg-img jarallax"
+			style="background-image: url(<%=request.getContextPath()%>/froTempl/temp/img/bg-img/custPic.jpg);"></div>
+
+		<!-- Feature Content -->
+		<div class="feature-content">
+			<h1 style="font-weight: bold">主廚資料</h1>
+
+			<div class="single-testimonial-slide">
+				<c:if test="${not empty custVO.cust_pic}">
+					<img
+						src="<%=request.getContextPath()%>/cust/cust.do?cust_ID=${custVO.cust_ID}">
+				</c:if>
+				<c:if test="${empty custVO.cust_pic}">
+					<img src="<%=request.getContextPath()%>/images/null2.jpg">
+				</c:if>
+				
+				<h4y style="font-weight:bold">${custVO.cust_name}</h4>
+				<span>${custVO.cust_niname}</span>
+			</div>
+
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>顧客帳號</h6>
+					<p>${custVO.cust_acc}</p>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>顧客密碼</h6>
+					<p>${custVO.cust_pwd}</p>
+				</div>
+			</div>
+
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>顧客性別</h6>
+					<c:if test="${custVO.cust_sex.equals('M')}" var="true">
+						<p>男生</p>
+					</c:if>
+					<c:if test="${custVO.cust_sex.equals('F')}" var="true">
+						<p>女生</p>
+					</c:if>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>狀態</h6>
+					<p>${chefStatusMap[chefVO.chef_status]}</p>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>聯絡電話</h6>
+					<p>${custVO.cust_tel}</p>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>地址</h6>
+					<p>${custVO.cust_addr}</p>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>顧客身份證字號</h6>
+					<p>${custVO.cust_pid}</p>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>E-Mail</h6>
+					<p>${custVO.cust_mail}</p>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>聯絡人生日</h6>
+					<p>${custVO.cust_brd}</p>
+				</div>
+			</div>
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>聯絡人註冊日期</h6>
+					<p>${custVO.cust_reg}</p>
+				</div>
+			</div>
+
+		</div>
+	</section>
+	<!-- ##### Feature Area End ##### -->
+
+
+	<section class="pixel-feature-area d-flex flex-wrap">
+		<!-- Feature Content -->
+		<div class="feature-content">
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>主廚服務地區</h6>
+					<p>${chefVO.chef_area}</p>
+				</div>
+			</div>
+
+
+			<div class="single-contact-content d-flex">
+				<div class="icon">
+					<i class="fa fa-star" aria-hidden="true"></i>
+				</div>
+				<div class="text">
+					<h6>介紹</h6>
+					<p>${chefVO.chef_resume}</p>
+				</div>
+			</div>
+			<!-- Feature Thumbnail -->
+			</div>
+			<div class="feature-thumbnail bg-img jarallax"
+				style="background-image: url(<%=request.getContextPath()%>/froTempl/temp/img/bg-img/chefPic.jpg);"></div>
+		
+	</section>
+
+	<!-- ##### Contact Area End #####-->
+
+	<jsp:include page="/froTempl/footer.jsp" flush="true" />
 </body>
 </html>
